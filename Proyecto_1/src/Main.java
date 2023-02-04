@@ -2,9 +2,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,7 +19,7 @@ public class Main {
 
 
         //add each line of the file to the array
-        Path path = Paths.get(("C:\\Users\\Randall\\Documents\\GitHub\\AdvAppProg\\Proyecto_1\\src\\Libros.txt"));
+        Path path = Paths.get(("/Users/randall/Documents/Programacion 4/AdvAppProg/Proyecto_1/src/Libros.txt"));
 
         try (Stream<String> lines = Files.lines(path)) {
             array = lines.toArray(String[]::new);
@@ -36,7 +35,27 @@ public class Main {
             String[] temp = pattern.split(line);
             libros.add(new Libro(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]));
         });
+
         //Imprimir lista original de libros
-        libros.forEach(libro -> System.out.println(libro.getTitulo()));
-    }
-}
+        //libros.stream().forEach(System.out::println);
+
+
+        //Imprimir lista ordenada por autor con lista de palabras  claves ordenaas inversamente
+        Map<String, List<Libro>> groupedbyAutor =
+                libros.stream().collect(Collectors.groupingBy(Libro::getAutor));
+
+
+        //
+        groupedbyAutor.forEach(
+                (autor, lista) -> {
+                    System.out.printf("%n%s:%n", autor );
+                    lista.forEach(
+                            libro -> System.out.printf("%s , %s, %s, %s, %s%n"
+                                    , libro.getTitulo()
+                                    , libro.getISBN()
+                                    , Arrays.stream(libro.getKeyWords()).
+                                            sorted(Comparator.reverseOrder()).collect(Collectors.toList())
+                                    , libro.getNoEdicion()
+                                    , libro.getPrecio()));
+                });
+}}
