@@ -2,14 +2,14 @@
 
 public class Libro {
     //datos miembro
-    private String Titulo,Autor,NoEdicion,Date,ISBN,Precio;
-    private String [] KeyWords;
+    private String Titulo,Autor,NoEdicion,ISBN,Precio;
+    private String [] KeyWords,Date;
     //constructoR
     public Libro(String ISBN, String titulo, String autor, String noEdicion, String date, String keyWords, String precio) {
         Titulo = titulo;
         Autor = autor;
         NoEdicion = noEdicion;
-        Date = date;
+        Date = date.split("/");
         this.ISBN = ISBN;
         Precio = precio;
         KeyWords = keyWords.split("[\\(||\\)||,]");
@@ -30,8 +30,9 @@ public class Libro {
         this.NoEdicion = NoEdicion;
     }
     public void setDate(String Date) {
-        this.Date = Date;
+        this.Date = Date.split("/");
     }
+
     public void setPrecio(String Precio){
         this.Precio = Precio;
     }
@@ -41,6 +42,9 @@ public class Libro {
     //Getters
     public String getISBN() {
         return "ISBN: "+ISBN;
+    }
+    public int getanio(){
+        return Integer.parseInt(Date[2]);
     }
 
     public String getTitulo() {
@@ -55,7 +59,11 @@ public class Libro {
         return "No:" +NoEdicion;
     }
 
-    public String getDate() {
+//    public String getDate() {
+//        return Date[0]+"/"+Date[1]+"/"+Date[2];
+//    }
+
+    public String[] getDate(){
         return Date;
     }
 

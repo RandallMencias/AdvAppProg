@@ -42,24 +42,59 @@ public class Main {
 
         //Imprimir lista ordenada por autor con lista de palabras  claves ordenaas inversamente
 
-        System.out.println("%n4) Lista ordenada por autor con lista de palabras claves ordenaas inversamente%n");
-        Map<String, List<Libro>> groupedbyAutor =
-                libros.stream().collect(Collectors.groupingBy(Libro::getAutor));
+//        System.out.println("%n4) Lista ordenada por autor con lista de palabras claves ordenaas inversamente%n");
+//        Map<String, List<Libro>> groupedbyAutor =
+//                libros.stream().collect(Collectors.groupingBy(Libro::getAutor));
+//
+//
+//        //
+//        groupedbyAutor.forEach(
+//                (autor, lista) -> {
+//                    System.out.printf("%n%s:%n", autor );
+//                    lista.forEach(
+//                            libro -> System.out.printf("%s , %s, %s, %s, %s%n"
+//                                    , libro.getTitulo()
+//                                    , libro.getISBN()
+//                                    , Arrays.stream(libro.getKeyWords()).
+//                                            sorted(Comparator.reverseOrder()).collect(Collectors.toList())
+//                                    , libro.getNoEdicion()
+//                                    , libro.getPrecio()));
+//                });
+
+//        System.out.printf("%n6) Lista ordenada por anio edicion y ordenados por titulo %n");
+//
+//
+//        Map<Integer, List<Libro>> groupedbyanio =
+//                libros.stream()
+//                        .sorted(Comparator.comparing(Libro::getanio))
+//                        .collect(Collectors.groupingBy(Libro::getanio));
+//
+//
+//        groupedbyanio.forEach(
+//                (anio, lista) -> {
+//                    System.out.printf("%n%s:%n", anio );
+//                    lista.forEach(
+//                            libro -> System.out.printf("%s , %s, %s, %s, %s%n"
+//                                    , libro.getTitulo()
+//                                    , libro.getISBN()
+//                                    , Arrays.stream(libro.getKeyWords()).
+//                                            sorted(Comparator.reverseOrder()).collect(Collectors.toList())
+//                                    , libro.getNoEdicion()
+//                                    , libro.getPrecio()));
+//                });
+
 
 
         //
-        groupedbyAutor.forEach(
-                (autor, lista) -> {
-                    System.out.printf("%n%s:%n", autor );
-                    lista.forEach(
-                            libro -> System.out.printf("%s , %s, %s, %s, %s%n"
-                                    , libro.getTitulo()
-                                    , libro.getISBN()
-                                    , Arrays.stream(libro.getKeyWords()).
-                                            sorted(Comparator.reverseOrder()).collect(Collectors.toList())
-                                    , libro.getNoEdicion()
-                                    , libro.getPrecio()));
-                });
 
-        System.out.println("%n6) Lista ordenada por anio edicion y ordenados por titulo %n");
+
+
+
+
+
+
+
+
+
+
 }}
