@@ -41,6 +41,8 @@ public class Main {
 
 
         //Imprimir lista ordenada por autor con lista de palabras  claves ordenaas inversamente
+
+        System.out.println("%n4) Lista ordenada por autor con lista de palabras claves ordenaas inversamente%n");
         Map<String, List<Libro>> groupedbyAutor =
                 libros.stream().collect(Collectors.groupingBy(Libro::getAutor));
 
@@ -58,4 +60,6 @@ public class Main {
                                     , libro.getNoEdicion()
                                     , libro.getPrecio()));
                 });
+
+        System.out.println("%n6) Lista ordenada por anio edicion y ordenados por titulo %n");
 }}
