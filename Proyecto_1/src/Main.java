@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -28,23 +29,23 @@ public class Main {
 
         Stream<String> stream = Stream.of(array);
 
-        ArrayList<Libro> libros = new ArrayList<>();
+        ArrayList<Libro> Libros = new ArrayList<>();
 
         //create an array separating by pattern for each line
         stream.forEach(line -> {
             String[] temp = pattern.split(line);
-            libros.add(new Libro(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]));
+            Libros.add(new Libro(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]));
         });
 
-        //Imprimir lista original de libros
-        //libros.stream().forEach(System.out::println);
+        //Imprimir lista original de Libros
+        //Libros.stream().forEach(System.out::println);
 
 
         //Imprimir lista ordenada por autor con lista de palabras  claves ordenaas inversamente
 
 //        System.out.println("%n4) Lista ordenada por autor con lista de palabras claves ordenaas inversamente%n");
 //        Map<String, List<Libro>> groupedbyAutor =
-//                libros.stream().collect(Collectors.groupingBy(Libro::getAutor));
+//                Libros.stream().collect(Collectors.groupingBy(Libro::getAutor));
 //
 //
 //        //
@@ -65,7 +66,7 @@ public class Main {
 //
 //
 //        Map<Integer, List<Libro>> groupedbyanio =
-//                libros.stream()
+//                Libros.stream()
 //                        .sorted(Comparator.comparing(Libro::getanio))
 //                        .collect(Collectors.groupingBy(Libro::getanio));
 //
@@ -84,8 +85,34 @@ public class Main {
 //                });
 
 
+//        System.out.printf("%n7) Libros que no empiezan por P %n");
+//
+////reasignar mapa
+//        Map<String, List<Libro>> groupedbyAutor =
+//                Libros.stream()
+//                .filter(libro -> !Arrays.stream(libro.getPalabrasTitulo())
+//                        .anyMatch(palabra -> palabra.startsWith("P") || palabra.startsWith("p")))
+//                .collect(Collectors.groupingBy(Libro::getAutor));
+//
+//        groupedbyAutor.forEach(
+//                (autor, lista) -> {
+//                    System.out.printf("%n%s:%n", autor);
+//                    lista.forEach(
+//                            libro -> System.out.printf("%s:%n %s, ISBN:%s, %s, %s%n"
+//                                    , Arrays.stream(libro.getKeyWords()).
+//                                            sorted(Comparator.reverseOrder()).collect(Collectors.toList())
+//                                    , libro.getTitulo()
+//                                    , libro.getISBN()
+//                                    , libro.getNoEdicion()
+//                                    , libro.getPrecio()));
+//                });
 
-        //
+
+
+
+
+
+
 
 
 

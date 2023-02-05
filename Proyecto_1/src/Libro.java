@@ -1,4 +1,5 @@
-
+import java.lang.reflect.Array;
+import java.util.stream.Stream;
 
 public class Libro {
     //datos miembro
@@ -41,7 +42,7 @@ public class Libro {
     }
     //Getters
     public String getISBN() {
-        return "ISBN: "+ISBN;
+        return  ISBN;
     }
     public int getanio(){
         return Integer.parseInt(Date[2]);
@@ -82,6 +83,11 @@ public class Libro {
         return temp;
         //new StringBuffer(temp).deleteCharAt(temp.length()-1).toString();
     }
+    public String [] getPalabrasTitulo(){
+        return Titulo.split(" ");
+    }
+
+
 
     @Override
     public String toString(){
