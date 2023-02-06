@@ -23,7 +23,6 @@ public class Main {
         //creat array
         String[] array = new String[10];
 
-
         //add each line of the file to the array
         Path path = Paths.get(("/Users/JuanV/OneDrive/Documentos/Universidad/6 Sexto Semestre/Programacion Avanzada de apps/Tarea1/AdvAppProg/Proyecto_1/src/Libros.txt"));
 
@@ -108,12 +107,10 @@ public class Main {
         //Imprimir los libros agrupados por año de edición y Ordenados por Titulo en cada año.        
         System.out.printf("\n\n6) Lista ordenada por anio edicion y ordenados por titulo \n\n");
 
-
         Map<Integer, List<Libro>> groupedbyanio =
                 Libros.stream()
                         .sorted(Comparator.comparing(Libro::getanio))
                         .collect(Collectors.groupingBy(Libro::getanio));
-
 
         groupedbyanio.forEach(
                 (anio, lista) -> {
@@ -128,30 +125,29 @@ public class Main {
                                     , libro.getPrecio()));
                 });
 
+
          //Imprimir los libros que tienen 2 ó mas palabras que inician con "P", ordenados por ISBN y la lista de palabras que inicían con "P"
         System.out.printf("\n\n7)Libros con 2 o mas palabras con P, ordenados por ISBN y palabras que inician con P\n");
         
-        //Predicate<Libro> dosoMasP = e -> ();
+        Predicate<String> reglaP = e -> (e.startsWith(" P") || e.startsWith(" p"));
+        Predicate<Libro> predicate = e->(Arrays.stream(e.getKeyWords()).filter(reglaP).count()>=2);
 
+        Map<String, List<Libro>> agrupadoPorISBN = Libros.stream().filter(predicate).sorted(Comparator.comparing(Libro::getISBN)).collect(Collectors.groupingBy(Libro::getISBN));
         
-        Map<String, List<Libro>> agrupadoPorISBN = Libros.stream()
-                .sorted(Comparator.comparing(Libro::getISBN)).collect(Collectors.groupingBy(Libro::getISBN));
-        agrupadoPorISBN.forEach((Isbn,lista) -> {
+        agrupadoPorISBN.forEach(
+                (Isbn,lista) -> {
                 System.out.printf("%n%s:%n", Isbn );
                 lista.forEach(e -> System.out.printf("%s , %s, %s, %s, %s, %s%n"
                 , e.getTitulo()
                 , e.getAutor()
                 , e.getDate()[0] +"/"+e.getDate()[1]+"/"+e.getDate()[2]
                 , Arrays.stream(e.getKeyWords()).
-                        sorted(Comparator.reverseOrder()).collect(Collectors.toList())
+                        filter(reglaP).collect(Collectors.toList())
                 , e.getNoEdicion()
                 , e.getPrecio()));
         });
 
-                
-
         System.out.printf("\n\n8) Libros que no empiezan por P \n\n");
-
         //reasignar mapa
         Map<String, List<Libro>> groupedabyAutor =
                 Libros.stream()
@@ -171,7 +167,4 @@ public class Main {
                                     , libro.getNoEdicion()
                                     , libro.getPrecio()));
                 });
- 
-
-
 }}

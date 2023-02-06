@@ -1,4 +1,6 @@
-
+import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.util.stream.Stream;
 
 public class Libro{
     //datos miembro
@@ -77,6 +79,9 @@ public class Libro{
         String str = Date[2]+Date[1]+Date[0];
         return Integer.parseInt(str);
     }
+    public int getIntIsbn(){
+        return Integer.parseInt(ISBN);
+    }
     public String getKeyWordsString(){
         String temp = "";
         for (String word : KeyWords) {
@@ -89,4 +94,10 @@ public class Libro{
     public String [] getPalabrasTitulo(){
         return Titulo.split(" ");
     }
+    @Override
+    public String toString(){
+        return String.format("ISBN: %s\r\n Titulo del libro: %s\r\n Autor: %s\r\n Numero de Edicion: %s\r\n Ultima edicion: %s\r\n Palabras clave: %s\r\n Precio: %s\r\n" 
+            , getISBN(),getTitulo(),getAutor(),getNoEdicion(),getDate()[0] +"/"+getDate()[1]+"/"+getDate()[2],getKeyWordsString(),getPrecio());
+    }
+    
 }
