@@ -1,7 +1,6 @@
-import java.lang.reflect.Array;
-import java.util.stream.Stream;
 
-public class Libro {
+
+public class Libro{
     //datos miembro
     private String Titulo,Autor,NoEdicion,ISBN,Precio;
     private String [] KeyWords,Date;
@@ -60,9 +59,9 @@ public class Libro {
         return "No:" +NoEdicion;
     }
 
-//    public String getDate() {
-//        return Date[0]+"/"+Date[1]+"/"+Date[2];
-//    }
+    //public String getDate() {
+    //    return Date[0]+"/"+Date[1]+"/"+Date[2];
+    //}
 
     public String[] getDate(){
         return Date;
@@ -74,23 +73,20 @@ public class Libro {
     public String getPrecio(){
         return "$"+Precio;
     }
-
+    public int getFecha(){
+        String str = Date[2]+Date[1]+Date[0];
+        return Integer.parseInt(str);
+    }
     public String getKeyWordsString(){
         String temp = "";
         for (String word : KeyWords) {
             temp += word+"," ;
         }
+        temp = temp.substring(1, temp.length() - 1);
         return temp;
         //new StringBuffer(temp).deleteCharAt(temp.length()-1).toString();
     }
     public String [] getPalabrasTitulo(){
         return Titulo.split(" ");
-    }
-
-
-
-    @Override
-    public String toString(){
-        return String.format("ISBN: %s\r\n Titulo del libro: %s\r\n Autor: %s\r\n Numero de Edicion: %s\r\n Ultima edicion: %s\r\n Palabras clave: %s\r\n Precio: %s\r\n" , getISBN(),getTitulo(),getAutor(),getNoEdicion(),getDate(),getKeyWordsString(),getPrecio());
     }
 }
