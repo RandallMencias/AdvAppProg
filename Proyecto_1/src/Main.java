@@ -1,3 +1,7 @@
+//Juan Diego Venegas Barreto 00209856 clase: Programacion Avanzada de Apps
+//Proyecto 1. Leer un archivo. Usando Lambdas y streams presentar los datos
+
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -127,7 +131,7 @@ public class Main {
          //Imprimir los libros que tienen 2 ó mas palabras que inician con "P", ordenados por ISBN y la lista de palabras que inicían con "P"
         System.out.printf("\n\n7)Libros con 2 o mas palabras con P, ordenados por ISBN y palabras que inician con P\n");
         
-        //Predicate<Libro> dosoMasP = e -> (e.getKeyWords() = "A");
+        //Predicate<Libro> dosoMasP = e -> ();
 
         
         Map<String, List<Libro>> agrupadoPorISBN = Libros.stream()
