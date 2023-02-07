@@ -95,6 +95,7 @@ public class Libro{
     public String [] getPalabrasTitulo(){
         return Titulo.split(" ");
     }
+    //toString para imprimir el objeto
     @Override
     public String toString(){
         return String.format("ISBN: %s\r\n Titulo del libro: %s\r\n Autor: %s\r\n Numero de Edicion: %s\r\n Ultima edicion: %s\r\n Palabras clave: %s\r\n Precio: %s\r\n" 

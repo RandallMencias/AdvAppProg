@@ -22,12 +22,11 @@ public class Main {
         Pattern pattern = Pattern.compile(" {2}");
         String[] array = new String[10];
 
-        Path path = Paths.get(("/Users/randall/Documents/Programacion 4/AdvAppProg/Proyecto_1/src/Libros.txt"));
+        Path path = Paths.get(("/Users/JuanV/OneDrive/Documentos/Universidad/6 Sexto Semestre/Programacion Avanzada de apps/Tarea1/AdvAppProg/Proyecto_1/src/Libros.txt"));
 
         try (Stream<String> lines = Files.lines(path)) {
             //almacena el archivo en un array
             array = lines.toArray(String[]::new);
-
         }
 
         Stream<String> stream = Stream.of(array);
@@ -43,11 +42,11 @@ public class Main {
 
         //Lista Ordenada por titulo, con KeyWord ordenada alfabeticamente
         System.out.printf("\n\n3)Lista Ordenada por titulo, con KeyWord ordenada alfabeticamente\n\n");
-
+        //Agrupar por titulo ordenado
         Map<String,List<Libro>> agrupadoPorTitle = Libros.stream()
                 .sorted(Comparator.comparing(Libro::getTitulo))
                 .collect(Collectors.groupingBy(Libro::getTitulo));
-
+        //Imprimir por titulo, con las keywords ordenadas alfabeticamente
         agrupadoPorTitle.forEach((titulo,lista) -> {
             System.out.printf("%n%s:%n",titulo);
             lista.stream().sorted(Comparator.comparing(Libro::getTitulo)).forEach(e -> System.out.printf("  %s, %s, %s,%s,  %s, %s%n "
@@ -81,11 +80,10 @@ public class Main {
                 });
 
         //Imprimir los libros agrupados por Autor. Ordenados por año de edición para cada Autor.
-
         System.out.println("\n\n5) Lista agrupada por autor, ordenada por año de edicion \n\n");
-
+        //agrupar por autor
         Map<String,List<Libro>> agrupadoPorAutor = Libros.stream().collect(Collectors.groupingBy(Libro::getAutor));
-
+        //imprimir agrupado por autor, ordenado por fecha de edicion
         agrupadoPorAutor.forEach(
                 (autor,lista)->{
                         System.out.printf("%n%s:%n", autor);
@@ -97,7 +95,7 @@ public class Main {
                                  ,e.getTitulo()
                                  ,e.getPrecio()
                                  ,Arrays.stream(e.getKeyWords())
-                                         .sorted().collect(Collectors.toList())));
+                                         .collect(Collectors.toList())));
                 }
         );
 
@@ -125,11 +123,12 @@ public class Main {
          //Imprimir los libros que tienen 2 ó mas palabras que inician con "P", ordenados por ISBN y la lista de palabras que inicían con "P"
         System.out.printf("\n\n7)Libros con 2 o mas palabras con P, ordenados por ISBN y palabras que inician con P\n");
 
-        Predicate<String> reglaP = e -> (e.startsWith(" P") || e.startsWith(" p"));
+        //Predicate para filtrar la letras que empiecen con la p o P
+        Predicate<String> reglaP = e -> (e.startsWith("P") || e.startsWith("p"));
         Predicate<Libro> predicate = e->(Arrays.stream(e.getKeyWords()).filter(reglaP).count()>=2);
-
+        //filtrar las que no tienen 2 P, agrupar por ISBN
         Map<String, List<Libro>> agrupadoPorISBN = Libros.stream().filter(predicate).sorted(Comparator.comparing(Libro::getISBN)).collect(Collectors.groupingBy(Libro::getISBN));
-
+        //imprimir por ISBN, solo mostrando las palabras que empiezan por p
         agrupadoPorISBN.forEach(
                 (Isbn,lista) -> {
                 System.out.printf("%n%s:%n", Isbn );
