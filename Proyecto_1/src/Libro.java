@@ -1,12 +1,13 @@
 import java.lang.reflect.Array;
 import java.text.ParseException;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 public class Libro{
     //datos miembro
     private String Titulo,Autor,NoEdicion,ISBN,Precio;
     private String [] KeyWords,Date;
-    //constructoR
+    //constructor
     public Libro(String ISBN, String titulo, String autor, String noEdicion, String date, String keyWords, String precio) {
         Titulo = titulo;
         Autor = autor;
@@ -14,7 +15,12 @@ public class Libro{
         Date = date.split("/");
         this.ISBN = ISBN;
         Precio = precio;
-        KeyWords = keyWords.split("[\\(||\\)||,]");
+        // elimina los parentesis de las palabras claves
+        KeyWords = keyWords.trim().substring(1, keyWords.length() - 1).split("[,]+");
+        //elimina los espacios en blanco de las palabras claves
+        for (int i = 0; i < KeyWords.length; i++) {
+            KeyWords[i] = KeyWords[i].trim().toLowerCase();
+        }
 
     }
 
@@ -61,10 +67,6 @@ public class Libro{
         return "No:" +NoEdicion;
     }
 
-    //public String getDate() {
-    //    return Date[0]+"/"+Date[1]+"/"+Date[2];
-    //}
-
     public String[] getDate(){
         return Date;
     }
@@ -84,12 +86,11 @@ public class Libro{
     }
     public String getKeyWordsString(){
         String temp = "";
-        for (String word : KeyWords) {
-            temp += word+"," ;
+        for (int i = 0; i < KeyWords.length -1; i++) {
+            temp += KeyWords[i]+"," ;
         }
-        temp = temp.substring(1, temp.length() - 1);
+        temp = temp+ KeyWords[KeyWords.length-1];
         return temp;
-        //new StringBuffer(temp).deleteCharAt(temp.length()-1).toString();
     }
     public String [] getPalabrasTitulo(){
         return Titulo.split(" ");
