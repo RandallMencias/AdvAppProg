@@ -20,6 +20,7 @@ public class MultiFactorial extends Task<BigInteger> {
     protected BigInteger call() {
         updateMessage("Calculating...");
         BigInteger result = factorial();
+        System.out.println("Que paso aca");
         updateMessage("Done calculating.");
         return result;
     }
@@ -39,7 +40,7 @@ public class MultiFactorial extends Task<BigInteger> {
         }
         tasks[numThreads] = n;
         tasks[0] = 0;
-
+        
         return tasks;
     }
 
