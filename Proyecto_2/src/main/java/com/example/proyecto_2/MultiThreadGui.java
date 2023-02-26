@@ -96,6 +96,8 @@ public class MultiThreadGui extends Application {
 
 
 
+
+
     public static void main(String[] args) {
 //        launch();
         MultiFactorial multi = new MultiFactorial(11, 3);

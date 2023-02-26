@@ -27,7 +27,6 @@ public class Factorial extends Task<BigInteger> {
 
         for (int i = 2; i <= N; i++)
             f = f.multiply(BigInteger.valueOf(i));
-
         return f;
     }
 }
