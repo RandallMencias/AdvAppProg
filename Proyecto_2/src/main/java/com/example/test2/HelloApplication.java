@@ -1,4 +1,5 @@
-package com.example.proyecto_2;
+package com.example.test2;
+
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -8,16 +9,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
 
-public class MultiThreadGui extends Application {
-    private static final String[] COLUMN_NAMES = {"Thread #", "Execution Time", "Memory Usage"};
+public class HelloApplication extends Application {
+
+    private static final String[] COLUMN_NAMES = {"  Thread #  ", "  Process  ", "  RunTime  "};
     private int factorialof = 0;
     private int numThreads = 0;
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Create a new VBox to hold the initial scene
@@ -41,8 +45,10 @@ public class MultiThreadGui extends Application {
         Button submitButton = new Button("Submit");
         submitButton.setOnAction(event -> {
             try {
+                System.out.println("La cantidad de threads activos en el sistemaes: " + Thread.activeCount());
                 numThreads = Integer.parseInt(numThreadsTextField.getText());
                 factorialof = Integer.parseInt(factorialTextField.getText());
+                System.out.println("Numero de threads: " + numThreads + " Numero a calcular: " + factorialof);
                 primaryStage.setScene(createResultsScene());
             } catch (NumberFormatException e) {
                 // If the user entered an invalid number, display an error message
@@ -50,6 +56,7 @@ public class MultiThreadGui extends Application {
                 initialVBox.getChildren().add(errorLabel);
             }
         });
+
         initialVBox.getChildren().add(submitButton);
 
         // Create a new Scene with the initial VBox as its root node
@@ -79,7 +86,7 @@ public class MultiThreadGui extends Application {
         for (int i = 0; i < numThreads; i++) {
 
             // Add a label to display the thread number
-            Label threadLabel = new Label("Thread #" + (i + 1));
+            Label threadLabel = new Label("  Thread #" + (i + 1) + "  ");
             gridPane.add(threadLabel, 0, i + 1);
 
             // Add labels to display the execution time and memory usage
@@ -88,20 +95,51 @@ public class MultiThreadGui extends Application {
             gridPane.add(executionTimeLabel, 1, i + 1);
             gridPane.add(memoryUsageLabel, 2, i + 1);
         }
+        gridPane.add(new Label("  Resultado:  "), 0, numThreads + 1);
+        ArrayList<BigInteger> results = new ArrayList<>();
+
+        Divide divide = new Divide(factorialof, numThreads);
+        Pairs[] pair = divide.getPairs();
+        Thread[] threads = new Thread[numThreads];
+        for (int i = 0; i < numThreads; i++) {
+            Factorial factorial = new Factorial(pair[i].getStart(), pair[i].getEnd());
+            Label resultLabel = new Label();
+            factorial.messageProperty().addListener((observable, oldValue, newValue) -> {
+                resultLabel.setText("  " + newValue.toString() + "  ");
+            });
+            //results[i] = factorial.call();
+            threads[i] = new Thread(() -> {
+                // Ejecutar el método calculate() en la instancia de MyClass y guardar el resultado en la lista de resultados
+                BigInteger result = factorial.call();
+                results.add(result);
+            });
+            threads[i].setDaemon(true);
+            gridPane.add(resultLabel, 1, i + 1);
+
+            System.out.println("La cantidad de threads activos en el sistema es: " + Thread.activeCount());
+            threads[i].start();
+        }
+        
+
+        BigInteger result = BigInteger.ONE;
+        /*for (int i = 0; i < numThreads; i++) {
+            result = results.multiply(results.get(i));
+        }*/
+
+        Label resultLabel = new Label();
+        resultLabel.setText("   " + result.toString() + "  ");
+        gridPane.add(resultLabel, 1, numThreads + 1);
 
         Scene resultsScene = new Scene(gridPane, 400, 300);
-
         return resultsScene;
     }
 
+    public void func() {
 
-
-
+    }
 
     public static void main(String[] args) {
-//        launch();
-        MultiFactorial multi = new MultiFactorial(11, 3);
-        BigInteger a = multi.factorial();
-        System.out.println(a);
+        launch();
     }
+
 }

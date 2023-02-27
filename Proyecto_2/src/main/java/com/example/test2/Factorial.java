@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test2;
 
 import javafx.concurrent.Task;
 
@@ -22,7 +22,7 @@ public class Factorial extends Task<BigInteger> {
             f = f.multiply(BigInteger.valueOf(i));
             updateMessage(f.toString()+ "*" + Integer.toString(i));
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -31,4 +31,5 @@ public class Factorial extends Task<BigInteger> {
 
 
     }    }
+
 
