@@ -14,11 +14,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigInteger;
 
 public class HelloApplication extends Application {
     private static final String[] COLUMN_NAMES = {"Thread #", "Execution Time", "Memory Usage"};
     private int factorialof = 0;
     private int numThreads = 0;
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Create a new VBox to hold the initial scene
@@ -53,8 +55,6 @@ public class HelloApplication extends Application {
         });
 
 
-
-
         initialVBox.getChildren().add(submitButton);
 
         // Create a new Scene with the initial VBox as its root node
@@ -65,8 +65,6 @@ public class HelloApplication extends Application {
         primaryStage.setScene(initialScene);
         primaryStage.show();
     }
-
-
 
 
     private Scene createResultsScene() {
@@ -98,37 +96,43 @@ public class HelloApplication extends Application {
 //            gridPane.add(memoryUsageLabel, 2, i + 1);
 
 //        }
-        Label resultLabel = new Label();
-        gridPane.add(resultLabel, 3, 4 );
+        BigInteger [] results = new BigInteger[numThreads];
 
-
-
-
-
-
-
-        Divide divide = new Divide(factorialof,numThreads);
+        Divide divide = new Divide(factorialof, numThreads);
         Pairs[] pair = divide.getPairs();
-        for(int i =0; i < divide.getSize(); i++)
-        {
-            arraylist threadS;
-            threadS.add(new Factorial(pair[i].getStart(),pair[i].getEnd()));
-            ExcutorService executor = Executors.newFixedThreadPool(4);
-            executor.execute(threadS.get(i));
+        for(int i = 0; i <numThreads; i++) {
+            Factorial factorial = new Factorial(pair[i].getStart(), pair[i].getEnd());
+            Label resultLabel = new Label();
+            factorial.messageProperty().addListener((observable, oldValue, newValue) -> {
+                resultLabel.setText(newValue.toString());
+            });
+            results[i] = factorial.call();
+            Thread thread = new Thread(factorial);
+            thread.setDaemon(true);
+            gridPane.add(resultLabel, 3, 4 + i);
+             thread.start();
+
         }
-        exucutor start
-        factorial
+        BigInteger result = BigInteger.ONE;
+        for(int i = 0; i < numThreads; i++) {
+            result = result.multiply(results[i]);
+        }
+        Label resultLabel = new Label();
+        resultLabel.setText(result.toString());
+        gridPane.add(resultLabel, 3, 4 + numThreads);
+
+//        Label resultLabel = new Label();
+//        gridPane.add(resultLabel, 3, 4);
+//
+//
+//
+//        Factorial factorial = new Factorial(1, factorialof);
+//        factorial.messageProperty().addListener((observable, oldValue, newValue) -> {
+//            resultLabel.setText(newValue.toString());
+//            ;
+//        });
 
 
-
-        Factorial factorial = new Factorial(1,factorialof);
-        factorial.messageProperty().addListener((observable, oldValue, newValue) -> { resultLabel.setText(newValue.toString());
-            ;
-        });
-
-        Thread thread = new Thread(factorial);
-        thread.setDaemon(true);
-        thread.start();
 
         Scene resultsScene = new Scene(gridPane, 400, 300);
 
@@ -138,16 +142,8 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
-
     }
+
 }
 
-excutor service.
-/*
-for range(numthreads)
-    create thread
-    create label
-    les thrad label
 
-start thread
- */
