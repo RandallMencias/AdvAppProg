@@ -1,5 +1,6 @@
 package com.example.test;
 
+//class to divide the number in equivalent ranges
 public class Divide {
 
     private static int n; // Factorial number to calculate
@@ -13,7 +14,7 @@ public class Divide {
         pairs = new Pairs[numThreads];
         numtask();
     }
-
+//
     private static void numtask() {
         int[] tasks = new int[numThreads + 1];
         int q = n / numThreads;
