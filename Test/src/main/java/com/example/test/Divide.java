@@ -1,6 +1,7 @@
 package com.example.test;
 
 public class Divide {
+
     private static int n; // Factorial number to calculate
     private static int numThreads; // Number of threads to test
     private static Pairs[] pairs;
@@ -12,7 +13,6 @@ public class Divide {
         pairs = new Pairs[numThreads];
         numtask();
     }
-
 
     private static void numtask() {
         int[] tasks = new int[numThreads + 1];
@@ -29,13 +29,10 @@ public class Divide {
         }
         tasks[numThreads] = n;
         tasks[0] = 0;
-        //print tasks
-//        for (int i = 0; i < tasks.length; i++) {
-//            System.out.println(tasks[i]);
-//        }
+
         //separate tasjks in pairs into the array of pairs
         for (int i = 0; i < numThreads; i++) {
-            pairs[i] = new Pairs(tasks[i]+1, tasks[i + 1]);
+            pairs[i] = new Pairs(tasks[i] + 1, tasks[i + 1]);
         }
 
     }
@@ -48,5 +45,4 @@ public class Divide {
         return pairs;
     }
 }
-
 

@@ -27,7 +27,7 @@ public class HelloApplication extends Application {
     private int numThreads = 0;
     BigInteger results = BigInteger.ONE;
     long startTime = System.currentTimeMillis();
-    long endTimeT = System.currentTimeMillis();
+    long endTimeT;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -108,20 +108,23 @@ public class HelloApplication extends Application {
         for (int i = 0; i < numThreads; i++) {
             Factorial factorial = new Factorial(pair[i].getStart(), pair[i].getEnd());
             Label resultLabel = new Label();
+            Label runTimeLabel = new Label();
             factorial.messageProperty().addListener((observable, oldValue, newValue) -> {
-                resultLabel.setText("  " + newValue.toString() + "  " + "Suma via Threads:  " + (endTimeT - startTime));
+                endTimeT = System.currentTimeMillis();
+                resultLabel.setText("  " + newValue.toString() + "  ");
+                runTimeLabel.setText((endTimeT - startTime) + " ms");
             });
 
             threads[i] = new Thread(() -> {
                 // Ejecutar el método call() en la instancia de MyClass y guardar el resultado en la lista de resultados
                 BigInteger result = factorial.call();
-                long duration = (endTimeT - startTime) / 1000000;
                 results = results.multiply(result);
             });
 
             //System.out.printf("Suma via Threads: %d toma: %d miliscd\n\n", counterThread.getTotalGeneral(), );
             threads[i].setDaemon(true);
             gridPane.add(resultLabel, 1, i + 1);
+            gridPane.add(runTimeLabel, 2, i + 1);
             threads[i].start();
 
         }

@@ -1,9 +1,10 @@
 package com.example.test;
 
+
 public class Pairs {
+
     private int start;
     private int end;
-
 
     public Pairs(int start, int end) {
         this.start = start;
@@ -24,7 +25,8 @@ public class Pairs {
     }
 
     public void printpair() {
-        System.out.println("key: "+ start +" value: "+ end);}
-
+        System.out.println("key: " + start + " value: " + end);
     }
+
+}
 
