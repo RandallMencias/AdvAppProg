@@ -34,12 +34,12 @@ public class Factorial extends Task<BigInteger> {
                 throw new RuntimeException(e);
             }
         }
+        endTimeT = System.currentTimeMillis();
         return f;
 
     }
     //function to get runTime
     public long getRunTime(){
-        endTimeT = System.currentTimeMillis();
         return (endTimeT - startTime);
     }
 }

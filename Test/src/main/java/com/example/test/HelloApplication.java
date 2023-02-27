@@ -142,13 +142,9 @@ public class HelloApplication extends Application {
             } catch (Exception e) {
             }
         }
-        //wait and place restult label
+        //set resultLabel
         Label resultLabel = new Label();
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            resultLabel.setText(results + "");
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        resultLabel.setText(results + "");
         gridPane.add(resultLabel, 1, numThreads + 1);
 
         //Labels for factorial without task
