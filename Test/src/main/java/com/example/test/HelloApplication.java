@@ -1,6 +1,5 @@
 package com.example.test;
 
-
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
@@ -13,16 +12,22 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import javafx.application.Platform;
 
 public class HelloApplication extends Application {
 
     private static final String[] COLUMN_NAMES = {"  Thread #  ", "  Process  ", "  RunTime  "};
     private int factorialof = 0;
     private int numThreads = 0;
+    BigInteger results = BigInteger.ONE;
+    long startTime = System.currentTimeMillis();
+    long endTimeT = System.currentTimeMillis();
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -47,10 +52,8 @@ public class HelloApplication extends Application {
         Button submitButton = new Button("Submit");
         submitButton.setOnAction(event -> {
             try {
-                System.out.println("La cantidad de threads activos en el sistemaes: " + Thread.activeCount());
                 numThreads = Integer.parseInt(numThreadsTextField.getText());
                 factorialof = Integer.parseInt(factorialTextField.getText());
-                System.out.println("Numero de threads: " + numThreads + " Numero a calcular: " + factorialof);
                 primaryStage.setScene(createResultsScene());
             } catch (NumberFormatException e) {
                 // If the user entered an invalid number, display an error message
@@ -98,7 +101,6 @@ public class HelloApplication extends Application {
             gridPane.add(memoryUsageLabel, 2, i + 1);
         }
         gridPane.add(new Label("  Resultado:  "), 0, numThreads + 1);
-        ArrayList<BigInteger> results = new ArrayList<>();
 
         Divide divide = new Divide(factorialof, numThreads);
         Pairs[] pair = divide.getPairs();
@@ -107,37 +109,33 @@ public class HelloApplication extends Application {
             Factorial factorial = new Factorial(pair[i].getStart(), pair[i].getEnd());
             Label resultLabel = new Label();
             factorial.messageProperty().addListener((observable, oldValue, newValue) -> {
-                resultLabel.setText("  " + newValue.toString() + "  ");
+                resultLabel.setText("  " + newValue.toString() + "  " + "Suma via Threads:  " + (endTimeT - startTime));
             });
-            //results[i] = factorial.call();
+
             threads[i] = new Thread(() -> {
-                // Ejecutar el método calculate() en la instancia de MyClass y guardar el resultado en la lista de resultados
+                // Ejecutar el método call() en la instancia de MyClass y guardar el resultado en la lista de resultados
                 BigInteger result = factorial.call();
-                results.add(result);
+                long duration = (endTimeT - startTime) / 1000000;
+                results = results.multiply(result);
             });
+
+            //System.out.printf("Suma via Threads: %d toma: %d miliscd\n\n", counterThread.getTotalGeneral(), );
             threads[i].setDaemon(true);
             gridPane.add(resultLabel, 1, i + 1);
-
-            System.out.println("La cantidad de threads activos en el sistema es: " + Thread.activeCount());
             threads[i].start();
-        }
-        
 
-        BigInteger result = BigInteger.ONE;
-        /*for (int i = 0; i < numThreads; i++) {
-            result = results.multiply(results.get(i));
-        }*/
+        }
 
         Label resultLabel = new Label();
-        resultLabel.setText("   " + result.toString() + "  ");
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            resultLabel.setText(results + "");
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
         gridPane.add(resultLabel, 1, numThreads + 1);
 
         Scene resultsScene = new Scene(gridPane, 400, 300);
         return resultsScene;
-    }
-
-    public void func() {
-
     }
 
     public static void main(String[] args) {
