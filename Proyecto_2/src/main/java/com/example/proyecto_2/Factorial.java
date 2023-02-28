@@ -29,7 +29,7 @@ public class Factorial extends Task<BigInteger> {
         for (int i = start; i <= end; i++) {
 
             f = f.multiply(BigInteger.valueOf(i));
-            updateMessage(f.toString() + "*" + Integer.toString(i));
+            updateMessage(f.toString() + "*" + Integer.toString(i)+"\t tiempo: "+getRunTime());
             updateValue(f);
 
             //add sleep to see the progress
