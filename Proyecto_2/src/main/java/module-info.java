@@ -13,4 +13,6 @@ module com.example.test2 {
 
     opens com.example.test2 to javafx.fxml;
     exports com.example.test2;
+    exports com.example.proyecto_2;
+    opens com.example.proyecto_2 to javafx.fxml;
 }

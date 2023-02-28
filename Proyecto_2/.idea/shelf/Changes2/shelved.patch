@@ -1,0 +1,80 @@
+Index: src/main/java/com/example/proyecto_2/MultiFactorial.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.proyecto_2;\r\n\r\nimport javafx.concurrent.Task;\r\n\r\nimport java.math.BigInteger;\r\n\r\npublic class MultiFactorial extends Task<BigInteger> {\r\n    private static int n; // Factorial number to calculate\r\n    private static int numThreads; // Number of threads to test\r\n    private static int[] results;\r\n\r\n    // constructor\r\n    public MultiFactorial(int n, int numThreads) {\r\n        this.n = n;\r\n        this.numThreads = numThreads;\r\n    }\r\n\r\n    // long-running code to be run in a worker thread\r\n    @Override\r\n    protected BigInteger call() {\r\n        updateMessage(\"Calculating...\");\r\n        BigInteger result = factorial();\r\n        System.out.println(\"Que paso aca\");\r\n        updateMessage(\"Done calculating.\");\r\n        return result;\r\n    }\r\n\r\n    private static int[] numtask(){\r\n        int[] tasks = new int[numThreads+1];\r\n        int q = n / numThreads;\r\n        int r = n % numThreads;\r\n\r\n        for (int i =0; i < numThreads; i++) {\r\n            tasks[i] = i * q;\r\n            if (i < r) {\r\n                tasks[i] += i;\r\n            } else {\r\n                tasks[i] += r;\r\n            }\r\n        }\r\n        tasks[numThreads] = n;\r\n        tasks[0] = 0;\r\n        \r\n        return tasks;\r\n    }\r\n\r\n\r\n\r\n    private static BigInteger multiply1(int start, int end){\r\n        BigInteger f = new BigInteger(\"1\");\r\n        for (int i = start; i <= end; i++){\r\n            f = f.multiply(BigInteger.valueOf(i));}\r\n//            System.out.println(f+\" start: \"+start+\" end: \"+end+\" i: \"+i);}\r\n        return f;\r\n    }\r\n\r\n    public static BigInteger factorial()\r\n    {\r\n        BigInteger f = new BigInteger(\"1\");\r\n        int []numtask = numtask();\r\n        for(int i = 0; i < numtask.length-1; i++){\r\n              f = f.multiply(multiply1(numtask[i]+1, numtask[i+1]));\r\n        }\r\n        return f;\r\n    }\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/proyecto_2/MultiFactorial.java b/src/main/java/com/example/proyecto_2/MultiFactorial.java
+--- a/src/main/java/com/example/proyecto_2/MultiFactorial.java	(revision 8efe3cd13ab9b1ba7be523ba236eab3d6869ef60)
++++ b/src/main/java/com/example/proyecto_2/MultiFactorial.java	(date 1677565740627)
+@@ -1,69 +1,0 @@
+-package com.example.proyecto_2;
+-
+-import javafx.concurrent.Task;
+-
+-import java.math.BigInteger;
+-
+-public class MultiFactorial extends Task<BigInteger> {
+-    private static int n; // Factorial number to calculate
+-    private static int numThreads; // Number of threads to test
+-    private static int[] results;
+-
+-    // constructor
+-    public MultiFactorial(int n, int numThreads) {
+-        this.n = n;
+-        this.numThreads = numThreads;
+-    }
+-
+-    // long-running code to be run in a worker thread
+-    @Override
+-    protected BigInteger call() {
+-        updateMessage("Calculating...");
+-        BigInteger result = factorial();
+-        System.out.println("Que paso aca");
+-        updateMessage("Done calculating.");
+-        return result;
+-    }
+-
+-    private static int[] numtask(){
+-        int[] tasks = new int[numThreads+1];
+-        int q = n / numThreads;
+-        int r = n % numThreads;
+-
+-        for (int i =0; i < numThreads; i++) {
+-            tasks[i] = i * q;
+-            if (i < r) {
+-                tasks[i] += i;
+-            } else {
+-                tasks[i] += r;
+-            }
+-        }
+-        tasks[numThreads] = n;
+-        tasks[0] = 0;
+-        
+-        return tasks;
+-    }
+-
+-
+-
+-    private static BigInteger multiply1(int start, int end){
+-        BigInteger f = new BigInteger("1");
+-        for (int i = start; i <= end; i++){
+-            f = f.multiply(BigInteger.valueOf(i));}
+-//            System.out.println(f+" start: "+start+" end: "+end+" i: "+i);}
+-        return f;
+-    }
+-
+-    public static BigInteger factorial()
+-    {
+-        BigInteger f = new BigInteger("1");
+-        int []numtask = numtask();
+-        for(int i = 0; i < numtask.length-1; i++){
+-              f = f.multiply(multiply1(numtask[i]+1, numtask[i+1]));
+-        }
+-        return f;
+-    }
+-
+-
+-
+-}
