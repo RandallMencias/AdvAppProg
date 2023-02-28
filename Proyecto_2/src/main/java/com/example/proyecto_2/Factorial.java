@@ -2,6 +2,7 @@ package com.example.proyecto_2;
 
 
 import javafx.concurrent.Task;
+import javafx.scene.control.Label;
 
 import java.math.BigInteger;
 import java.util.concurrent.Future;
@@ -13,7 +14,7 @@ public class Factorial extends Task<BigInteger> {
     private int start;
     private int end;
     //calculate runtime
-    private long startTime = System.currentTimeMillis();
+    private long startTime;
     private long endTimeT;
     private static BigInteger result = new BigInteger("1");
     //constructor
@@ -25,11 +26,12 @@ public class Factorial extends Task<BigInteger> {
     //function to get factorial
     @Override
     protected BigInteger call() {
+        startTime = System.currentTimeMillis();
         BigInteger f = new BigInteger("1");
         for (int i = start; i <= end; i++) {
 
             f = f.multiply(BigInteger.valueOf(i));
-            updateMessage(f.toString() + "*" + Integer.toString(i)+"\t tiempo: "+getRunTime());
+            updateMessage(f.toString() + "*" + Integer.toString(i));
             updateValue(f);
 
             //add sleep to see the progress
@@ -40,8 +42,9 @@ public class Factorial extends Task<BigInteger> {
             }
 //
         }
-        updateMessage(f.toString());
         endTimeT = System.currentTimeMillis();
+        updateMessage(f.toString()+"\t tiempo: " + Long.toString(endTimeT-startTime) + " ms");
+
 
         return f;
 
