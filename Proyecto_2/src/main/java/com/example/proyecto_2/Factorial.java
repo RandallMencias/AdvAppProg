@@ -51,8 +51,6 @@ public class Factorial extends Task<BigInteger> {
         return (endTimeT - startTime);
     }
 
-    public BigInteger getResult(){
-        return result;
-    }
+
 }
 
