@@ -5,26 +5,6 @@
 
 package com.example.test;
 
-import javafx.application.Application;
-import javafx.concurrent.Task;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import javafx.application.Platform;
-
 public class HelloApplication extends Application {
     //initialize variables
     private static final String[] COLUMN_NAMES = {"  Thread #  ", "  Process  ", "  RunTime  "};
@@ -32,11 +12,8 @@ public class HelloApplication extends Application {
     private int numThreads = 0;
     BigInteger results = BigInteger.ONE;
     //variables for runtime
-    long startTime = System.currentTimeMillis();
-    long endTimeT;
-    long startTime2 = System.currentTimeMillis();
-    long endTimeT2;
-
+    private Factorial task;
+    Thread[] threads;
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Create a new VBox to hold the initial scene
@@ -114,27 +91,29 @@ public class HelloApplication extends Application {
         Divide divide = new Divide(factorialof, numThreads);
         Pairs[] pair = divide.getPairs();
         //create multiple threads and a respective factorial object
-        Thread[] threads = new Thread[numThreads];
+        threads = new Thread[numThreads];
+        List<Text> textList = new ArrayList<>();
+        for(int i = 0; i<numThreads;i++){
+            textList.add(new Text(""));
+            gridPane.add(textList.get(i),1,i+1);
+        }
+        
         for (int i = 0; i < numThreads; i++) {
-            Factorial factorial = new Factorial(pair[i].getStart(), pair[i].getEnd());
-            Label resultLabel = new Label();
-            Label runTimeLabel = new Label();
+             // create task
+            task = new Factorial(pair[i].getStart(), pair[i].getEnd());
+            Text runTimeText = new Text();
             //label to show the process
-            factorial.messageProperty().addListener((observable, oldValue, newValue) -> {
-                resultLabel.setText("  " + newValue.toString() + "  ");
-                
-            });
+            textList.get(i).textProperty().bind(task.messageProperty());
             //label to get the result
             threads[i] = new Thread(() -> {
                 // Ejecutar el método call() en la instancia de MyClass y guardar el resultado en la lista de resultados
-                BigInteger result = factorial.call();
-                runTimeLabel.setText(factorial.getRunTime() + " ms");
+                BigInteger result = task.call();
+                runTimeText.setText(task.getRunTime() + " ms");
                 results = results.multiply(result);
             });
             //add labels to GridPane
             threads[i].setDaemon(true);
-            gridPane.add(resultLabel, 1, i + 1);
-            gridPane.add(runTimeLabel, 2, i + 1);
+            gridPane.add(runTimeText, 2, i + 1);
             threads[i].start();
             //wait for threads to finish
             try {
@@ -142,10 +121,11 @@ public class HelloApplication extends Application {
             } catch (Exception e) {
             }
         }
-        //set resultLabel
-        Label resultLabel = new Label();
-        resultLabel.setText(results + "");
-        gridPane.add(resultLabel, 1, numThreads + 1);
+        //set resulttext
+        Text resultText = new Text();
+        
+        resultText.setText(results + "");
+        gridPane.add(resultText, 1, numThreads + 1);
 
         //Labels for factorial without task
         Label title2 = new Label("Sin usar Tasks");
@@ -154,6 +134,8 @@ public class HelloApplication extends Application {
         //place labels
         gridPane.add(title2, 1, numThreads + 2);
         gridPane.add(lb, 0, numThreads + 3);
+        
+
         //initialize ONE thread to determine a factorial
         BigInteger resultNoTask;
         Factorial fac2 = new Factorial(1, factorialof);
@@ -166,9 +148,8 @@ public class HelloApplication extends Application {
         }
         //edit and place labels
         result2.setText("  " + resultNoTask + "  ");
-        endTimeT2 = System.currentTimeMillis();
         Label runTimeLabel2 = new Label();
-        runTimeLabel2.setText((endTimeT2 - startTime2) + " ms");
+        runTimeLabel2.setText(fac2.getRunTime() + " ms");
         gridPane.add(runTimeLabel2, 2, numThreads + 3);
         gridPane.add(result2, 1, numThreads + 3);
 
@@ -179,5 +160,4 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
-
 }
