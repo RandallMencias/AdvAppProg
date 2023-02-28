@@ -1,4 +1,3 @@
-package com.example.proyecto_2;
 
 
 import javafx.concurrent.Task;
@@ -13,10 +12,12 @@ public class Factorial extends Task<BigInteger> {
     private BigInteger f = new BigInteger("1");
     private int start;
     private int end;
+    private static BigInteger result = new BigInteger("1");
+    private String time;
     //calculate runtime
     private long startTime;
     private long endTimeT;
-    private static BigInteger result = new BigInteger("1");
+    
     //constructor
     public Factorial(int start, int end) {
         this.start = start;
@@ -28,32 +29,29 @@ public class Factorial extends Task<BigInteger> {
     protected BigInteger call() {
         startTime = System.currentTimeMillis();
         BigInteger f = new BigInteger("1");
+        //for loop to get the  factorial while updating the values at the GUI
         for (int i = start; i <= end; i++) {
-
             f = f.multiply(BigInteger.valueOf(i));
             updateMessage(f.toString() + "*" + Integer.toString(i));
             updateValue(f);
 
             //add sleep to see the progress
             try {
-                Thread.sleep(100);
+                Thread.sleep(0);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-//
+            updateProgress(i,end); 
         }
+        //update gui labels
         endTimeT = System.currentTimeMillis();
-        updateMessage(f.toString()+"\t tiempo: " + Long.toString(endTimeT-startTime) + " ms");
-
-
+        time = f.toString()+"\t tiempo: " + Long.toString(endTimeT-startTime) + " ms";
+        updateMessage(time); 
         return f;
 
     }
     //function to get runTime
-    public long getRunTime(){
-        return (endTimeT - startTime);
+    public String getRunTime(){
+        return time;
     }
-
-
 }
-

@@ -1,4 +1,4 @@
-package com.example.proyecto_2;
+
 
 public class Divide {
     private static int n; // Factorial number to calculate
@@ -48,5 +48,3 @@ public class Divide {
         return pairs;
     }
 }
-
-

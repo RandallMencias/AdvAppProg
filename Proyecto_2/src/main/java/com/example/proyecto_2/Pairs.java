@@ -1,4 +1,4 @@
-package com.example.proyecto_2;
+
 
 public class Pairs {
     private int start;
@@ -27,4 +27,3 @@ public class Pairs {
         System.out.println("key: "+ start +" value: "+ end);}
 
     }
-
