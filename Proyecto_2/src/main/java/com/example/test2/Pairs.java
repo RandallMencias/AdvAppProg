@@ -1,5 +1,4 @@
-package com.example.test;
-
+package com.example.test2;
 public class Pairs {
     private int start;
     private int end;

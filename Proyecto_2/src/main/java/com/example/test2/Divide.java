@@ -1,5 +1,4 @@
-package com.example.test;
-
+package com.example.test2;
 public class Divide {
     private static int n; // Factorial number to calculate
     private static int numThreads; // Number of threads to test

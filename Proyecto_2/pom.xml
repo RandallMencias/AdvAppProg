@@ -7,7 +7,7 @@
     <groupId>com.example</groupId>
     <artifactId>Proyecto_2</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Proyecto_2</name>
+    <name>test2</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -128,7 +128,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.proyecto_2/com.example.proyecto_2.MultiThreadGui</mainClass>
+                            <mainClass>com.example.test2/com.example.test2.HelloApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
