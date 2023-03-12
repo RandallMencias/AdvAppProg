@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sun Mar 12 16:14:49 ECT 2023:
+ Iniciando instancia a816c00e-0186-d7ad-1112-00000f18a4b0 de Derby, versión The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): 
+en el directorio de base de datos C:\Users\JuanV\OneDrive\Documentos\Universidad\6_Sexto_Semestre\Programacion_Avanzada_de_apps\Tarea3\Datos con el cargador de clases jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93
+Cargado desde file:/C:/Apache/db-derby-10.16.1.1-bin/db-derby-10.16.1.1-bin/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=18.0.1.1+2-6
+user.dir=C:\Users\JuanV\OneDrive\Documentos\Universidad\6_Sexto_Semestre\Programacion_Avanzada_de_apps\Tarea3
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Cargador de clases de base de datos iniciado - derby.database.classpath=''
