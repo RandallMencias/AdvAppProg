@@ -42,19 +42,21 @@ public class BDDController {
         selectFirstEntry();
     }
 
-    private void removeFacultyEntries() {
-        // facultyList.clear();
+    private void UpdateFacultyEntries() {
+        facultyList.clear();
         facultyList.setAll(fQueries.getFaculty());
-
     }
 
-    private void removeCourseEntries() {
+    private void UpdateCourseEntries() {
         courseList.clear();
+        courseList.setAll(fQueries.getCourses());
     }
 
     private void selectFirstEntry() {
         LVFaculty.getSelectionModel().selectFirst();
         LVCourse.getSelectionModel().selectFirst();
+        System.out.println(fQueries.getFaculty());
+
     }
 
     @FXML
@@ -63,14 +65,14 @@ public class BDDController {
             if (InsertName.getText().isEmpty() || InsertOffice.getText().isEmpty() || InsertID.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Ingrese todos los datos:\n    -Nombre\n    -Oficina \n    -Id");
             } else {
-                faculty facultad = new faculty(InsertID.getText(), InsertName.getText(), InsertOffice.getText());
-                fQueries.addfaculty(facultad);
-                facultyList.add(facultad);
+                fQueries.addfaculty(new faculty(InsertID.getText(), InsertName.getText(), InsertOffice.getText()));
+                System.out.println("guarde un profesor");
+                UpdateFacultyEntries();
+
             }
         } catch (Exception e) {
             // TODO: handle exception
         }
-        // removeFacultyEntries();
     }
 
     @FXML
@@ -82,10 +84,9 @@ public class BDDController {
                 JOptionPane.showMessageDialog(null,
                         "Ingrese todos los datos \n    -Curso\n    -ID de la facutlad \n    -Id");
             } else {
-                courses curso = new courses(InsertCourseID.getText(), InsertCourse.getText(), InsertID.getText());
-                fQueries.addcourse(curso);
-                courseList.add(curso);
+                fQueries.addcourse(new courses(InsertCourseID.getText(), InsertCourse.getText(), InsertID.getText()));
                 System.out.println("Guarde un curso");
+                UpdateCourseEntries();
             }
 
         } catch (Exception e) {
@@ -95,28 +96,43 @@ public class BDDController {
 
     @FXML
     void btnRemoveClass(ActionEvent event) {
-        fQueries.deletecourse(InsertID.getText());
-        System.out.println(fQueries.getCourses());
+        if (InsertID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Ingrese el ID de la clase a eliminar");
+        } else {
+            fQueries.deletecourse(InsertID.getText());
+            UpdateCourseEntries();
+            UpdateFacultyEntries();
+        }
     }
 
     @FXML
     void btnRemoveProfessor(ActionEvent event) {
-        fQueries.deletefaculty(InsertID.getText());
-        /*
-         * facultyList.clear();
-         * facultyList.setAll(fQueries.getFaculty());
-         * facultyList.add(new faculty("A","A", "A"));
-         */
+        if (InsertID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Ingrese el ID del profesor a eliminar");
+        } else {
+            int value = JOptionPane.showConfirmDialog(null,
+                    "Seguro desea eliminar el profesor?\nTambien se eliminaran sus cursos", "Ventana de confirmacion",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (value == JOptionPane.YES_OPTION) {
+                fQueries.deletefaculty(InsertID.getText());
+                UpdateCourseEntries();
+                UpdateFacultyEntries();
+            }
+        }
     }
 
     // ingresar Updaters de faculty/course usando ID
     @FXML
     void btnModifyCourse(ActionEvent event) {
-        fQueries.updatecourse(new courses(InsertCourseID.getText(), InsertCourse.getText(), InsertID.getText()), InsertID.getText());
+        fQueries.updatecourse(new courses(InsertCourseID.getText(), InsertCourse.getText(), InsertID.getText()),
+                InsertID.getText());
     }
 
     @FXML
     void btnModifyFaculty(ActionEvent event) {
-        fQueries.updatefaculty(new faculty(InsertID.getText(), InsertName.getText(), InsertOffice.getText()), InsertID.getText());
+        fQueries.updatefaculty(new faculty(InsertID.getText(), InsertName.getText(), InsertOffice.getText()),
+                InsertID.getText());
     }
 }

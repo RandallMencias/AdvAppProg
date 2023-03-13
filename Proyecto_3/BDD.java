@@ -11,13 +11,8 @@ public class BDD extends Application {
    public void start(Stage stage) throws Exception {
       Parent root = FXMLLoader.load(getClass().getResource("Registro.fxml"));
       //============================================================================
-      
       createQueries FQueries = new createQueries();
-
-      
       ArrayList<courses> courses = FQueries.getcoursesperfaculty("abc43Ra");      
-
-      FQueries.deletecourse("cpp");
       courses = FQueries.getcoursesperfaculty("abc43Ra");
       System.out.println("Courses2 for faculty abc43Ra: Profesor Randall:");
       for (courses course : courses) {

@@ -137,9 +137,6 @@ public class createQueries {
    // ***********************************************Adders***********************************************
 
    public void addfaculty(faculty faculty) {
-      List<courses> temp = getAllCourses();
-      List<faculty> temp2 = getAllFaculty();
-
       for (faculty efaculty : facultylist) {
          if (efaculty.getID().equals(faculty.getID()) || efaculty.getOffice().equals(faculty.getOffice())) {
             JOptionPane.showMessageDialog(null, "No se puede agregar el profesor, esta repetido");
@@ -150,6 +147,7 @@ public class createQueries {
       try {
          statement.executeUpdate("INSERT INTO FACULTY VALUES ('" + faculty.getID() + "','" + faculty.getName() + "','"
                + faculty.getOffice() + "')");
+         facultylist.add(faculty);
       } catch (SQLException e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
@@ -158,9 +156,6 @@ public class createQueries {
    }
 
    public void addcourse(courses course) throws IllegalArgumentException {
-      List<courses> temp = getAllCourses();
-      List<faculty> temp2 = getAllFaculty();
-
       for (courses ecourse : courseslist) {
          if (ecourse.getCourse_id().equals(course.getCourse_id())) {
             JOptionPane.showMessageDialog(null, "No se puede agregar el curso, esta repetido");
@@ -181,6 +176,7 @@ public class createQueries {
       try {
          statement.executeUpdate("INSERT INTO COURSES VALUES ('" + course.getCourse_id() + "','" + course.getCourse()
                + "','" + course.getFaculty_id() + "')");
+         courseslist.add(course);
       } catch (SQLException e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
@@ -192,9 +188,12 @@ public class createQueries {
 
    public void deletefaculty(String id) {
       try {
-         statement.executeUpdate("DELETE FROM COURSES WHERE FACULTY_ID = '" + id + "'");
          statement.executeUpdate("DELETE FROM FACULTY WHERE FACULTY_ID = '" + id + "'");
-         System.out.println(facultylist);
+         statement.executeUpdate("DELETE FROM COURSES WHERE FACULTY_ID = '" + id + "'");
+         facultylist.clear();
+         courseslist.clear();
+         getAllCourses();
+         getAllFaculty();
       } catch (SQLException e) {
          e.printStackTrace();
       }
@@ -203,6 +202,10 @@ public class createQueries {
    public void deletecourse(String id) {
       try {
          statement.executeUpdate("DELETE FROM COURSES WHERE FACULTY_ID = '" + id + "'");
+         facultylist.clear();
+         courseslist.clear();
+         getAllCourses();
+         getAllFaculty();
       } catch (SQLException e) {
          e.printStackTrace();
       }
@@ -211,19 +214,17 @@ public class createQueries {
    // **********************************************************updaters***************************************************************
 
    public void updatefaculty(faculty faculty, String id) {
-      List<courses> temp = getAllCourses();
-      List<faculty> temp2 = getAllFaculty();
       // usar faculty id
       try {
          String sql = "UPDATE FACULTY  SET FACULTY_ID = ?, FACULTY_NAME = ?, OFFICE = ? WHERE FACULTY_ID = ?";
          PreparedStatement pStatement = connection.prepareStatement(sql);
-         System.out.println("Llegue aca");
-
          pStatement.setString(1, faculty.getID());
          pStatement.setString(2, faculty.getName());
          pStatement.setString(3, faculty.getOffice());
          pStatement.setString(4, id);
          pStatement.executeUpdate();
+         
+
       } catch (SQLException e) {
          e.printStackTrace();
       }
