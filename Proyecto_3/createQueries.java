@@ -223,7 +223,10 @@ public class createQueries {
          pStatement.setString(3, faculty.getOffice());
          pStatement.setString(4, id);
          pStatement.executeUpdate();
-         
+         facultylist.clear();
+         courseslist.clear();
+         getAllCourses();
+         getAllFaculty();
 
       } catch (SQLException e) {
          e.printStackTrace();
@@ -231,8 +234,6 @@ public class createQueries {
    }
 
    public void updatecourse(courses course, String id) {
-      List<courses> temp = getAllCourses();
-      List<faculty> temp2 = getAllFaculty();
       // usar course id
       // update a course based on the course id
       boolean flag = false;
@@ -247,14 +248,17 @@ public class createQueries {
 
       try {
          String sql = "UPDATE COURSES SET COURSE_ID = ?, COURSE = ?, FACULTY_ID = ? WHERE COURSE_ID = ?";
-
+         System.out.println("a");
          PreparedStatement pStatement = connection.prepareStatement(sql);
          pStatement.setString(1, course.getCourse_id());
          pStatement.setString(2, course.getCourse());
          pStatement.setString(3, course.getFaculty_id());
          pStatement.setString(4, id);
          pStatement.executeUpdate();
-
+         facultylist.clear();
+         courseslist.clear();
+         getAllCourses();
+         getAllFaculty();
       } catch (SQLException e) {
          e.printStackTrace();
       }

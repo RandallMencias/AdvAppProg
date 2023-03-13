@@ -55,9 +55,17 @@ public class BDDController {
     private void selectFirstEntry() {
         LVFaculty.getSelectionModel().selectFirst();
         LVCourse.getSelectionModel().selectFirst();
-        System.out.println(fQueries.getFaculty());
 
     }
+    private void emptyFacultyTF(){
+        InsertName.setText("");
+        InsertOffice.setText("");
+    }
+    private void emptyCourseTF(){
+        InsertCourse.setText("");
+        InsertCourseID.setText("");
+    }
+
 
     @FXML
     void InserProfessor(ActionEvent event) {
@@ -66,9 +74,8 @@ public class BDDController {
                 JOptionPane.showMessageDialog(null, "Ingrese todos los datos:\n    -Nombre\n    -Oficina \n    -Id");
             } else {
                 fQueries.addfaculty(new faculty(InsertID.getText(), InsertName.getText(), InsertOffice.getText()));
-                System.out.println("guarde un profesor");
                 UpdateFacultyEntries();
-
+                emptyFacultyTF();
             }
         } catch (Exception e) {
             // TODO: handle exception
@@ -85,8 +92,8 @@ public class BDDController {
                         "Ingrese todos los datos \n    -Curso\n    -ID de la facutlad \n    -Id");
             } else {
                 fQueries.addcourse(new courses(InsertCourseID.getText(), InsertCourse.getText(), InsertID.getText()));
-                System.out.println("Guarde un curso");
                 UpdateCourseEntries();
+                emptyCourseTF();
             }
 
         } catch (Exception e) {
@@ -123,16 +130,21 @@ public class BDDController {
         }
     }
 
-    // ingresar Updaters de faculty/course usando ID
     @FXML
     void btnModifyCourse(ActionEvent event) {
         fQueries.updatecourse(new courses(InsertCourseID.getText(), InsertCourse.getText(), InsertID.getText()),
                 InsertID.getText());
+        UpdateCourseEntries();
     }
 
     @FXML
     void btnModifyFaculty(ActionEvent event) {
-        fQueries.updatefaculty(new faculty(InsertID.getText(), InsertName.getText(), InsertOffice.getText()),
-                InsertID.getText());
+        if (InsertID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese el ID del profesor a modificar");
+        } else {
+            fQueries.updatefaculty(new faculty(InsertID.getText(), InsertName.getText(), InsertOffice.getText()),
+                    InsertID.getText());
+            UpdateFacultyEntries();
+        }
     }
 }
