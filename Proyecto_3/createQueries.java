@@ -1,6 +1,9 @@
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,8 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.DatabaseMetaData;
 
-
-public class createQueries{
+public class createQueries {
 
    private PreparedStatement showFacultyTable;
    private PreparedStatement showCourseTable;
@@ -22,17 +24,17 @@ public class createQueries{
    public createQueries() {
       facultylist = new ArrayList<faculty>();
       courseslist = new ArrayList<courses>();
-      
+
       try {
          connection = DriverManager.getConnection("jdbc:derby:Datos;", "Ran", "Ran");
          System.out.println("Connection successful");
-          statement= connection.createStatement();
+         statement = connection.createStatement();
       } catch (Exception e) {
          e.printStackTrace();
       }
    }
 
-   public void getTables(){
+   public void getTables() {
       try {
          // Establish a connection to the database
 
@@ -40,21 +42,20 @@ public class createQueries{
          DatabaseMetaData metaData = connection.getMetaData();
 
          // Get a ResultSet containing information about all tables in the database
-         ResultSet tables = metaData.getTables(null, null, "%", new String[] {"TABLE"});
+         ResultSet tables = metaData.getTables(null, null, "%", new String[] { "TABLE" });
 
          // Iterate over the ResultSet and print out the names of the tables
          while (tables.next()) {
-             String tableName = tables.getString("TABLE_NAME");
-             System.out.println(tableName);
+            String tableName = tables.getString("TABLE_NAME");
+            System.out.println(tableName);
          }
 
-         
-     } catch (SQLException e) {
+      } catch (SQLException e) {
          e.printStackTrace();
-     }
+      }
    }
 
-   public void getColumns(String table){
+   public void getColumns(String table) {
       try {
          // Get metadata about the database
          DatabaseMetaData metaData = connection.getMetaData();
@@ -64,16 +65,16 @@ public class createQueries{
 
          // Iterate over the ResultSet and print out the names of the tables
          while (columns.next()) {
-             String columnName = columns.getString("COLUMN_NAME");
-             System.out.println(columnName);
+            String columnName = columns.getString("COLUMN_NAME");
+            System.out.println(columnName);
          }
-     } catch (SQLException e) {
+      } catch (SQLException e) {
          e.printStackTrace();
-     }
+      }
    }
 
    public List<faculty> getAllFaculty() {
-      
+
       ResultSet resultSet = null;
 
       try {
@@ -98,9 +99,17 @@ public class createQueries{
       return facultylist;
    }
 
+   public List<faculty> getFaculty() {
+      return facultylist;
+   }
+
+   public List<courses> getCourses() {
+      return courseslist;
+   }
+
    // get a list of courses
    public List<courses> getAllCourses() {
-      
+
       ResultSet resultSet = null;
 
       try {
@@ -124,26 +133,23 @@ public class createQueries{
 
       return courseslist;
    }
-   
 
-//***********************************************Adders***********************************************
+   // ***********************************************Adders***********************************************
 
-
-
-
-   public void addfaculty(faculty faculty){
-      List<courses>temp = getAllCourses();
-      List<faculty>temp2 = getAllFaculty();
+   public void addfaculty(faculty faculty) {
+      List<courses> temp = getAllCourses();
+      List<faculty> temp2 = getAllFaculty();
 
       for (faculty efaculty : facultylist) {
-         if (efaculty.getID().equals(faculty.getID())) {
+         if (efaculty.getID().equals(faculty.getID()) || efaculty.getOffice().equals(faculty.getOffice())) {
+            JOptionPane.showMessageDialog(null, "No se puede agregar el profesor, esta repetido");
             throw new IllegalArgumentException("No se puede agregar el profesor, esta repetido");
          }
       }
 
-
       try {
-         statement.executeUpdate("INSERT INTO FACULTY VALUES ('"+faculty.getID()+"','"+faculty.getName()+"','"+faculty.getOffice()+"')");
+         statement.executeUpdate("INSERT INTO FACULTY VALUES ('" + faculty.getID() + "','" + faculty.getName() + "','"
+               + faculty.getOffice() + "')");
       } catch (SQLException e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
@@ -151,16 +157,13 @@ public class createQueries{
 
    }
 
+   public void addcourse(courses course) throws IllegalArgumentException {
+      List<courses> temp = getAllCourses();
+      List<faculty> temp2 = getAllFaculty();
 
-   public void addcourse(courses course) throws IllegalArgumentException{
-      List<courses>temp = getAllCourses();
-      List<faculty>temp2 = getAllFaculty();
-      
-
-      //lanzar error
-      
       for (courses ecourse : courseslist) {
          if (ecourse.getCourse_id().equals(course.getCourse_id())) {
+            JOptionPane.showMessageDialog(null, "No se puede agregar el curso, esta repetido");
             throw new IllegalArgumentException("No se puede agregar el curso, esta repetido");
          }
       }
@@ -172,13 +175,12 @@ public class createQueries{
          }
       }
       if (!flag) {
+         JOptionPane.showMessageDialog(null, "No se ha agregado profesor para este curso");
          throw new IllegalArgumentException("No tiene profesor");
       }
-
-
-
       try {
-         statement.executeUpdate("INSERT INTO COURSES VALUES ('"+course.getCourse_id()+"','"+course.getCourse()+"','"+course.getFaculty_id()+"')");
+         statement.executeUpdate("INSERT INTO COURSES VALUES ('" + course.getCourse_id() + "','" + course.getCourse()
+               + "','" + course.getFaculty_id() + "')");
       } catch (SQLException e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
@@ -186,59 +188,52 @@ public class createQueries{
 
    }
 
+   // **********************************************************deleters***************************************************************
 
-// **********************************************************deleters***************************************************************
-
-
-
-   public void deletefaculty(String id){
+   public void deletefaculty(String id) {
       try {
-         statement.executeUpdate("DELETE FROM FACULTY WHERE FACULTY_ID = '"+id+"'");
-         statement.executeUpdate("DELETE FROM COURSES WHERE FACULTY_ID = '"+id+"'");
+         statement.executeUpdate("DELETE FROM COURSES WHERE FACULTY_ID = '" + id + "'");
+         statement.executeUpdate("DELETE FROM FACULTY WHERE FACULTY_ID = '" + id + "'");
+         System.out.println(facultylist);
       } catch (SQLException e) {
          e.printStackTrace();
       }
    }
 
-
-
-
-   public void deletecourse(String id){
+   public void deletecourse(String id) {
       try {
-         statement.executeUpdate("DELETE FROM COURSES WHERE COURSE_ID = '"+id+"'");
+         statement.executeUpdate("DELETE FROM COURSES WHERE FACULTY_ID = '" + id + "'");
       } catch (SQLException e) {
          e.printStackTrace();
       }
    }
 
+   // **********************************************************updaters***************************************************************
 
-
-//**********************************************************updaters***************************************************************
-
-   public void updatefaculty(faculty faculty,String id){
-      List<courses>temp = getAllCourses();
-      List<faculty>temp2 = getAllFaculty();
-      //usar faculty id
-      try{
-         String sql = "UPDATE FACULTY FACULTY_ID = ?, FACULTY_NAME = ?, OFFICE = ? WHERE FACULTY_ID = ?";
-     
+   public void updatefaculty(faculty faculty, String id) {
+      List<courses> temp = getAllCourses();
+      List<faculty> temp2 = getAllFaculty();
+      // usar faculty id
+      try {
+         String sql = "UPDATE FACULTY  SET FACULTY_ID = ?, FACULTY_NAME = ?, OFFICE = ? WHERE FACULTY_ID = ?";
          PreparedStatement pStatement = connection.prepareStatement(sql);
+         System.out.println("Llegue aca");
+
          pStatement.setString(1, faculty.getID());
          pStatement.setString(2, faculty.getName());
          pStatement.setString(3, faculty.getOffice());
          pStatement.setString(4, id);
          pStatement.executeUpdate();
-      }
-      catch(SQLException e){
+      } catch (SQLException e) {
          e.printStackTrace();
       }
    }
 
-   public void updatecourse(courses course,String id){
-      List<courses>temp = getAllCourses();
-      List<faculty>temp2 = getAllFaculty();
-      //usar course id
-      //update a course based on the course id
+   public void updatecourse(courses course, String id) {
+      List<courses> temp = getAllCourses();
+      List<faculty> temp2 = getAllFaculty();
+      // usar course id
+      // update a course based on the course id
       boolean flag = false;
       for (faculty faculty : facultylist) {
          if (faculty.getID().equals(course.getFaculty_id())) {
@@ -249,38 +244,30 @@ public class createQueries{
          throw new IllegalArgumentException("No tiene profesor");
       }
 
-      
+      try {
+         String sql = "UPDATE COURSES SET COURSE_ID = ?, COURSE = ?, FACULTY_ID = ? WHERE COURSE_ID = ?";
 
+         PreparedStatement pStatement = connection.prepareStatement(sql);
+         pStatement.setString(1, course.getCourse_id());
+         pStatement.setString(2, course.getCourse());
+         pStatement.setString(3, course.getFaculty_id());
+         pStatement.setString(4, id);
+         pStatement.executeUpdate();
 
-      try{ 
-      String sql = "UPDATE COURSES SET COURSE_ID = ?, COURSE = ?, FACULTY_ID = ? WHERE COURSE_ID = ?";
-     
-      PreparedStatement pStatement = connection.prepareStatement(sql);
-      pStatement.setString(1, course.getCourse_id());
-      pStatement.setString(2, course.getCourse());
-      pStatement.setString(3, course.getFaculty_id());
-      pStatement.setString(4, id);
-      pStatement.executeUpdate();
-        
-      }
-      catch(SQLException e){
+      } catch (SQLException e) {
          e.printStackTrace();
       }
    }
 
+   // ******************************consultas***************************************
 
-
-//******************************consultas***************************************
-
-
-
-   public ArrayList<courses> getcoursesperfaculty(String id){
+   public ArrayList<courses> getcoursesperfaculty(String id) {
       ArrayList<courses> coursesperfaculty = new ArrayList<courses>();
       ResultSet resultSet = null;
 
       try {
          // select all of the entries in the COURSES table
-         showCourseTable = connection.prepareStatement("SELECT * FROM COURSES WHERE FACULTY_ID = '"+id+"'");
+         showCourseTable = connection.prepareStatement("SELECT * FROM COURSES WHERE FACULTY_ID = '" + id + "'");
          resultSet = showCourseTable.executeQuery();
 
          while (resultSet.next()) {
@@ -289,19 +276,9 @@ public class createQueries{
          }
       } catch (SQLException sqlException) {
          sqlException.printStackTrace();
-      } 
+      }
 
       return coursesperfaculty;
    }
-
-
-
-
-
-
-
-
-
-
 
 }

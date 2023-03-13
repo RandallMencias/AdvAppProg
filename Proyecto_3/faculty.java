@@ -36,6 +36,6 @@ public class faculty {
 
     @Override
     public String toString(){
-        return "ID: " + getID() + " del profesor: " + getName() + " Con oficina en:" + getOffice();
+        return "Profesor: " + getName() + "; Oficina: " + getOffice() +";ID: " + getID();
     }
 }
