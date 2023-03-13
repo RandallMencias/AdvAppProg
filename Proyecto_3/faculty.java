@@ -1,11 +1,11 @@
-public class Data {
+public class faculty {
     //Datos miembro
     private String name;
     private String ID;
     private String office;
 
     //constructor
-    public Data(String name, String ID,String office){
+    public faculty(String ID,String name,String office){
         this.name = name;
         this.ID = ID;
         this.office = office;

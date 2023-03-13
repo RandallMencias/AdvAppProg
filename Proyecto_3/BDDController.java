@@ -29,14 +29,14 @@ public class BDDController {
     private ListView<?> LVCourse;
 
     @FXML
-    private ListView<Data> LVFaculty;
+    private ListView<faculty> LVFaculty;
 
     @FXML
     private AnchorPane root;
 
     //private Data data;
-    private final ObservableList<Data> facultyList = FXCollections.observableArrayList();
-    private final createQueries FQueries = new createQueries();
+    private final ObservableList<faculty> facultyList = FXCollections.observableArrayList();
+    // private final createQueries FQueries = new createQueries();
 
     /*public void initialize() {
         LVFaculty.setItems(facultyList); // bind to contactsList

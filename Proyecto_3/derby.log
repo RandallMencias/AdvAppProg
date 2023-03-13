@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Sun Mar 12 18:12:20 ECT 2023D001 : [0] The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046), [1] a816c00e-0186-d818-a8fc-00000f1706a8, [2] C:\Users\JuanV\OneDrive\Documentos\Universidad\6_Sexto_Semestre\Programacion_Avanzada_de_apps\Tarea3\Datos, [3] jdk.internal.loader.ClassLoaders$AppClassLoader@6e8cf4c6, [4] file:/C:/Apache/db-derby-10.16.1.1-bin/db-derby-10.16.1.1-bin/lib/derby.jar
+Sun Mar 12 22:28:50 ECT 2023D001 : [0] The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046), [1] a816c00e-0186-d903-7f34-00000fb9c390, [2] C:\Users\Randall\Documents\GitHub\AdvAppProg\Repo\Proyecto_3\Datos, [3] jdk.internal.loader.ClassLoaders$AppClassLoader@6e8cf4c6, [4] file:/C:/Users/Randall/derby/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=18.0.1.1+2-6
-user.dir=C:\Users\JuanV\OneDrive\Documentos\Universidad\6_Sexto_Semestre\Programacion_Avanzada_de_apps\Tarea3
+java.runtime.version=19.0.2+7-44
+user.dir=C:\Users\Randall\Documents\GitHub\AdvAppProg\Repo\Proyecto_3
 os.name=Windows 11
 os.arch=amd64
 os.version=10.0
