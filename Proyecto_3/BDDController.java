@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 public class BDDController {
+    //importar variables del FXML
     @FXML
     private ListView<courses> LVCourse;
     @FXML
@@ -28,13 +29,16 @@ public class BDDController {
     private ListView<courses> LVperProfessor;
     @FXML
     private TextField InsertToSort;
+    @FXML
+    private TextField TFModifyID;
 
+    //Variables para manejar las listviews
     private createQueries fQueries = new createQueries();
 
     private final ObservableList<faculty> facultyList = FXCollections.observableArrayList();
     private final ObservableList<courses> courseList = FXCollections.observableArrayList();
-    private final ObservableList<courses> SortByProfessor = FXCollections.observableArrayList();
 
+    //modificar valores del listView
     public void initialize() {
         LVFaculty.setItems(facultyList);
         LVCourse.setItems(courseList);
@@ -63,6 +67,7 @@ public class BDDController {
 
     }
 
+    //Modificar TextFields
     private void emptyFacultyTF() {
         InsertName.setText("");
         InsertOffice.setText("");
@@ -73,6 +78,7 @@ public class BDDController {
         InsertCourseID.setText("");
     }
 
+    //Boton para ingresar un profesor en Faculty
     @FXML
     void InserProfessor(ActionEvent event) {
         try {
@@ -141,8 +147,17 @@ public class BDDController {
         if (InsertCourseID.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese el codigo de la clase a modificar");
         } else {
-            fQueries.updatecourse(new courses(InsertCourseID.getText(), InsertCourse.getText(), InsertID.getText()),
-                    InsertCourseID.getText());
+            /*
+             * fQueries.updatecourse(new courses(InsertCourseID.getText(),
+             * InsertCourse.getText(), InsertID.getText()),
+             * InsertCourseID.getText());
+             * UpdateCourseEntries();
+             */
+            if (TFModifyID.getText().isEmpty()) {
+                fQueries.updatecourse(InsertCourseID.getText(), InsertCourse.getText());
+            } else{
+                fQueries.updatecourse(InsertCourseID.getText(), InsertCourse.getText(),TFModifyID.getText());
+            }
             UpdateCourseEntries();
         }
 
@@ -153,21 +168,36 @@ public class BDDController {
         if (InsertID.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese el ID del profesor a modificar");
         } else {
-            fQueries.updatefaculty(new faculty(InsertID.getText(), InsertName.getText(), InsertOffice.getText()),
-                    InsertID.getText());
+            /*
+             * fQueries.updatefaculty(new faculty(InsertID.getText(), InsertName.getText(),
+             * InsertOffice.getText()),
+             * InsertID.getText());
+             * UpdateFacultyEntries();
+             * emptyFacultyTF();
+             * InsertID.setText("");
+             */
+            // if1: user enters facultyId and office to change office
+            if (InsertName.getText().isEmpty() && TFModifyID.getText().isEmpty()) {
+                fQueries.updatefaculty(InsertID.getText(), InsertOffice.getText());
+            } else if (TFModifyID.getText().isEmpty()) {// user enters
+                fQueries.updatefaculty(InsertID.getText(), InsertOffice.getText(), InsertName.getText());
+            } else {
+                fQueries.updatefaculty(InsertID.getText(), InsertOffice.getText(), InsertName.getText(),
+                        TFModifyID.getText());
+            }
             UpdateFacultyEntries();
             emptyFacultyTF();
-            InsertID.setText("");
+            UpdateCourseEntries();
         }
     }
 
     @FXML
     void btnViewProfessor(ActionEvent event) {
         LVperProfessor.getItems().clear();
-        if(InsertToSort.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"Ingere el ID profesor a buscar");
-        }else{
-            
+        if (InsertToSort.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingere el ID profesor a buscar");
+        } else {
+
             LVperProfessor.getItems().addAll(fQueries.getcoursesperfaculty(InsertToSort.getText()));
         }
     }

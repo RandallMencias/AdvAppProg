@@ -29,7 +29,7 @@ public class createQueries {
          connection = DriverManager.getConnection("jdbc:derby:Datos;", "Ran", "Ran");
          System.out.println("Connection successful");
          statement = connection.createStatement();
-         
+
       } catch (Exception e) {
          e.printStackTrace();
       }
@@ -37,7 +37,7 @@ public class createQueries {
 
    public void getTables() {
       try {
-     
+
          DatabaseMetaData metaData = connection.getMetaData();
 
          // Get a ResultSet containing information about all tables in the database
@@ -216,7 +216,7 @@ public class createQueries {
 
    // **********************************************************updaters***************************************************************
 
-   public void updatefaculty(faculty faculty, String id) {
+  /* public void updatefaculty(faculty faculty, String id) {
       try {
          String sql = "UPDATE FACULTY  SET FACULTY_ID = ?, FACULTY_NAME = ?, OFFICE = ? WHERE FACULTY_ID = ?";
          PreparedStatement pStatement = connection.prepareStatement(sql);
@@ -244,7 +244,7 @@ public class createQueries {
       if (!flag) {
          JOptionPane.showMessageDialog(null, "No se ha agregado profesor para este curso");
          throw new IllegalArgumentException("No tiene profesor");
-         
+
       }
 
       try {
@@ -260,52 +260,46 @@ public class createQueries {
       } catch (SQLException e) {
          e.printStackTrace();
       }
+   }*/
+
+   public void updatefaculty(String faculty_id, String... str) {
+      // office, faculty_name, faculty_id
+      try {
+         if (str.length == 1) {
+            statement.executeUpdate("UPDATE FACULTY SET OFFICE='" + str[0] + "' WHERE FACULTY_ID='"+ faculty_id + "'");
+         }
+
+         if (str.length == 2) {
+            statement.executeUpdate("UPDATE FACULTY SET OFFICE='" + str[0] + "' WHERE FACULTY_ID='"+ faculty_id + "'");
+            statement.executeUpdate("UPDATE FACULTY SET FACULTY_NAME='" + str[1] + "' WHERE FACULTY_ID='"+ faculty_id + "'");
+         }
+         if (str.length == 3) {
+            statement.executeUpdate("UPDATE FACULTY SET OFFICE='" + str[0] + "' WHERE FACULTY_ID='"+ faculty_id + "'");
+            statement.executeUpdate("UPDATE FACULTY SET FACULTY_NAME='" + str[1] + "' WHERE FACULTY_ID='"+ faculty_id + "'");
+            statement.executeUpdate("UPDATE FACULTY SET FACULTY_ID='" + str[2] + "' WHERE FACULTY_ID='"+ faculty_id + "'");
+            statement.executeUpdate("UPDATE COURSES SET FACULTY_ID='" + str[2] + "' WHERE FACULTY_ID='"+ faculty_id + "'");
+         }
+
+      } catch (SQLException e) {
+         e.printStackTrace();
+      }
+      updatelists();
    }
 
-   
-
-
-   // public void updatefaculty(String faculty_id, String... str) {
-   //    //office, faculty_name, faculty_id
-   //    try {
-   //    if(str.length == 1){
-   //       statement.executeUpdate("UPDATE FACULTY SET OFFICE='" + str[0] + " WHERE id=" + faculty_id);}
-
-   //    if(str.length == 2){
-   //       statement.executeUpdate("UPDATE FACULTY SET OFFICE='" + str[0] + " WHERE id=" + faculty_id);
-   //       statement.executeUpdate("UPDATE FACULTY SET FACULTY_NAME='" + str[1] + " WHERE id=" + faculty_id);}
-   //    if(str.length == 3){
-   //       statement.executeUpdate("UPDATE FACULTY SET OFFICE='" + str[0] + " WHERE id=" + faculty_id);
-   //       statement.executeUpdate("UPDATE FACULTY SET FACULTY_NAME='" + str[1] + " WHERE id=" + faculty_id);
-   //       statement.executeUpdate("UPDATE FACULTY SET FACULTY_ID='" + str[2] + " WHERE id=" + faculty_id);}
-         
-
-   //    } catch (SQLException e) {
-   //       e.printStackTrace();
-   //    }
-   //    updatelists();
-   // }
-
-   // public void updatecourse(String course_id, String... str) {
-   //    //faculty_id, course, course_id
-   //    try {
-   //       if(str.length == 1){
-   //          statement.executeUpdate("UPDATE COURSES SET FACULTY_ID='" + str[0] + " WHERE id=" + course_id);}
-   //       if(str.length == 2){
-   //          statement.executeUpdate("UPDATE COURSES SET FACULTY_ID='" + str[0] + " WHERE id=" + course_id);
-   //          statement.executeUpdate("UPDATE COURSES SET COURSE='" + str[1] + " WHERE id=" + course_id);}
-   //       if(str.length == 3){
-   //          statement.executeUpdate("UPDATE COURSES SET FACULTY_ID='" + str[0] + " WHERE id=" + course_id);
-   //          statement.executeUpdate("UPDATE COURSES SET COURSE='" + str[1] + " WHERE id=" + course_id);
-   //          statement.executeUpdate("UPDATE COURSES SET COURSE_ID='" + str[2] + " WHERE id=" + course_id);}
-   //       }
-   //       catch (SQLException e) {
-   //       e.printStackTrace();
-   //    }
-   // }
-   
-
-
+   public void updatecourse(String course_id, String... str) {
+      // faculty_id, course, course_id
+      try {
+         if (str.length == 1) {
+            statement.executeUpdate("UPDATE COURSES SET COURSE='" + str[0] + "' WHERE COURSE_ID='"+ course_id + "'");
+         }
+         if (str.length == 2) {
+            statement.executeUpdate("UPDATE COURSES SET COURSE='" + str[0] + "' WHERE COURSE_ID='"+ course_id + "'");
+            statement.executeUpdate("UPDATE COURSES SET COURSE_ID='" + str[1] + "' WHERE COURSE_ID='"+ course_id + "'");
+         }
+      } catch (SQLException e) {
+         e.printStackTrace();
+      }
+   }
 
 
 
@@ -336,7 +330,8 @@ public class createQueries {
 
       return coursesperfaculty;
    }
-   public ArrayList<courses> getCommonWords(String similar){
+
+   public ArrayList<courses> getCommonWords(String similar) {
       ArrayList<courses> sorted = new ArrayList<>();
       ResultSet resultSet = null;
       try {
@@ -357,6 +352,5 @@ public class createQueries {
       getAllCourses();
       getAllFaculty();
    }
-
 
 }
