@@ -24,11 +24,16 @@ public class BDDController {
     private TextField InsertOffice;
     @FXML
     private AnchorPane root;
+    @FXML
+    private ListView<courses> LVperProfessor;
+    @FXML
+    private TextField InsertToSort;
 
     private createQueries fQueries = new createQueries();
 
     private final ObservableList<faculty> facultyList = FXCollections.observableArrayList();
     private final ObservableList<courses> courseList = FXCollections.observableArrayList();
+    private final ObservableList<courses> SortByProfessor = FXCollections.observableArrayList();
 
     public void initialize() {
         LVFaculty.setItems(facultyList);
@@ -104,11 +109,11 @@ public class BDDController {
 
     @FXML
     void btnRemoveClass(ActionEvent event) {
-        if (InsertID.getText().isEmpty()) {
+        if (InsertCourseID.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null,
                     "Ingrese el ID de la clase a eliminar");
         } else {
-            fQueries.deletecourse(InsertID.getText());
+            fQueries.deletecourse(InsertCourseID.getText());
             UpdateCourseEntries();
             UpdateFacultyEntries();
         }
@@ -153,6 +158,17 @@ public class BDDController {
             UpdateFacultyEntries();
             emptyFacultyTF();
             InsertID.setText("");
+        }
+    }
+
+    @FXML
+    void btnViewProfessor(ActionEvent event) {
+        LVperProfessor.getItems().clear();
+        if(InsertToSort.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Ingere el ID profesor a buscar");
+        }else{
+            
+            LVperProfessor.getItems().addAll(fQueries.getcoursesperfaculty(InsertToSort.getText()));
         }
     }
 }

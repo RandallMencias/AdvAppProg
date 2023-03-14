@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="1495.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BDDController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="712.0" prefWidth="1495.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BDDController">
    <children>
       <Label layoutX="825.0" layoutY="165.0" text="Nombre:" AnchorPane.rightAnchor="623.3333333333334" />
       <Label layoutX="967.0" layoutY="86.0" text="ID de la Facultad:" AnchorPane.rightAnchor="436.66666666666674" />
@@ -24,14 +24,18 @@
       <Button layoutX="947.0" layoutY="246.0" mnemonicParsing="false" onAction="#btnRemoveProfessor" text="Eliminar Profesor" AnchorPane.rightAnchor="442.0" />
       <Button layoutX="646.0" layoutY="248.0" mnemonicParsing="false" onAction="#btnInsertClass" text="Ingresar Clase" AnchorPane.rightAnchor="275.0" />
       <Button layoutX="827.0" layoutY="248.0" mnemonicParsing="false" onAction="#btnRemoveClass" text="Eliminar Clase" AnchorPane.rightAnchor="94.66666666666663" />
-      <ListView fx:id="LVFaculty" layoutX="22.0" layoutY="35.0" prefHeight="419.0" prefWidth="353.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="1135.0" AnchorPane.topAnchor="35.0" />
+      <ListView fx:id="LVFaculty" layoutX="22.0" layoutY="35.0" prefHeight="664.0" prefWidth="353.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="1135.0" AnchorPane.topAnchor="35.0" />
       <Label layoutX="537.0" layoutY="10.0" prefHeight="17.0" prefWidth="63.0" text="Lista Cursos" AnchorPane.leftAnchor="537.0" AnchorPane.rightAnchor="895.0" />
       <Label layoutX="117.0" layoutY="10.0" prefHeight="17.0" prefWidth="89.0" text="Lista Profesores" AnchorPane.leftAnchor="117.0" AnchorPane.rightAnchor="1289.0" />
-      <ListView fx:id="LVCourse" layoutX="353.0" layoutY="35.0" prefHeight="419.0" prefWidth="418.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="709.0" AnchorPane.topAnchor="35.0" />
+      <ListView fx:id="LVCourse" layoutX="353.0" layoutY="35.0" prefHeight="664.0" prefWidth="418.0" AnchorPane.bottomAnchor="13.0" AnchorPane.rightAnchor="709.0" AnchorPane.topAnchor="35.0" />
       <Button layoutX="841.0" layoutY="82.0" mnemonicParsing="false" onAction="#btnModifyFaculty" text="Editar Profesores" AnchorPane.rightAnchor="548.6666666666666" />
       <Button layoutX="1274.0" layoutY="82.0" mnemonicParsing="false" onAction="#btnModifyCourse" text="Editar Cursos" />
       <Label layoutX="825.0" layoutY="296.0" prefHeight="33.0" prefWidth="515.0" text="- Para editar un curso, ingrese el ID del curso que se quiere modificar e ingrese los nuevos datos" />
       <Label layoutX="824.0" layoutY="320.0" prefHeight="33.0" prefWidth="639.0" text="- Para editar un profesor, ingrese el ID de la facultad y los nuevos datos" />
       <Label layoutX="824.0" layoutY="346.0" prefHeight="33.0" prefWidth="639.0" text="- Para modificar, ingrese el ID del objeto a modificar e ingrese los datos nuevos" />
+      <Label layoutX="934.0" layoutY="401.0" text="Ver por profesor:" />
+      <ListView fx:id="LVperProfessor" layoutX="818.0" layoutY="434.0" prefHeight="244.0" prefWidth="503.0" />
+      <TextField fx:id="InsertToSort" layoutX="1049.0" layoutY="397.0" />
+      <Button layoutX="1349.0" layoutY="473.0" mnemonicParsing="false" onAction="#btnViewProfessor" text="Ver por profesor" />
    </children>
 </AnchorPane>

@@ -104,6 +104,20 @@ public class createQueries {
    }
 
    public List<courses> getCourses() {
+      courseslist.clear();
+      ResultSet resultSet = null;
+      try {
+         // select all of the entries in the COURSES table
+         showCourseTable = connection.prepareStatement("SELECT * FROM COURSES ORDER BY COURSE");
+         resultSet = showCourseTable.executeQuery();
+
+         while (resultSet.next()) {
+            courseslist.add(new courses(resultSet.getString("COURSE_ID"), resultSet.getString("COURSE"),
+                  resultSet.getString("FACULTY_ID")));
+         }
+      } catch (SQLException sqlException) {
+         sqlException.printStackTrace();
+      }
       return courseslist;
    }
 
@@ -114,7 +128,7 @@ public class createQueries {
 
       try {
          // select all of the entries in the COURSES table
-         showCourseTable = connection.prepareStatement("SELECT * FROM COURSES");
+         showCourseTable = connection.prepareStatement("SELECT * FROM COURSES ORDER BY COURSE");
          resultSet = showCourseTable.executeQuery();
 
          while (resultSet.next()) {
@@ -200,7 +214,7 @@ public class createQueries {
 
    public void deletecourse(String id) {
       try {
-         statement.executeUpdate("DELETE FROM COURSES WHERE FACULTY_ID = '" + id + "'");
+         statement.executeUpdate("DELETE FROM COURSES WHERE COURSE_ID = '" + id + "'");
          facultylist.clear();
          courseslist.clear();
          getAllCourses();
@@ -213,7 +227,6 @@ public class createQueries {
    // **********************************************************updaters***************************************************************
 
    public void updatefaculty(faculty faculty, String id) {
-      // usar faculty id
       try {
          String sql = "UPDATE FACULTY  SET FACULTY_ID = ?, FACULTY_NAME = ?, OFFICE = ? WHERE FACULTY_ID = ?";
          PreparedStatement pStatement = connection.prepareStatement(sql);
@@ -286,5 +299,19 @@ public class createQueries {
 
       return coursesperfaculty;
    }
-
+   public ArrayList<courses> getCommonWords(String similar){
+      ArrayList<courses> sortedByCommon = new ArrayList<>();
+      ResultSet resultSet = null;
+      try {
+         showCourseTable = connection.prepareStatement("SELECT * FROM COURSES WHERE COURSE LIKE '" + similar + "'");
+         resultSet = showCourseTable.executeQuery();
+         while (resultSet.next()) {
+            sortedByCommon.add(new courses(resultSet.getString("COURSE_ID"), resultSet.getString("COURSE"),
+                  resultSet.getString("FACULTY_ID")));
+         }
+      } catch (Exception e) {
+         // TODO: handle exception
+      }
+      return sortedByCommon;
+   }
 }
