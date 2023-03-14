@@ -1,39 +1,26 @@
-DROP TABLE Faculty;
-DROP TABLE Course;
-DROP TABLE Manager;
-
-CREATE TABLE Faculty (
-   faculty_Name varchar(40) NOT NULL,
-   office varchar(40) NOT NULL,
-   faculty_ID varchar(40) NOT NULL,
-   PRIMARY KEY (faculty_ID)
+CREATE TABLE faculty (
+  FACULTY_ID VARCHAR(50) PRIMARY KEY,
+  FACULTY_NAME VARCHAR(50),
+  OFFICE VARCHAR(50)
 );
 
-CREATE TABLE Course (
-   course_ID varchar (40) NOT NULL,
-   course varchar (40) NOT NULL,
-   faculty_ID varchar (4) NOT NULL,
-   PRIMARY KEY (faculty_ID)
-);
 
-CREATE TABLE Manager (
-   Faculty_ID varchar (40) NOT NULLL,
-   CourseF_ID varchar (40) NOT NULL,
-   FOREIGN KEY (Faculty_ID) REFERENCES Faculty (faculty_ID), 
-   FOREIGN KEY (Course_ID) REFERENCES Course (faculty_ID)
-);
-
-INSERT INTO Faculty (faculty_Name, office, faculty_ID)
+INSERT INTO FACULTY (FACULTY_ID, FACULTY_NAME, OFFICE)
 VALUES 
-   ('Black Anderson','MTC-218','A52990'), 
-   ('Debby Angels','MTC-320','A77587');
+  ('A52990', 'BLACK ANDERSON', 'MTC-218'),
+  ('A77587', 'DEBBY ANGLES', 'MTC230'),
+  ('B66750', 'ALICE BROWN', 'MTC-257');
 
-INSERT INTO Course (course_ID, course, faculty_ID)
-VALUES
-   ('CSC-132A','Introduction to Programming','A52990'),
-   ('CSC-230A','Java How to Program','A77587');
+CREATE TABLE COURSES (
+  COURSE_ID VARCHAR(50) PRIMARY KEY,
+  COURSE VARCHAR(50),
+  FACULTY_ID VARCHAR(50),
+  CONSTRAINT fk_faculty_id FOREIGN KEY (FACULTY_ID) REFERENCES faculty (FACULTY_ID)
+);
 
-INSERT INTO authorISBN (authorID,isbn)
-VALUES
-   ('A52990','A52990'),
-   ('A77587','A77587');
+INSERT INTO COURSES (COURSE_ID, COURSE, FACULTY_ID)
+VALUES 
+  ('CMP-6003', 'Introduction to Computer Science', 'A52990'),
+  ('CMP-3023', 'Data Structures and Algorithms', 'A77587'),
+  ('CSC-132A', 'Database Systems', 'A77587'),
+  ('CMP-1001', 'Software Engineering', 'B66750');
