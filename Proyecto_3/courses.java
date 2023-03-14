@@ -1,3 +1,4 @@
+//Clase para crear objeto Courses
 public class courses {
     private String course_id;
     private String course;
@@ -33,7 +34,7 @@ public class courses {
     public String getFaculty_id() {
         return faculty_id;
     }
-
+    //toString
     @Override
     public String toString(){
         return "Curso: " + getCourse() + "; ID del curso: " + getCourse_id() +"; ID de la facultad: " + getFaculty_id();

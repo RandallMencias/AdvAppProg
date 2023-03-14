@@ -215,53 +215,6 @@ public class createQueries {
    }
 
    // **********************************************************updaters***************************************************************
-
-  /* public void updatefaculty(faculty faculty, String id) {
-      try {
-         String sql = "UPDATE FACULTY  SET FACULTY_ID = ?, FACULTY_NAME = ?, OFFICE = ? WHERE FACULTY_ID = ?";
-         PreparedStatement pStatement = connection.prepareStatement(sql);
-         pStatement.setString(1, faculty.getID());
-         pStatement.setString(2, faculty.getName());
-         pStatement.setString(3, faculty.getOffice());
-         pStatement.setString(4, id);
-         pStatement.executeUpdate();
-         updatelists();
-
-      } catch (SQLException e) {
-         e.printStackTrace();
-      }
-   }
-
-   public void updatecourse(courses course, String id) {
-      // usar course id
-      // update a course based on the course id
-      boolean flag = false;
-      for (faculty faculty : facultylist) {
-         if (faculty.getID().equals(course.getFaculty_id())) {
-            flag = true;
-         }
-      }
-      if (!flag) {
-         JOptionPane.showMessageDialog(null, "No se ha agregado profesor para este curso");
-         throw new IllegalArgumentException("No tiene profesor");
-
-      }
-
-      try {
-         String sql = "UPDATE COURSES SET COURSE_ID = ?, COURSE = ?, FACULTY_ID = ? WHERE COURSE_ID = ?";
-         System.out.println("a");
-         PreparedStatement pStatement = connection.prepareStatement(sql);
-         pStatement.setString(1, course.getCourse_id());
-         pStatement.setString(2, course.getCourse());
-         pStatement.setString(3, course.getFaculty_id());
-         pStatement.setString(4, id);
-         pStatement.executeUpdate();
-         updatelists();
-      } catch (SQLException e) {
-         e.printStackTrace();
-      }
-   }*/
-
    public void updatefaculty(String faculty_id, String... str) {
       // office, faculty_name, faculty_id
       try {
@@ -300,14 +253,6 @@ public class createQueries {
          e.printStackTrace();
       }
    }
-
-
-
-
-
-
-
-
 
    // ******************************consultas***************************************
 

@@ -82,6 +82,7 @@ public class BDDController {
     @FXML
     void InserProfessor(ActionEvent event) {
         try {
+            //validar que se tenga todo para agregar profesor
             if (InsertName.getText().isEmpty() || InsertOffice.getText().isEmpty() || InsertID.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Ingrese todos los datos:\n    -Nombre\n    -Oficina \n    -Id");
             } else {
@@ -93,10 +94,11 @@ public class BDDController {
             // TODO: handle exception
         }
     }
-
+    //Boton para ingresar una clase nueva
     @FXML
     void btnInsertClass(ActionEvent event) {
         try {
+            //validar que se tengan los datos para añadirla
             if (InsertCourse.getText().isEmpty() || InsertCourseID.getText().isEmpty()
                     || InsertID.getText().isEmpty()) {
                 // Ingresar validacion que el profesor con ese ID ya exista
@@ -112,28 +114,33 @@ public class BDDController {
             // TODO: handle exception
         }
     }
-
+    //boton para eliminar una clase
     @FXML
     void btnRemoveClass(ActionEvent event) {
+        //verificar que se haya ingresado el ID para eliminar
         if (InsertCourseID.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null,
                     "Ingrese el ID de la clase a eliminar");
         } else {
+            //eliminar 
             fQueries.deletecourse(InsertCourseID.getText());
             UpdateCourseEntries();
             UpdateFacultyEntries();
         }
     }
-
+    //Boton para eliminar profesor
     @FXML
     void btnRemoveProfessor(ActionEvent event) {
+        //verificar que se haya ingresado el ID a eliminar
         if (InsertID.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null,
                     "Ingrese el ID del profesor a eliminar");
         } else {
+            //mensaje que indica que se van a eliminar de las dos listas
             int value = JOptionPane.showConfirmDialog(null,
                     "Seguro desea eliminar el profesor?\nTambien se eliminaran sus cursos", "Ventana de confirmacion",
                     JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            //eliminar de las dos listas
             if (value == JOptionPane.YES_OPTION) {
                 fQueries.deletefaculty(InsertID.getText());
                 UpdateCourseEntries();
@@ -141,18 +148,12 @@ public class BDDController {
             }
         }
     }
-
+    //Boton para modificar el curso
     @FXML
     void btnModifyCourse(ActionEvent event) {
         if (InsertCourseID.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese el codigo de la clase a modificar");
         } else {
-            /*
-             * fQueries.updatecourse(new courses(InsertCourseID.getText(),
-             * InsertCourse.getText(), InsertID.getText()),
-             * InsertCourseID.getText());
-             * UpdateCourseEntries();
-             */
             if (TFModifyID.getText().isEmpty()) {
                 fQueries.updatecourse(InsertCourseID.getText(), InsertCourse.getText());
             } else{
@@ -162,24 +163,15 @@ public class BDDController {
         }
 
     }
-
+    //Boton para modificar Profesores
     @FXML
     void btnModifyFaculty(ActionEvent event) {
         if (InsertID.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese el ID del profesor a modificar");
         } else {
-            /*
-             * fQueries.updatefaculty(new faculty(InsertID.getText(), InsertName.getText(),
-             * InsertOffice.getText()),
-             * InsertID.getText());
-             * UpdateFacultyEntries();
-             * emptyFacultyTF();
-             * InsertID.setText("");
-             */
-            // if1: user enters facultyId and office to change office
             if (InsertName.getText().isEmpty() && TFModifyID.getText().isEmpty()) {
                 fQueries.updatefaculty(InsertID.getText(), InsertOffice.getText());
-            } else if (TFModifyID.getText().isEmpty()) {// user enters
+            } else if (TFModifyID.getText().isEmpty()) {
                 fQueries.updatefaculty(InsertID.getText(), InsertOffice.getText(), InsertName.getText());
             } else {
                 fQueries.updatefaculty(InsertID.getText(), InsertOffice.getText(), InsertName.getText(),
@@ -190,14 +182,13 @@ public class BDDController {
             UpdateCourseEntries();
         }
     }
-
+    //Boton para mostrar clases ordenadas por profesor
     @FXML
     void btnViewProfessor(ActionEvent event) {
         LVperProfessor.getItems().clear();
         if (InsertToSort.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingere el ID profesor a buscar");
         } else {
-
             LVperProfessor.getItems().addAll(fQueries.getcoursesperfaculty(InsertToSort.getText()));
         }
     }
