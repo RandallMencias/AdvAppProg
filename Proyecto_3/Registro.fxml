@@ -30,5 +30,8 @@
       <ListView fx:id="LVCourse" layoutX="353.0" layoutY="35.0" prefHeight="419.0" prefWidth="418.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="709.0" AnchorPane.topAnchor="35.0" />
       <Button layoutX="841.0" layoutY="82.0" mnemonicParsing="false" onAction="#btnModifyFaculty" text="Editar Profesores" AnchorPane.rightAnchor="548.6666666666666" />
       <Button layoutX="1274.0" layoutY="82.0" mnemonicParsing="false" onAction="#btnModifyCourse" text="Editar Cursos" />
+      <Label layoutX="825.0" layoutY="296.0" prefHeight="33.0" prefWidth="515.0" text="- Para editar un curso, ingrese el ID del curso que se quiere modificar e ingrese los nuevos datos" />
+      <Label layoutX="824.0" layoutY="320.0" prefHeight="33.0" prefWidth="639.0" text="- Para editar un profesor, ingrese el ID de la facultad y los nuevos datos" />
+      <Label layoutX="824.0" layoutY="346.0" prefHeight="33.0" prefWidth="639.0" text="- Para modificar, ingrese el ID del objeto a modificar e ingrese los datos nuevos" />
    </children>
 </AnchorPane>
