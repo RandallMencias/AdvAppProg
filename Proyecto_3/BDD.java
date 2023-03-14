@@ -10,14 +10,17 @@ public class BDD extends Application {
    @Override
    public void start(Stage stage) throws Exception {
       Parent root = FXMLLoader.load(getClass().getResource("Registro.fxml"));
-
+      
       Scene scene = new Scene(root);
       stage.setTitle("RegisterViewer");
       stage.setScene(scene);
       stage.show();
    }
+
    public static void main(String[] args) {
+      createQueries createQueries= new createQueries();
+      createQueries.getColumns("COURSES");
+      createQueries.getTables();
       launch(args);
    }
-   
 }
