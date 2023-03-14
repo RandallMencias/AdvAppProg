@@ -197,8 +197,9 @@ public class createQueries {
 
    public void deletefaculty(String id) {
       try {
-         statement.executeUpdate("DELETE FROM FACULTY WHERE FACULTY_ID = '" + id + "'");
          statement.executeUpdate("DELETE FROM COURSES WHERE FACULTY_ID = '" + id + "'");
+         statement.executeUpdate("DELETE FROM FACULTY WHERE FACULTY_ID = '" + id + "'");
+         
          updatelists();
       } catch (SQLException e) {
          e.printStackTrace();
