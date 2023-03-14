@@ -14,7 +14,6 @@ public class BDD extends Application {
       createQueries FQueries = new createQueries();
       ArrayList<courses> courses = FQueries.getcoursesperfaculty("abc43Ra");      
       courses = FQueries.getcoursesperfaculty("abc43Ra");
-      System.out.println("Courses2 for faculty abc43Ra: Profesor Randall:");
       for (courses course : courses) {
          System.out.println(course.getCourse());
       }

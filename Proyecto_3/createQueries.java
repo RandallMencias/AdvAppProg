@@ -178,7 +178,6 @@ public class createQueries {
                + "','" + course.getFaculty_id() + "')");
          courseslist.add(course);
       } catch (SQLException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
 
@@ -243,7 +242,9 @@ public class createQueries {
          }
       }
       if (!flag) {
+         JOptionPane.showMessageDialog(null, "No se ha agregado profesor para este curso");
          throw new IllegalArgumentException("No tiene profesor");
+         
       }
 
       try {

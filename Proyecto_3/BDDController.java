@@ -57,15 +57,16 @@ public class BDDController {
         LVCourse.getSelectionModel().selectFirst();
 
     }
-    private void emptyFacultyTF(){
+
+    private void emptyFacultyTF() {
         InsertName.setText("");
         InsertOffice.setText("");
     }
-    private void emptyCourseTF(){
+
+    private void emptyCourseTF() {
         InsertCourse.setText("");
         InsertCourseID.setText("");
     }
-
 
     @FXML
     void InserProfessor(ActionEvent event) {
@@ -132,9 +133,14 @@ public class BDDController {
 
     @FXML
     void btnModifyCourse(ActionEvent event) {
-        fQueries.updatecourse(new courses(InsertCourseID.getText(), InsertCourse.getText(), InsertID.getText()),
-                InsertID.getText());
-        UpdateCourseEntries();
+        if (InsertCourseID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese el codigo de la clase a modificar");
+        } else {
+            fQueries.updatecourse(new courses(InsertCourseID.getText(), InsertCourse.getText(), InsertID.getText()),
+                    InsertCourseID.getText());
+            UpdateCourseEntries();
+        }
+
     }
 
     @FXML
@@ -145,6 +151,8 @@ public class BDDController {
             fQueries.updatefaculty(new faculty(InsertID.getText(), InsertName.getText(), InsertOffice.getText()),
                     InsertID.getText());
             UpdateFacultyEntries();
+            emptyFacultyTF();
+            InsertID.setText("");
         }
     }
 }
