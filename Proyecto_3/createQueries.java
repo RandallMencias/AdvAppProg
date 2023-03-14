@@ -216,121 +216,94 @@ public class createQueries {
 
    // **********************************************************updaters***************************************************************
 
-   // public void updatefaculty(faculty faculty, String id) {
-   //    try {
-   //       String sql = "UPDATE FACULTY  SET FACULTY_ID = ?, FACULTY_NAME = ?, OFFICE = ? WHERE FACULTY_ID = ?";
-   //       PreparedStatement pStatement = connection.prepareStatement(sql);
-   //       pStatement.setString(1, faculty.getID());
-   //       pStatement.setString(2, faculty.getName());
-   //       pStatement.setString(3, faculty.getOffice());
-   //       pStatement.setString(4, id);
-   //       pStatement.executeUpdate();
-   //       updatelists();
-
-   //    } catch (SQLException e) {
-   //       e.printStackTrace();
-   //    }
-   // }
-
-   // public void updatecourse(courses course, String id) {
-   //    // usar course id
-   //    // update a course based on the course id
-   //    boolean flag = false;
-   //    for (faculty faculty : facultylist) {
-   //       if (faculty.getID().equals(course.getFaculty_id())) {
-   //          flag = true;
-   //       }
-   //    }
-   //    if (!flag) {
-   //       JOptionPane.showMessageDialog(null, "No se ha agregado profesor para este curso");
-   //       throw new IllegalArgumentException("No tiene profesor");
-         
-   //    }
-
-   //    try {
-   //       String sql = "UPDATE COURSES SET COURSE_ID = ?, COURSE = ?, FACULTY_ID = ? WHERE COURSE_ID = ?";
-   //       System.out.println("a");
-   //       PreparedStatement pStatement = connection.prepareStatement(sql);
-   //       pStatement.setString(1, course.getCourse_id());
-   //       pStatement.setString(2, course.getCourse());
-   //       pStatement.setString(3, course.getFaculty_id());
-   //       pStatement.setString(4, id);
-   //       pStatement.executeUpdate();
-   //       updatelists();
-   //    } catch (SQLException e) {
-   //       e.printStackTrace();
-   //    }
-   // }
-
-   public void updatefaculty(String faculty_id, String... str) {
-      String temp = null;
+   public void updatefaculty(faculty faculty, String id) {
       try {
-         ResultSet resultSet = statement.executeQuery("SELECT * FROM FACULTY WHERE FACULTY_ID = '" + faculty_id + "'");
-         for (String strings : str) {
-            if(strings.equals(resultSet.getString("FACULTY_ID"))){
-               temp = strings;
-
-            }
-            else if(strings.equals(resultSet.getString("FACULTY_NAME"))){
-               statement.executeQuery("UPDATE FACULTY SET FACULTY_NAME='" + strings + " WHERE id=" + faculty_id);
-
-            }
-            else if(strings.equals(resultSet.getString("OFFICE"))){
-               statement.executeQuery("UPDATE FACULTY SET OFFICE='" + strings + " WHERE id=" + faculty_id);
-
-            }
-
-            else{
-               JOptionPane.showMessageDialog(null, "No se puede actualizar el profesor, esta repetido");
-               throw new IllegalArgumentException("No se puede actualizar el profesor, esta repetido");
-            }
-         }
-         if(!temp.equals(null)){
-            statement.executeQuery("UPDATE FACULTY SET FACULTY_ID='" + temp + " WHERE id=" + faculty_id);
-         }
-
-         
+         String sql = "UPDATE FACULTY  SET FACULTY_ID = ?, FACULTY_NAME = ?, OFFICE = ? WHERE FACULTY_ID = ?";
+         PreparedStatement pStatement = connection.prepareStatement(sql);
+         pStatement.setString(1, faculty.getID());
+         pStatement.setString(2, faculty.getName());
+         pStatement.setString(3, faculty.getOffice());
+         pStatement.setString(4, id);
+         pStatement.executeUpdate();
+         updatelists();
 
       } catch (SQLException e) {
          e.printStackTrace();
       }
-      updatelists();
    }
 
-   public void updatecourse(String id, String... str) {
-      String temp = null;
-     
-      try {
-         ResultSet resultset = statement.executeQuery("SELECT * FROM COURSES WHERE COURSE_ID = '" + id + "'");
-         for (String strings : str) {
-            if(strings.equals(resultset.getString("COURSE_ID"))){
-               temp = strings;
-            }
-            else if(strings.equals(resultset.getString("COURSE"))){
-               statement.executeQuery("UPDATE COURSES SET COURSE='" + strings + " WHERE id=" + id);
+   public void updatecourse(courses course, String id) {
+      // usar course id
+      // update a course based on the course id
+      boolean flag = false;
+      for (faculty faculty : facultylist) {
+         if (faculty.getID().equals(course.getFaculty_id())) {
+            flag = true;
+         }
+      }
+      if (!flag) {
+         JOptionPane.showMessageDialog(null, "No se ha agregado profesor para este curso");
+         throw new IllegalArgumentException("No tiene profesor");
+         
+      }
 
-            }
-            else if(strings.equals(resultset.getString("FACULTY_ID"))){
-               for (faculty faculty : facultylist) {
-                  if (faculty.getID().equals(strings)) {
-                     statement.executeQuery("UPDATE COURSES SET FACULTY_ID='" + strings + " WHERE id=" + id);
-                  }
-               }
-            }
-            else{
-               JOptionPane.showMessageDialog(null, "No se puede actualizar el curso, esta repetido");
-               throw new IllegalArgumentException("No se puede actualizar el curso, esta repetido");
-            }
-         }
-         if(!temp.equals(null)){
-            statement.executeQuery("UPDATE COURSES SET COURSE_ID='" + temp + " WHERE id=" + id);
-         }
-        
+      try {
+         String sql = "UPDATE COURSES SET COURSE_ID = ?, COURSE = ?, FACULTY_ID = ? WHERE COURSE_ID = ?";
+         System.out.println("a");
+         PreparedStatement pStatement = connection.prepareStatement(sql);
+         pStatement.setString(1, course.getCourse_id());
+         pStatement.setString(2, course.getCourse());
+         pStatement.setString(3, course.getFaculty_id());
+         pStatement.setString(4, id);
+         pStatement.executeUpdate();
          updatelists();
       } catch (SQLException e) {
          e.printStackTrace();
       }
    }
+
+   
+
+
+   // public void updatefaculty(String faculty_id, String... str) {
+   //    //office, faculty_name, faculty_id
+   //    try {
+   //    if(str.length == 1){
+   //       statement.executeUpdate("UPDATE FACULTY SET OFFICE='" + str[0] + " WHERE id=" + faculty_id);}
+
+   //    if(str.length == 2){
+   //       statement.executeUpdate("UPDATE FACULTY SET OFFICE='" + str[0] + " WHERE id=" + faculty_id);
+   //       statement.executeUpdate("UPDATE FACULTY SET FACULTY_NAME='" + str[1] + " WHERE id=" + faculty_id);}
+   //    if(str.length == 3){
+   //       statement.executeUpdate("UPDATE FACULTY SET OFFICE='" + str[0] + " WHERE id=" + faculty_id);
+   //       statement.executeUpdate("UPDATE FACULTY SET FACULTY_NAME='" + str[1] + " WHERE id=" + faculty_id);
+   //       statement.executeUpdate("UPDATE FACULTY SET FACULTY_ID='" + str[2] + " WHERE id=" + faculty_id);}
+         
+
+   //    } catch (SQLException e) {
+   //       e.printStackTrace();
+   //    }
+   //    updatelists();
+   // }
+
+   // public void updatecourse(String course_id, String... str) {
+   //    //faculty_id, course, course_id
+   //    try {
+   //       if(str.length == 1){
+   //          statement.executeUpdate("UPDATE COURSES SET FACULTY_ID='" + str[0] + " WHERE id=" + course_id);}
+   //       if(str.length == 2){
+   //          statement.executeUpdate("UPDATE COURSES SET FACULTY_ID='" + str[0] + " WHERE id=" + course_id);
+   //          statement.executeUpdate("UPDATE COURSES SET COURSE='" + str[1] + " WHERE id=" + course_id);}
+   //       if(str.length == 3){
+   //          statement.executeUpdate("UPDATE COURSES SET FACULTY_ID='" + str[0] + " WHERE id=" + course_id);
+   //          statement.executeUpdate("UPDATE COURSES SET COURSE='" + str[1] + " WHERE id=" + course_id);
+   //          statement.executeUpdate("UPDATE COURSES SET COURSE_ID='" + str[2] + " WHERE id=" + course_id);}
+   //       }
+   //       catch (SQLException e) {
+   //       e.printStackTrace();
+   //    }
+   // }
+   
 
 
 
