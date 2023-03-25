@@ -1,5 +1,6 @@
-import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.*;
 
@@ -22,17 +23,26 @@ public class ServerController implements Runnable {
         try {
             // crear socket del server
             ServerSocket servidor = new ServerSocket(12345);
-
+            User usuario;
             while (true) {// lazo para que se puedan ingresar multiples palabras
                 // que el socket acepte la conexion
                 Socket socket1 = servidor.accept();
-                DataInputStream entrada = new DataInputStream(socket1.getInputStream());
-                String mensaje = entrada.readUTF();// almacenar mensaje
-                TAServer.appendText("\n" + mensaje);
+                ObjectInputStream entrada = new ObjectInputStream(socket1.getInputStream());
+                usuario = (User) entrada.readObject();
+                
+                TAServer.appendText("\n" + usuario);
+                
+                //Enviar Informacion a otro usuario
+                Socket enviar_info = new Socket(usuario.getIp(),98765);
+                ObjectOutputStream salida = new ObjectOutputStream(enviar_info.getOutputStream());
+                salida.writeObject(entrada);
+                
+                //cerrar sockets activos
+                enviar_info.close();
                 socket1.close();
             }
 
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
