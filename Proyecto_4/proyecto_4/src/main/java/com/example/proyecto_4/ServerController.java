@@ -25,6 +25,7 @@ public class ServerController implements Runnable {
     public ServerController() {
         flag = true;
         conexiones = new ArrayList<>();
+        usuarios = new ArrayList<>();
 
     }
 
@@ -38,6 +39,7 @@ public class ServerController implements Runnable {
             servidor = new ServerSocket(1234);
             // aceptar conexiones
             while (flag) {
+
                 Socket cliente = servidor.accept();
                 connections conexion = new connections(cliente);
                 System.out.println("Conexion aceptada");
@@ -98,8 +100,11 @@ public class ServerController implements Runnable {
         return logs;
     }
 
-    public void  eliminarmensajes(String Origen){
+    public void eliminarmensajes(String Origen){
+        //listview puedes pedirle la lista
+        // mensajes = listview.getItems();
         //iterar por el cui y borrar los que coincidan
+    //"Nombre: mensaje" split por : y comparar el nombre
         enviarmssgatodos("EliminarM@"+Origen);
 
     }
@@ -130,6 +135,7 @@ public class ServerController implements Runnable {
                 nombre = in.readLine();
                 usuarios.add(nombre); //corregir para que no se agrege dos veces
                 System.out.println(nombre + " se ha conectado");
+                //revisar si si es usario
                 enviarmssgatodos(nombre + " se ha conectado");
                 String mensaje;
 
@@ -141,6 +147,7 @@ public class ServerController implements Runnable {
                         enviarmssgatodos(nombre+ ": " + mensajesplit[1]);
                         logs.add(new log(nombre, destinatario,mensajesplit[1], LocalTime.now().toString(),"Exitosa"));
                     }
+                    //@usuario//mensaje
                     if(mensajesplit[0].contains("@")){
                         destinatario = mensajesplit[0].substring(1);
                         for (connections conexion : conexiones) {
@@ -174,6 +181,7 @@ public class ServerController implements Runnable {
                     }
                 }
             } catch (IOException e) {
+                //jpane con error
                 logs.add(new log(nombre, destinatario,mensajesplit[1], LocalTime.now().toString(),"Error al enviar"));            }
 
         }

@@ -54,7 +54,7 @@ public class ClientController implements Runnable {
                     String [] mensajesplit = inMessage.split("@");
                     //iterar gui y eliminar el mensaje que coincida con el messagesplit[1]
                 }
-                System.out.println("inmessage:\n"+inMessage);
+                System.out.println(inMessage); // imprime el mensaje recibido a consola
 
                 }
 
@@ -75,19 +75,27 @@ public class ClientController implements Runnable {
     }
 
 
-    class mensajes implements Runnable { //recibe mensajes del servidor constantemente
+    class mensajes implements Runnable {
+
+        private BufferedReader inReader;
+        //envia mensajes al servidor
         @Override
-        public void run() {
+        public void run()  { //constructor
             try {
-                BufferedReader inReader = new BufferedReader(new InputStreamReader(System.in)); //recibe de consola
+                inReader = new BufferedReader(new InputStreamReader(System.in)); //recibe de consola
                 while (flag) {
+                    //regex por comas y espacios para separar destinatarios
+                    //segun el size de la lista iterar y mandar el mensaje invididualmente
+                    //
                     String message = inReader.readLine(); //recibe de consola// aqui habria que conectar con el gui
-                    //si presiona el boton de enviar y el destinatario esta vacio se envia a todos
                     out.println(message); //envia al servidor
-                    //if tiene destinatario
-                    out.println("@"+TFReciever.getText()+"//"+message);
-                    // if salir
-                    out.println("Salir//");
+//                    //si presiona el boton de enviar y el destinatario esta vacio se envia a todos
+//                    out.println(message); //envia al servidor
+//                    //if tiene destinatario
+//                    out.println("@"+TFReciever.getText()+"//"+message);
+//                    // if salir
+//                    out.println("Salir//");
+
 
                 }
             } catch (IOException e) {
