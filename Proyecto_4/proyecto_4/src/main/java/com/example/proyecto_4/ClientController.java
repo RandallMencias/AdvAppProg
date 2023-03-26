@@ -39,16 +39,23 @@ public class ClientController implements Runnable {
     public void run() {
         System.out.println("Cliente iniciado");
         try {
+
             cliente = new Socket(InetAddress.getLocalHost(), 1234);
-            out = new PrintWriter(cliente.getOutputStream(), true); // envia el mensaje
-            in = new BufferedReader(new InputStreamReader(cliente.getInputStream())); // recibe el mensaje
+            out = new PrintWriter(cliente.getOutputStream(), true); // crea conexion de envio con el servidor
+            in = new BufferedReader(new InputStreamReader(cliente.getInputStream())); //crea conexion de recepcion con el servidor
             mensajes mensaje = new mensajes();
             Thread thread = new Thread(mensaje);
             thread.start();
             String inMessage;
-            while ((inMessage = in.readLine()) != null) { //imprime mensaje en ventana del cliente
+            while ((inMessage = in.readLine()) != null) { //recibe del servidor
 //                    TAchat.appendText(mssg + "\n");
-                System.out.println(inMessage);
+                if(inMessage.contains("EliminarM@"))
+                {
+                    String [] mensajesplit = inMessage.split("@");
+                    //iterar gui y eliminar el mensaje que coincida con el messagesplit[1]
+                }
+                System.out.println("inmessage:\n"+inMessage);
+
                 }
 
         } catch (Exception e) {
@@ -68,14 +75,20 @@ public class ClientController implements Runnable {
     }
 
 
-    class mensajes implements Runnable { // maneja el proceso de cierre de la conexion// agregar cierre de conexion
+    class mensajes implements Runnable { //recibe mensajes del servidor constantemente
         @Override
         public void run() {
             try {
-                BufferedReader inReader = new BufferedReader(new InputStreamReader(System.in));
+                BufferedReader inReader = new BufferedReader(new InputStreamReader(System.in)); //recibe de consola
                 while (flag) {
-                    String message = inReader.readLine();
-                    out.println(message);
+                    String message = inReader.readLine(); //recibe de consola// aqui habria que conectar con el gui
+                    //si presiona el boton de enviar y el destinatario esta vacio se envia a todos
+                    out.println(message); //envia al servidor
+                    //if tiene destinatario
+                    out.println("@"+TFReciever.getText()+"//"+message);
+                    // if salir
+                    out.println("Salir//");
+
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);

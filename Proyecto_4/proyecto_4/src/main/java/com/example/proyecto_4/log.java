@@ -1,26 +1,26 @@
 package com.example.proyecto_4;
 
 public class log {
-    private  String Origer;
+    private  String Origen;
     private  String Destino;
     private  String Mensaje;
     private  String Hora;
     private String Confirmacion;
 
-    public log(String origer, String destino, String mensaje, String hora, String confirmacion) {
-        Origer = origer;
+    public log(String origen, String destino, String mensaje, String hora, String confirmacion) {
+        Origen = origen;
         Destino = destino;
         Mensaje = mensaje;
         Hora = hora;
         Confirmacion = confirmacion;
     }
 
-    public String getOriger() {
-        return Origer;
+    public String getOrigen() {
+        return Origen;
     }
 
-    public void setOriger(String origer) {
-        Origer = origer;
+    public void setOrigen(String origen) {
+        Origen = origen;
     }
 
     public String getDestino() {
@@ -56,6 +56,6 @@ public class log {
     }
 
     public String toString() {
-        return Origer + ">>>" + Destino + ">>>" + Mensaje + ">>>" + Hora + ">>>" + Confirmacion;
+        return Origen + ">>>" + Destino + ">>>" + Mensaje + ">>>" + Hora + ">>>" + Confirmacion;
     }
 }
