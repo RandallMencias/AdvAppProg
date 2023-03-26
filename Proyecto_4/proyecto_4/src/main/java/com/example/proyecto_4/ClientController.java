@@ -1,23 +1,22 @@
-package com.example.proyecto_4;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.io.*;
 import java.net.*;
 
-public class ClientController implements Runnable {
-    private Socket cliente;
-    private BufferedReader in;
-    private PrintWriter out;
-    private boolean flag;
+import javax.swing.JOptionPane;
 
+public class ClientController {
     @FXML
     private TextArea TAchat;
-
+    @FXML
+    private ListView<String> LVCliente;
     @FXML
     private TextField TFMessage;
 
@@ -26,80 +25,71 @@ public class ClientController implements Runnable {
 
     @FXML
     private TextField TFReciever;
-
-    private static String mssg;
+    mensajes mensaje = new mensajes();
 
     public ClientController() {
-        flag = true;
-
+        Thread thread = new Thread(mensaje);
+        thread.start();
     }
 
+    public void desconectar(ActionEvent event) {
+        mensaje.desconectarCliente();
+    }
+    public void sendMessage(ActionEvent event){
+        mensaje.enviarMensaje(TFMessage.getText(), TFReciever.getText().isEmpty());
+    }
+    //--------------------------------------------------------------------
+    public class mensajes extends Task<String> {
+        private Socket cliente;
+        private BufferedReader in;
+        private PrintWriter out;
+        private boolean flag;
 
-    @Override
-    public void run() {
-        System.out.println("Cliente iniciado");
-        try {
+        public mensajes() {
+            flag = true;
 
-            cliente = new Socket(InetAddress.getLocalHost(), 1234);
-            out = new PrintWriter(cliente.getOutputStream(), true); // crea conexion de envio con el servidor
-            in = new BufferedReader(new InputStreamReader(cliente.getInputStream())); //crea conexion de recepcion con el servidor
-            mensajes mensaje = new mensajes();
-            Thread thread = new Thread(mensaje);
-            thread.start();
-            String inMessage;
-            while ((inMessage = in.readLine()) != null) { //recibe del servidor
-//                    TAchat.appendText(mssg + "\n");
-                if(inMessage.contains("EliminarM@"))
-                {
-                    String [] mensajesplit = inMessage.split("@");
-                    //iterar gui y eliminar el mensaje que coincida con el messagesplit[1]
-                }
-                System.out.println(inMessage); // imprime el mensaje recibido a consola
-
-                }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
-    }
 
-    public void desconectar() {
-        try {
-            flag = false;
-            out.close();
-            in.close();
-            cliente.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    class mensajes implements Runnable {
-
-        private BufferedReader inReader;
-        //envia mensajes al servidor
         @Override
-        public void run()  { //constructor
+        public String call() throws Exception {
             try {
-                inReader = new BufferedReader(new InputStreamReader(System.in)); //recibe de consola
-                while (flag) {
-                    //regex por comas y espacios para separar destinatarios
-                    //segun el size de la lista iterar y mandar el mensaje invididualmente
-                    //
-                    String message = inReader.readLine(); //recibe de consola// aqui habria que conectar con el gui
-                    out.println(message); //envia al servidor
-//                    //si presiona el boton de enviar y el destinatario esta vacio se envia a todos
-//                    out.println(message); //envia al servidor
-//                    //if tiene destinatario
-//                    out.println("@"+TFReciever.getText()+"//"+message);
-//                    // if salir
-//                    out.println("Salir//");
-
-
+                cliente = new Socket(InetAddress.getLocalHost(), 1234);
+                out = new PrintWriter(cliente.getOutputStream(), true); // crea conexion de envio con el servidor
+                in = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
+                System.out.println("SIUUU");
+                String inMessage;
+                while ((inMessage = in.readLine()) != null){
+                    if (inMessage.contains("EliminarM@")) {
+                        String[] mensajesplit = inMessage.split("@");
+                        // iterar gui y eliminar el mensaje que coincida con el messagesplit[1]
+                    }
+                    System.out.println(inMessage);
                 }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "no se puede conectar al servidor");
+            }
+            return "Hola Mundo";
+        }
+        public void desconectarCliente(){
+            try {
+                flag = false;
+                out.close();
+                in.close();
+                cliente.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
+            }
+        }
+        public void enviarMensaje(String message, boolean emptyTF){
+            String mensaje = message;
+            if(!    emptyTF){
+                String[] split = TFReciever.getText().replaceAll("\\s", "").split(",");
+                for (String string : split) {
+                    out.println("@" + string + "//" + mensaje);
+                }
+            } else{
+                out.println("Todos//" + mensaje);
             }
         }
     }
