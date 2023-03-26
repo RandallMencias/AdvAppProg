@@ -79,7 +79,7 @@ public class ServerController implements Runnable {
         private Socket client;
         private BufferedReader in;
         private PrintWriter out;
-        private User usuario;
+
 
 
         public connections(Socket client) {
