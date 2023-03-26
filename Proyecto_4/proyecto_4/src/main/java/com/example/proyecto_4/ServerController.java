@@ -28,6 +28,23 @@ public class ServerController {
         conexiones = new ArrayList<>();
         usuarios = new ArrayList<>();       
         pool = Executors.newCachedThreadPool();
+       
+        try {
+            servidor = new ServerSocket(1234);
+            // aceptar conexiones
+            while (flag) {
+                flag = false;
+                Socket cliente = servidor.accept();//<----programa no pasa de aca
+                
+                connections conexion = new connections(cliente);
+                System.out.println("Conexion aceptada");
+                conexiones.add(conexion);
+                pool.execute(conexion);
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
     }
 
@@ -99,23 +116,6 @@ public class ServerController {
         public connections(Socket client) {
             System.out.println("Constructor Connections");
             this.client = client;
-            // crear socket del server
-            try {
-                servidor = new ServerSocket(1234);
-                // aceptar conexiones
-                while (flag) {
-                    flag = false;
-                    Socket cliente = servidor.accept();
-                    connections conexion = new connections(cliente);
-                    System.out.println("Conexion aceptada");
-                    conexiones.add(conexion);
-                    pool.execute(conexion);
-                }
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
         }
 
         @Override
