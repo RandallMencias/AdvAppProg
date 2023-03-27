@@ -25,48 +25,53 @@ public class ClientController {
 
     @FXML
     private TextField TFReciever;
-    mensajes mensaje = new mensajes();
+    private Socket cliente;
+    enviarMensajes mensajeenvio;
+    recibirMensajes mensajerecibido;
 
     public ClientController() {
-        Thread thread = new Thread(mensaje);
+        try {
+            cliente = new Socket(InetAddress.getLocalHost(), 1234);
+        } catch (UnknownHostException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        mensajeenvio = new enviarMensajes(cliente);
+        mensajerecibido = new recibirMensajes(cliente);
+        Thread thread = new Thread(mensajeenvio);
+        Thread thread2 = new Thread(mensajerecibido);
         thread.start();
+        thread2.start();
     }
     public void desconectar(ActionEvent event) {
         try {
-            mensaje.desconectarCliente();
+            mensajeenvio.desconectarCliente();
+            mensajerecibido.desconectarCliente();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ya estas desconectado");
         }
     }
     public void sendMessage(ActionEvent event){
-        mensaje.enviarMensaje(TFMessage.getText(), TFReciever.getText().isEmpty());
+        mensajeenvio.enviarMensaje(TFMessage.getText(), TFReciever.getText().isEmpty());
     }
     //--------------------------------------------------------------------
-    public class mensajes extends Task<String> {
+    public class enviarMensajes extends Task<String> {
         private Socket cliente;
-        private BufferedReader in;
         private PrintWriter out;
         private boolean flag;
 
-        public mensajes() {
+        public enviarMensajes(Socket cliente) {
             flag = true;
+            this.cliente = cliente;
         }
 
         @Override
         public String call() throws Exception {
             try {
-                cliente = new Socket(InetAddress.getLocalHost(), 1234);
                 out = new PrintWriter(cliente.getOutputStream(), true); // crea conexion de envio con el servidor
-                in = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-                String inMessage = in.readLine();
-                while (flag){
-                    if (inMessage.contains("EliminarM@")) {
-                        String[] mensajesplit = inMessage.split("@");
-                        // iterar gui y eliminar el mensaje que coincida con el messagesplit[1]
-                        System.out.println("SIUI");
-                    }
-                    System.out.println(inMessage);
-                }
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "no se puede conectar al servidor");
@@ -77,7 +82,6 @@ public class ClientController {
             try {
                 flag = false;
                 out.close();
-                in.close();
                 cliente.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -94,5 +98,45 @@ public class ClientController {
                 out.println("Todos//" + mensaje);
             }
         }
+    }
+    public class recibirMensajes extends Task<String>{
+        private Socket cliente;
+        private BufferedReader in;
+        private boolean flag;
+
+        public recibirMensajes(Socket cliente) {
+            flag = true;
+            this.cliente = cliente;
+        }
+
+        @Override
+        public String call() throws Exception {
+            try {
+                in = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
+                String inMessage;
+                while ((inMessage = in.readLine()) != null){
+                    if (inMessage.contains("EliminarM@")) {
+                        String[] mensajesplit = inMessage.split("@");
+                        // iterar gui y eliminar el mensaje que coincida con el messagesplit[1]
+                        System.out.println("SIUI");
+                    }
+                    System.out.println(inMessage);
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "no se puede conectar al servidor");
+            }
+            return "Hola Mundo";
+        }
+        public void desconectarCliente(){
+            try {
+                flag = false;
+                in.close();
+                cliente.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        
     }
 }
