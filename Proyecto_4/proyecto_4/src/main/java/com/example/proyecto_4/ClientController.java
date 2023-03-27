@@ -1,22 +1,20 @@
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
-import javax.swing.JOptionPane;
+public class ClientController implements Runnable {
 
-public class ClientController {
     @FXML
     private TextArea TAchat;
-    @FXML
-    private ListView<String> LVCliente;
+
     @FXML
     private TextField TFMessage;
 
@@ -25,72 +23,54 @@ public class ClientController {
 
     @FXML
     private TextField TFReciever;
-    mensajes mensaje = new mensajes();
 
+    int hora, minuto;
+
+    // al iniciar, se crea el hilo para recibir datos
     public ClientController() {
-        Thread thread = new Thread(mensaje);
-        thread.start();
+        Thread newThread = new Thread(this);
+        newThread.start();
     }
 
-    public void desconectar(ActionEvent event) {
-        mensaje.desconectarCliente();
+    public void sendMessage(ActionEvent event) {
+        // crear socket al presionar el boton
+        try {
+            Socket newSocket = new Socket(InetAddress.getLocalHost(), 9999);// crear nuevo socket
+            // Crear objeto usuario con sus datos respectivos
+            User usuario = new User();
+            usuario.setNombre(TFName.getText());
+            usuario.setIp(TFReciever.getText());
+            usuario.setMensaje(TFMessage.getText());
+            Calendar calendario = new GregorianCalendar();
+            hora = calendario.get(Calendar.HOUR_OF_DAY);
+            minuto = calendario.get(Calendar.MINUTE);
+            String tiempo = hora + ":" + minuto;
+            usuario.setHora(tiempo); 
+            // enviar objeto por socket
+            ObjectOutputStream salida = new ObjectOutputStream(newSocket.getOutputStream());
+            salida.writeObject(usuario);
+            newSocket.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            System.out.println(e.getMessage());
+        }
     }
-    public void sendMessage(ActionEvent event){
-        mensaje.enviarMensaje(TFMessage.getText(), TFReciever.getText().isEmpty());
-    }
-    //--------------------------------------------------------------------
-    public class mensajes extends Task<String> {
-        private Socket cliente;
-        private BufferedReader in;
-        private PrintWriter out;
-        private boolean flag;
 
-        public mensajes() {
-            flag = true;
-
-        }
-
-        @Override
-        public String call() throws Exception {
-            try {
-                cliente = new Socket(InetAddress.getLocalHost(), 1234);
-                out = new PrintWriter(cliente.getOutputStream(), true); // crea conexion de envio con el servidor
-                in = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-                System.out.println("SIUUU");
-                String inMessage;
-                while ((inMessage = in.readLine()) != null){
-                    if (inMessage.contains("EliminarM@")) {
-                        String[] mensajesplit = inMessage.split("@");
-                        // iterar gui y eliminar el mensaje que coincida con el messagesplit[1]
-                    }
-                    System.out.println(inMessage);
-                }
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "no se puede conectar al servidor");
+    // Run para que se reciban datos
+    @Override
+    public void run() {
+        try {
+            ServerSocket recibeInfo = new ServerSocket(54321);
+            Socket informacion;
+            User datos = new User();
+            while (true) {
+                informacion = recibeInfo.accept();
+                ObjectInputStream datosEntrada = new ObjectInputStream(informacion.getInputStream());
+                datos = (User) datosEntrada.readObject();
+                TAchat.appendText("\n" + datos);
             }
-            return "Hola Mundo";
-        }
-        public void desconectarCliente(){
-            try {
-                flag = false;
-                out.close();
-                in.close();
-                cliente.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        public void enviarMensaje(String message, boolean emptyTF){
-            String mensaje = message;
-            if(!    emptyTF){
-                String[] split = TFReciever.getText().replaceAll("\\s", "").split(",");
-                for (String string : split) {
-                    out.println("@" + string + "//" + mensaje);
-                }
-            } else{
-                out.println("Todos//" + mensaje);
-            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }
