@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e220dc46-ed35-43c9-b1fa-eeb881e31c50" name="Changes" comment="Funciona Resultados y sin threads">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto_2/Divide.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto_2/MultiThreadGui.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto_2/Pairs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proyecto_2/Factorial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proyecto_2/Factorial.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_02_2023_01_28_a__m___Changes_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_02_2023_01_28_a_ m__[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +78,7 @@
       <updated>1677469010532</updated>
       <workItem from="1677469011588" duration="5976000" />
       <workItem from="1677556593362" duration="9660000" />
+      <workItem from="1679864250569" duration="1254000" />
     </task>
     <task id="LOCAL-00001" summary="Funciona Resultados y sin threads">
       <created>1677565699585</created>
