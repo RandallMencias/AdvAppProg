@@ -1,5 +1,3 @@
-package com.example.proyecto_4;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.*;
@@ -28,16 +26,16 @@ public class ServerController {
     public ServerController() {
         flag = true;
         conexiones = new ArrayList<>();
-        usuarios = new ArrayList<>();
+        usuarios = new ArrayList<>();       
         pool = Executors.newCachedThreadPool();
-
+       
         try {
             servidor = new ServerSocket(1234);
             // aceptar conexiones
             while (flag) {
                 flag = false;
                 Socket cliente = servidor.accept();//<----programa no pasa de aca
-
+                
 
                 connections conexion = new connections(cliente);
                 System.out.println("Conexion aceptada");
@@ -48,7 +46,7 @@ public class ServerController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+        
     }
 
     public void enviarmssgatodos(String mensaje) {
@@ -126,7 +124,7 @@ public class ServerController {
             try {
                 out = new PrintWriter(client.getOutputStream(), true); // enviar mensajes
                 in = new BufferedReader(new java.io.InputStreamReader(client.getInputStream())); // recibe nombre//
-                // conectar con gui
+                                                                                                 // conectar con gui
                 out.println("Ingrese su nombre: "); // enviar mensaje al cliente
                 nombre = in.readLine();
                 usuarios.add(nombre); // corregir para que no se agrege dos veces
@@ -203,4 +201,4 @@ public class ServerController {
             }
         }
     }
-}th
+} 

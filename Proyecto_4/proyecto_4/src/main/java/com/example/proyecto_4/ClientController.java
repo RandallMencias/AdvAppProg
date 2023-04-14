@@ -1,5 +1,3 @@
-package com.example.proyecto_4;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -139,6 +137,6 @@ public class ClientController {
                 throw new RuntimeException(e);
             }
         }
-
+        
     }
 }

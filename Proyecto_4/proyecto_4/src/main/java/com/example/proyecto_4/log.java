@@ -1,4 +1,3 @@
-package com.example.proyecto_4;
 
 public class log {
     private  String Origen;

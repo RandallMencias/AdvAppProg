@@ -16,7 +16,7 @@
         <TextField fx:id="TFReciever" layoutX="380.0" layoutY="36.0" prefHeight="25.0" prefWidth="115.0" AnchorPane.rightAnchor="104.66666666666669" AnchorPane.topAnchor="36.0" />
       <Button layoutX="209.0" layoutY="36.0" mnemonicParsing="false" text="Conectarse" />
       <ListView fx:id="LVCliente" layoutX="64.0" layoutY="83.0" prefHeight="235.0" prefWidth="432.0" />
-      <Button layoutX="518.0" layoutY="331.0" mnemonicParsing="false" text="Enviar" />
+      <Button layoutX="518.0" layoutY="331.0" mnemonicParsing="false" onAction="#sendMessage" text="Enviar" />
       <Button layoutX="510.0" layoutY="151.0" mnemonicParsing="false" onAction="#desconectar" text="Desconectar" />
     </children>
 </AnchorPane>
