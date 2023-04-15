@@ -5,7 +5,7 @@ import java.util.*;
 public class Gastos {
     private String fecha;
     private double valor;
-
+//osi
     public Gastos(String fecha, double valor){
         this.fecha = fecha;
         this.valor = valor;
