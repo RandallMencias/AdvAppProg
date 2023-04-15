@@ -77,7 +77,7 @@ public class Elementos {
         List<String> listaGastos = new ArrayList<>();
         if (mapaGastos.get(tipo) != null) {
             for (Gastos gasto : mapaGastos.get(tipo)) {
-                listaGastos.add(Double.toString(gasto.getValor()));
+                listaGastos.add("Fecha: "+gasto.getFecha()+" $"+Double.toString(gasto.getValor()));
                 }
         }
         return listaGastos;
@@ -91,7 +91,7 @@ public class Elementos {
             List<Gastos> listaGastosObj = mapaGastos.get(tipo);
             for (Gastos gasto : listaGastosObj) {
                 if (gasto.getFecha().equals(fecha)) {
-                    listaGastos.add(tipo + " " + Double.toString(gasto.getValor()));
+                    listaGastos.add(tipo + " $" + Double.toString(gasto.getValor()));
                 }
             }
         }
@@ -105,7 +105,7 @@ public class Elementos {
             List<Gastos> listaGastosObj = mapaGastos.get(tipo);
             for (Gastos gasto : listaGastosObj) {
                 if (gasto.getValor() >= min && gasto.getValor() <= max) {
-                    listaGastos.add(Double.toString(gasto.getValor()));
+                    listaGastos.add(tipo+" Fecha: "+ gasto.getFecha()+" $"+Double.toString(gasto.getValor()));
                 }
             }
         }

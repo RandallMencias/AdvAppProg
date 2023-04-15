@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,11 +42,15 @@ public class Consulta extends AppCompatActivity {
 
         //enlazar con los elementos
         filtros = (Spinner) findViewById(R.id.filtros);
+        tiposDeGasto = (Spinner) findViewById(R.id.tipos_de_gasto);
         limiteinferior = (TextView) findViewById(R.id.limiteinferior);
         limitesuperior = (TextView) findViewById(R.id.limitesuperior);
         fecha = (TextView)findViewById(R.id.textViewDate);
         btnFecha = (Button)findViewById(R.id.btnDate);
         display = (ListView)findViewById(R.id.listview);
+
+        limiteinferior.setText("0");
+        limitesuperior.setText("0");
 
 
 
@@ -81,9 +87,23 @@ public class Consulta extends AppCompatActivity {
                     btnFecha.setVisibility(View.GONE);
                     fecha.setVisibility(View.GONE);
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Consulta.this,
-                            android.R.layout.simple_list_item_1, elementos.getGastosPorTipo(tiposDeGasto.getSelectedItem().toString()));
-                    display.setAdapter(adapter);
+
+                    tiposDeGasto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            // This code will be executed when an item in the spinner is selected
+                            String selectedValue = parent.getItemAtPosition(position).toString();
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(Consulta.this,
+                                    android.R.layout.simple_list_item_1, elementos.getGastosPorTipo(tiposDeGasto.getSelectedItem().toString()));
+                            display.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            // This code will be executed when the spinner is initialized
+                            // and nothing is selected
+                        }
+                    });
 
 
 
@@ -110,15 +130,18 @@ public class Consulta extends AppCompatActivity {
                                 @Override
                                 public void onDateSet(DatePicker view, int year, int month, int day) {
                                     fecha.setText(year + "/" + (month + 1) + "/" + day);
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Consulta.this,
+                                            android.R.layout.simple_list_item_1, elementos.getGastosPorFecha(fecha.getText().toString()));
+                                    display.setAdapter(adapter);
                                 }
                             }, anio, mes, dia);
                             datePickerDialog.show();
+
                         }
+
                     });
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Consulta.this,
-                            android.R.layout.simple_list_item_1, elementos.getGastosPorFecha(fecha.getText().toString()));
-                    display.setAdapter(adapter);
+
 
                 }
 
@@ -134,10 +157,29 @@ public class Consulta extends AppCompatActivity {
                     limitesuperior.setVisibility(View.VISIBLE);
                     btnFecha.setVisibility(View.GONE);
                     fecha.setVisibility(View.GONE);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Consulta.this,
-                            android.R.layout.simple_list_item_1, elementos.getGastosPorRango
-                            (Double.parseDouble(limiteinferior.getText().toString()),Double.parseDouble(limitesuperior.getText().toString())));
-                    display.setAdapter(adapter);
+
+                    limitesuperior.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(!limitesuperior.getText().toString().equals("") && !limiteinferior.getText().toString().equals("")){
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(Consulta.this,
+                                        android.R.layout.simple_list_item_1, elementos.getGastosPorRango(
+                                                Double.parseDouble(limiteinferior.getText().toString()),Double.parseDouble(limitesuperior.getText().toString())));
+                                display.setAdapter(adapter);
+                            }
+                        }
+                    });
+
 
 
 
