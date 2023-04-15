@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.util.Calendar;
 
@@ -21,10 +23,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private int dia, mes, anio;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //llenar spinner
+        Spinner spinner =(Spinner)findViewById(R.id.tipos_de_gasto);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Elementos.getInstance().getTiposGastos());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+
+
+
 
         //enlazar con los elementos
         btnFecha = (Button)findViewById(R.id.btnfecha);

@@ -34,11 +34,10 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <include
-        android:id="@+id/include"
         layout="@layout/tipos_de_gasto"
         android:layout_width="331dp"
         android:layout_height="56dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toStartOf="parent"
