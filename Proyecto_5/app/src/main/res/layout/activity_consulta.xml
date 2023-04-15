@@ -6,33 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".Consulta">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="343dp"
-        android:layout_height="400dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="32dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </LinearLayout>
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="227dp"
         android:layout_height="54dp"
-        android:layout_marginBottom="136dp"
+        android:layout_marginBottom="48dp"
         android:text="Total de gastos"
         android:textAlignment="viewStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintHorizontal_bias="0.179"
         app:layout_constraintStart_toStartOf="parent" />
 
     <include
@@ -122,5 +107,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.185" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="332dp"
+        android:layout_height="408dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.443"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.566" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

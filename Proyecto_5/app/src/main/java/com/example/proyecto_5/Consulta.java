@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -26,6 +27,8 @@ public class Consulta extends AppCompatActivity {
     private TextView limitesuperior,fecha;
     private Spinner tiposDeGasto;
     private Button btnFecha;
+    private Elementos elementos = Elementos.getInstance();
+    private ListView display;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         c = Calendar.getInstance();
@@ -41,10 +44,16 @@ public class Consulta extends AppCompatActivity {
         limitesuperior = (TextView) findViewById(R.id.limitesuperior);
         fecha = (TextView)findViewById(R.id.textViewDate);
         btnFecha = (Button)findViewById(R.id.btnDate);
+        display = (ListView)findViewById(R.id.listview);
+
 
 
 
         List<String> filtrosList = new ArrayList<String>(Arrays.asList("Tipo", "Fecha", "Rango"));
+
+
+
+
         ArrayAdapter<String> adapterFiltros = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, filtrosList);
         adapterFiltros.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         filtros.setAdapter(adapterFiltros);
@@ -72,11 +81,9 @@ public class Consulta extends AppCompatActivity {
                     btnFecha.setVisibility(View.GONE);
                     fecha.setVisibility(View.GONE);
 
-
-
-
-
-
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Consulta.this,
+                            android.R.layout.simple_list_item_1, elementos.getGastosPorTipo(tiposDeGasto.getSelectedItem().toString()));
+                    display.setAdapter(adapter);
 
 
 
@@ -109,21 +116,33 @@ public class Consulta extends AppCompatActivity {
                         }
                     });
 
-
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Consulta.this,
+                            android.R.layout.simple_list_item_1, elementos.getGastosPorFecha(fecha.getText().toString()));
+                    display.setAdapter(adapter);
 
                 }
-
 
 
 
                 //RANGO
 
                 else if (selectedValue.equals("Rango")){
+
+
                     tiposDeGasto.setVisibility(View.GONE);
                     limiteinferior.setVisibility(View.VISIBLE);
                     limitesuperior.setVisibility(View.VISIBLE);
                     btnFecha.setVisibility(View.GONE);
                     fecha.setVisibility(View.GONE);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Consulta.this,
+                            android.R.layout.simple_list_item_1, elementos.getGastosPorRango
+                            (Double.parseDouble(limiteinferior.getText().toString()),Double.parseDouble(limitesuperior.getText().toString())));
+                    display.setAdapter(adapter);
+
+
+
+
+
                 }
             }
 

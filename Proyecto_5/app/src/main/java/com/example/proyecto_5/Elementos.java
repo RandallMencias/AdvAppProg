@@ -72,4 +72,44 @@ public class Elementos {
         mapGastosMax.put(key, valorMax);
         mapaGastos.put(key, new ArrayList<>());
     }
+
+    public List<String> getGastosPorTipo(String tipo){
+        List<String> listaGastos = new ArrayList<>();
+        if (mapaGastos.get(tipo) != null) {
+            for (Gastos gasto : mapaGastos.get(tipo)) {
+                listaGastos.add(Double.toString(gasto.getValor()));
+                }
+        }
+        return listaGastos;
+    }
+
+
+    public List<String> getGastosPorFecha(String fecha){
+
+        List<String> listaGastos = new ArrayList<>();
+        for (String tipo : mapaGastos.keySet()) {
+            List<Gastos> listaGastosObj = mapaGastos.get(tipo);
+            for (Gastos gasto : listaGastosObj) {
+                if (gasto.getFecha().equals(fecha)) {
+                    listaGastos.add(tipo + " " + Double.toString(gasto.getValor()));
+                }
+            }
+        }
+
+        return listaGastos;
+    }
+
+    public List<String> getGastosPorRango(Double min, Double max){
+        List<String> listaGastos = new ArrayList<>();
+        for (String tipo : mapaGastos.keySet()) {
+            List<Gastos> listaGastosObj = mapaGastos.get(tipo);
+            for (Gastos gasto : listaGastosObj) {
+                if (gasto.getValor() >= min && gasto.getValor() <= max) {
+                    listaGastos.add(Double.toString(gasto.getValor()));
+                }
+            }
+        }
+        return listaGastos;
+    }
+
 }
