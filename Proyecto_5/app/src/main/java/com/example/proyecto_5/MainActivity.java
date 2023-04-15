@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             elementos.agregarGasto(txtFecha.getText().toString(),Double.parseDouble(txtprecio.getText().toString()),temp.getText().toString());
         }else if(view == btnEliminar){
             Log.i("Aguebo","A");
-            for (String tipo : elementos.getGastos().keySet()) {
+            for (String tipo : elementos.getmapGastos().keySet()) {
                 Log.i("Aguebo","tipo gasto: " + tipo);
 //                List<Gastos> gastos = elementos.getGastos().get(tipo);
 //                for(Gastos gasto : gastos);
