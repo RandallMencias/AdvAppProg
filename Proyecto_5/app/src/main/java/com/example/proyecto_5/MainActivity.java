@@ -16,14 +16,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private String textoprecio,selectedValue;
-    private Spinner spinner;
+    private Spinner tiposDeGasto;
     private Elementos elementos = Elementos.getInstance();
     private Button btnFecha, btnEliminar, btnAdd;
     private EditText txtFecha, txtprecio, temp;
@@ -37,10 +34,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //llenar spinner
-        spinner = (Spinner) findViewById(R.id.tipos_de_gasto);
+        tiposDeGasto = (Spinner) findViewById(R.id.tipos_de_gasto);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Elementos.getInstance().getTiposGastos());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        tiposDeGasto.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
 
@@ -71,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnEliminar.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        tiposDeGasto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // This code will be executed when an item in the spinner is selected
