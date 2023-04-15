@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnFecha = (Button)findViewById(R.id.btnfecha);
         btnAdd = (Button)findViewById(R.id.btnAgregar) ;
         btnEliminar = (Button)findViewById(R.id.btnRemove);
-
         txtFecha = (EditText)findViewById(R.id.txtFecha);
         txtprecio = (EditText)findViewById(R.id.editTextNumber);
 
@@ -63,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.i("Aguebo","A");
             for (String tipo : elementos.getGastos().keySet()) {
                 Log.i("Aguebo","tipo gasto: " + tipo);
-                List<Gastos> gastos = elementos.getGastos().get(tipo);
-                for(Gastos gasto : gastos);
+//                List<Gastos> gastos = elementos.getGastos().get(tipo);
+//                for(Gastos gasto : gastos);
                 /*Gastos gasto = elementos.getGastos().get(tipo);
                 Log.i("Aguebo","tipo gasto: " + tipo);
                 Log.i("Aguebo","fecha del gasto: " + gasto.getFecha());

@@ -12,22 +12,22 @@ public class Elementos {
     }
 
     public void agregarGasto(String fecha, double precio, String tipo){
-        List<Gastos> listaGastos = mapaGastos.get(tipo);
-        if (listaGastos == null) {
-            listaGastos = new ArrayList<>();
+
+        if (mapaGastos.get(tipo) == null) {
+            List<Gastos> listaGastos = new ArrayList<>();
+            listaGastos.add(new Gastos(fecha, precio));
             mapaGastos.put(tipo, listaGastos);
+        }else{
+            List<Gastos> listaGastos = mapaGastos.get(tipo);
+            listaGastos.add(new Gastos(fecha, precio));
+
         }
-        // Agregar un nuevo gasto a la lista
-        Gastos nuevoGasto = new Gastos(fecha, precio);
-        listaGastos.add(nuevoGasto);
 
 
         /*Gastos gasto = new Gastos(fecha, precio);
         mapaGastos.put(tipo, gasto);*/
     }
-    public List<Gastos> getLista(String key){
-        return mapaGastos.get(key);
-    }
+
 
     public Map<String, List<Gastos>> getGastos() {
         return mapaGastos;
