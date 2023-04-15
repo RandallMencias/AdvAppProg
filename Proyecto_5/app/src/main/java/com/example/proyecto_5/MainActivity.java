@@ -49,10 +49,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mes = c.get(Calendar.MONTH);
             anio = c.get(Calendar.YEAR);
 
+
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int day) {
-                    txtFecha.setText(day + "/" + (month+1) + "/" + year);
+                    txtFecha.setText(year + "/" + (month+1) + "/" + day);
                 }
             },anio, mes, dia);
             datePickerDialog.show();
