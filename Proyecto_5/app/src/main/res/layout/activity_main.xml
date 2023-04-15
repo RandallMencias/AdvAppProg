@@ -117,27 +117,29 @@
 
     <EditText
         android:id="@+id/txtFecha"
-        android:layout_width="192dp"
-        android:layout_height="44dp"
+        android:layout_width="247dp"
+        android:layout_height="49dp"
+        android:clickable="false"
         android:ems="10"
+        android:hint="YYYY/MM/DD"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.711"
+        app:layout_constraintHorizontal_bias="0.89"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.121" />
+        app:layout_constraintVertical_bias="0.119" />
 
     <Button
         android:id="@+id/btnfecha"
-        android:layout_width="88dp"
-        android:layout_height="40dp"
+        android:layout_width="98dp"
+        android:layout_height="50dp"
         android:text="Fecha"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.122" />
+        app:layout_constraintVertical_bias="0.119" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

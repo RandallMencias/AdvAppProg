@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,8 +14,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private String textoprecio,selectedValue;
@@ -24,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText txtFecha, txtprecio, temp;
 
     private int dia, mes, anio;
+    private Calendar c;
 
 
     @Override
@@ -38,12 +44,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter.notifyDataSetChanged();
 
 
+
+
+
         //enlazar con los elementos
         btnFecha = (Button) findViewById(R.id.btnfecha);
         btnAdd = (Button) findViewById(R.id.btnAgregar);
         btnEliminar = (Button) findViewById(R.id.btnRemove);
         txtFecha = (EditText) findViewById(R.id.txtFecha);
         txtprecio = (EditText) findViewById(R.id.editTextNumber);
+
+
+        //llenar valores
+        txtprecio.setText("0");
+        c = Calendar.getInstance();
+        dia = c.get(Calendar.DAY_OF_MONTH);
+        mes = c.get(Calendar.MONTH);
+        anio = c.get(Calendar.YEAR);
+        txtFecha.setText(anio + "/" + (mes + 1) + "/" + dia);
+
+
 
 
         //listener de botones
@@ -70,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view == btnFecha) {
-            Calendar c = Calendar.getInstance();
+
             dia = c.get(Calendar.DAY_OF_MONTH);
             mes = c.get(Calendar.MONTH);
             anio = c.get(Calendar.YEAR);
@@ -84,9 +104,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }, anio, mes, dia);
             datePickerDialog.show();
         } else if (view == btnAdd) {
+            if (txtprecio.getText().toString().equals("")) {
+                Toast toast = Toast.makeText(this, "No se ha ingresado un valor", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP| Gravity.CENTER, 0, 0);
+                toast.show();
+                txtprecio.setText("0");
+            }
+            else if (txtFecha.getText().toString().equals("")) {
+                Toast toast = Toast.makeText(this, "No se ha ingresado una fecha", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+            else {
+
             elementos.agregarGasto(txtFecha.getText().toString(), Double.parseDouble(txtprecio.getText().toString()), selectedValue);
+            }
         } else if (view == btnEliminar) {
-            Log.i("Aguebo", "A");
+            if (txtprecio.getText().toString().equals("")) {
+                Toast toast = Toast.makeText(this, "No se ha ingresado un valor", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP| Gravity.CENTER, 0, 0);
+                toast.show();
+                txtprecio.setText("0");
+            }
+            else if (txtFecha.getText().toString().equals("")) {
+                Toast toast = Toast.makeText(this, "No se ha ingresado una fecha", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+            else {
+                elementos.agregarGasto(txtFecha.getText().toString(), Double.parseDouble("-"+txtprecio.getText().toString()), selectedValue);
+            }
+
             for (String tipo : elementos.getmapGastos().keySet()) {
                 Log.i("Aguebo", "tipo gasto: " + tipo);
                 for(Gastos gasto :  elementos.getmapGastos().get(tipo)){
