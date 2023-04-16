@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Spinner tiposDeGasto;
     private Elementos elementos = Elementos.getInstance();
     private Button btnFecha, btnEliminar, btnAdd;
-    private EditText txtFecha, txtprecio, temp;
+    private EditText txtFecha, txtprecio;
 
     private int dia, mes, anio;
     private Calendar c;
@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.i("Aguebo", "tipo gasto: " + tipo);
                 for(Gastos gasto :  elementos.getmapGastos().get(tipo)){
                     Log.i("Adentro" , gasto.getValor() + "");
+                    Log.i("Adentro" , gasto.getFecha() + "");
                 }
 
             }

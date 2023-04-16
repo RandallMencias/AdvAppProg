@@ -35,12 +35,6 @@ public class Elementos {
         if (mapaGastos.containsKey(tipo)) {
             mapaGastos.get(tipo).add(new Gastos(fecha, precio));
         }
-
-
-
-
-        /*Gastos gasto = new Gastos(fecha, precio);
-        mapaGastos.put(tipo, gasto);*/
     }
 
     public double getGastoMax(String tipo){
@@ -61,7 +55,12 @@ public class Elementos {
     public Map<String, List<Gastos>> getmapGastos() {
         return mapaGastos;
     }
-
+    public Map<String, Double> getmapGastosMax() {
+        return mapGastosMax;
+    }
+    public void setmapGastosMax(String key, Double valor) {
+        mapGastosMax.put(key, valor);
+    }
     public List<String> getTiposGastos(){
         List<String> listaTipos = new ArrayList<>();
         for (String tipo : mapaGastos.keySet()) {
@@ -69,5 +68,8 @@ public class Elementos {
         }
         return listaTipos;
     }
-
+    public void nuevoTipoGasto(String key, double valorMax){
+        mapGastosMax.put(key, valorMax);
+        mapaGastos.put(key, new ArrayList<>());
+    }
 }
