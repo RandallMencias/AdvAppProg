@@ -83,7 +83,7 @@
         android:layout_height="61dp"
         android:ems="10"
         android:hint="$Gastos"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.423"
