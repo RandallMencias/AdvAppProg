@@ -31,6 +31,7 @@ public class Consulta extends AppCompatActivity {
     private Button btnFecha;
     private Elementos elementos = Elementos.getInstance();
     private ListView display;
+    private TextView total;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         c = Calendar.getInstance();
@@ -48,6 +49,8 @@ public class Consulta extends AppCompatActivity {
         fecha = (TextView)findViewById(R.id.textViewDate);
         btnFecha = (Button)findViewById(R.id.btnDate);
         display = (ListView)findViewById(R.id.listview);
+        total = (TextView)findViewById(R.id.totaldegastos);
+
 
         limiteinferior.setText("0");
         limitesuperior.setText("0");
@@ -96,6 +99,7 @@ public class Consulta extends AppCompatActivity {
                             ArrayAdapter<String> adapter = new ArrayAdapter<>(Consulta.this,
                                     android.R.layout.simple_list_item_1, elementos.getGastosPorTipo(tiposDeGasto.getSelectedItem().toString()));
                             display.setAdapter(adapter);
+                            total.setText("Total de gastos: "+elementos.getGastoTotalTipo(tiposDeGasto.getSelectedItem().toString()));
                         }
 
                         @Override
@@ -133,6 +137,7 @@ public class Consulta extends AppCompatActivity {
                                     ArrayAdapter<String> adapter = new ArrayAdapter<>(Consulta.this,
                                             android.R.layout.simple_list_item_1, elementos.getGastosPorFecha(fecha.getText().toString()));
                                     display.setAdapter(adapter);
+                                    total.setText("Total de gastos: "+elementos.getGastoTotalFecha(fecha.getText().toString()));
                                 }
                             }, anio, mes, dia);
                             datePickerDialog.show();
@@ -176,6 +181,9 @@ public class Consulta extends AppCompatActivity {
                                         android.R.layout.simple_list_item_1, elementos.getGastosPorRango(
                                                 Double.parseDouble(limiteinferior.getText().toString()),Double.parseDouble(limitesuperior.getText().toString())));
                                 display.setAdapter(adapter);
+                                total.setText("Total de gastos: "+elementos.getGastoTotalRango(
+                                        Double.parseDouble(limiteinferior.getText().toString()),Double.parseDouble(limitesuperior.getText().toString())));
+
                             }
                         }
                     });

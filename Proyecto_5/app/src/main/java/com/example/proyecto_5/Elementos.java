@@ -83,6 +83,43 @@ public class Elementos {
         return listaGastos;
     }
 
+    public String getGastoTotalTipo(String tipo){
+        double total = 0;
+        if (mapaGastos.get(tipo) != null) {
+            List<Gastos> listaGastos = mapaGastos.get(tipo);
+            for (Gastos gasto : listaGastos) {
+                total += gasto.getValor();
+            }
+        }
+        return Double.toString(total);
+    }
+
+    public String getGastoTotalFecha(String fecha){
+        double total = 0;
+        for (String tipo : mapaGastos.keySet()) {
+            List<Gastos> listaGastosObj = mapaGastos.get(tipo);
+            for (Gastos gasto : listaGastosObj) {
+                if (gasto.getFecha().equals(fecha)) {
+                    total += gasto.getValor();
+                }
+            }
+        }
+        return Double.toString(total);
+    }
+
+    public String getGastoTotalRango(Double min, Double max){
+        double total = 0;
+        for (String tipo : mapaGastos.keySet()) {
+            List<Gastos> listaGastosObj = mapaGastos.get(tipo);
+            for (Gastos gasto : listaGastosObj) {
+                if (gasto.getValor() >= min && gasto.getValor() <= max) {
+                    total += gasto.getValor();
+                }
+            }
+        }
+        return Double.toString(total);
+    }
+
 
     public List<String> getGastosPorFecha(String fecha){
 
@@ -126,5 +163,8 @@ public class Elementos {
             throw new RuntimeException();
         }
     }
+
+
+
 
 }
