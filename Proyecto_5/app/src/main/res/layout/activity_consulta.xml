@@ -19,18 +19,7 @@
         app:layout_constraintHorizontal_bias="0.179"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.954" />
-
-    <include
-        layout="@layout/tipos_de_gasto"
-        android:layout_width="331dp"
-        android:layout_height="56dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.196" />
+        app:layout_constraintVertical_bias="0.976" />
 
     <Spinner
         android:id="@+id/filtros"
@@ -39,10 +28,35 @@
         android:contentDescription="spinnerfiltros"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.462"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.098" />
+        app:layout_constraintVertical_bias="0.101" />
+
+    <Button
+        android:id="@+id/btnDate"
+        android:layout_width="151dp"
+        android:layout_height="48dp"
+        android:text="Elegir Fecha"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.187" />
+
+    <include
+        layout="@layout/tipos_de_gasto"
+        android:layout_width="331dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="32dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filtros"
+        app:layout_constraintVertical_bias="0.032" />
 
     <TextView
         android:id="@+id/txtfiltros"
@@ -97,29 +111,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.191" />
 
-    <Button
-        android:id="@+id/btnDate"
-        android:layout_width="151dp"
-        android:layout_height="48dp"
-        android:text="Elegir Fecha"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.208"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.185" />
-
     <ListView
         android:id="@+id/listview"
         android:layout_width="332dp"
         android:layout_height="408dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="68dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.417"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filtros"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintVertical_bias="0.93" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

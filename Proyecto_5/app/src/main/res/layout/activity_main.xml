@@ -18,32 +18,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.282" />
 
-    <Button
-        android:id="@+id/launch_consulta"
-        android:layout_width="169dp"
-        android:layout_height="79dp"
-        android:layout_marginTop="600dp"
-        android:onClick="launchConsulta"
-        android:text="Consultar Gastos"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="149dp"
         android:layout_height="83dp"
-        android:layout_marginTop="600dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="28dp"
         android:onClick="launchAjustes"
         android:text="Editar Gastos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.925" />
 
+    <Button
+        android:id="@+id/launch_consulta"
+        android:layout_width="169dp"
+        android:layout_height="79dp"
+        android:onClick="launchConsulta"
+        android:text="Consultar Gastos"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintHorizontal_bias="0.615"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.926" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -117,18 +117,18 @@
 
     <EditText
         android:id="@+id/txtFecha"
-        android:layout_width="247dp"
-        android:layout_height="49dp"
+        android:layout_width="175dp"
+        android:layout_height="52dp"
         android:clickable="false"
         android:ems="10"
         android:hint="YYYY/MM/DD"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.89"
+        app:layout_constraintHorizontal_bias="0.661"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119" />
+        app:layout_constraintVertical_bias="0.117" />
 
     <Button
         android:id="@+id/btnfecha"
@@ -137,10 +137,10 @@
         android:text="Fecha"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintHorizontal_bias="0.159"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119" />
+        app:layout_constraintVertical_bias="0.117" />
 
     <EditText
         android:id="@+id/editTextItem"
