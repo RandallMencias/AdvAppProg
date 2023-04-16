@@ -82,7 +82,11 @@ public class Ajustes extends AppCompatActivity {
             }else{
                 elementos.nuevoTipoGasto(nuevoTipo.getText().toString(),Double.parseDouble(nuevoValor.getText().toString()));
                 setListView();
-
+                nuevoTipo.setText("");
+                nuevoValor.setText("");
+                Toast toast = Toast.makeText(this, "Tipo agregado con exito", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
+                toast.show();
             }
         }catch (Exception e){//catch en caso de que el valor ingresado no sea un double valido
             Toast toast = Toast.makeText(this, "El numero ingresado no es valido", Toast.LENGTH_SHORT);
