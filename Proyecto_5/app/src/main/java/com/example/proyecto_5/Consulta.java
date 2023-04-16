@@ -198,6 +198,9 @@ public class Consulta extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(Consulta.this,
+                        android.R.layout.simple_list_item_1, elementos.getGastosPorTipo(tiposDeGasto.getSelectedItem().toString()));
+                display.setAdapter(adapter);
 
             }
         });
