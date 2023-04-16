@@ -2,26 +2,35 @@ package com.example.proyecto_5;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 public class Consulta extends AppCompatActivity {
-
+    private int dia, mes, anio;
+    private Calendar c;
     private Spinner filtros;
     private TextView limiteinferior;
-    private TextView limitesuperior;
+    private TextView limitesuperior,fecha;
     private Spinner tiposDeGasto;
+    private Button btnFecha;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        c = Calendar.getInstance();
         super.onCreate(savedInstanceState);
+        String Date;
 
         setContentView(R.layout.activity_consulta);
 
@@ -30,7 +39,8 @@ public class Consulta extends AppCompatActivity {
         filtros = (Spinner) findViewById(R.id.filtros);
         limiteinferior = (TextView) findViewById(R.id.limiteinferior);
         limitesuperior = (TextView) findViewById(R.id.limitesuperior);
-
+        fecha = (TextView)findViewById(R.id.textViewDate);
+        btnFecha = (Button)findViewById(R.id.btnDate);
 
 
 
@@ -59,7 +69,8 @@ public class Consulta extends AppCompatActivity {
                     tiposDeGasto.setVisibility(View.VISIBLE);
                     limiteinferior.setVisibility(View.GONE);
                     limitesuperior.setVisibility(View.GONE);
-
+                    btnFecha.setVisibility(View.GONE);
+                    fecha.setVisibility(View.GONE);
 
 
 
@@ -78,6 +89,28 @@ public class Consulta extends AppCompatActivity {
                     tiposDeGasto.setVisibility(View.GONE);
                     limiteinferior.setVisibility(View.GONE);
                     limitesuperior.setVisibility(View.GONE);
+                    btnFecha.setVisibility(View.VISIBLE);
+                    fecha.setVisibility(View.VISIBLE);
+                    dia = c.get(Calendar.DAY_OF_MONTH);
+                    mes = c.get(Calendar.MONTH);
+                    anio = c.get(Calendar.YEAR);
+
+
+                    btnFecha.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            DatePickerDialog datePickerDialog = new DatePickerDialog(Consulta.this, new DatePickerDialog.OnDateSetListener() {
+                                @Override
+                                public void onDateSet(DatePicker view, int year, int month, int day) {
+                                    fecha.setText(year + "/" + (month + 1) + "/" + day);
+                                }
+                            }, anio, mes, dia);
+                            datePickerDialog.show();
+                        }
+                    });
+
+
+
                 }
 
 
@@ -89,6 +122,8 @@ public class Consulta extends AppCompatActivity {
                     tiposDeGasto.setVisibility(View.GONE);
                     limiteinferior.setVisibility(View.VISIBLE);
                     limitesuperior.setVisibility(View.VISIBLE);
+                    btnFecha.setVisibility(View.GONE);
+                    fecha.setVisibility(View.GONE);
                 }
             }
 
@@ -102,4 +137,5 @@ public class Consulta extends AppCompatActivity {
 
 
     }
+
 }

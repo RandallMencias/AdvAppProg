@@ -101,11 +101,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }, anio, mes, dia);
             datePickerDialog.show();
         } else if (view == btnAdd) {
-            if (txtprecio.getText().toString().equals("")) {
+            if (txtprecio.getText().toString().equals("") || txtprecio.getText().toString().equals("0")) {
                 Toast toast = Toast.makeText(this, "No se ha ingresado un valor", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.TOP| Gravity.CENTER, 0, 0);
                 toast.show();
-                txtprecio.setText("0");
+                txtprecio.setText("");
             }
             else if (txtFecha.getText().toString().equals("")) {
                 Toast toast = Toast.makeText(this, "No se ha ingresado una fecha", Toast.LENGTH_SHORT);
