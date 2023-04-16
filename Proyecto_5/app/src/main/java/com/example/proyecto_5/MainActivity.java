@@ -102,9 +102,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
                 toast.show();
             }
+            else if (Double.parseDouble(txtprecio.getText().toString())>elementos.getmapGastosMax().get(selectedValue)){
+                Toast toast = Toast.makeText(this, "El numero ingresado supera el valor maximo permitido", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
+                toast.show();
+            }
             else {
-
-            elementos.agregarGasto(txtFecha.getText().toString(), Double.parseDouble(txtprecio.getText().toString()), selectedValue);
+                elementos.agregarGasto(txtFecha.getText().toString(), Double.parseDouble(txtprecio.getText().toString()), selectedValue);
             }
         } else if (view == btnEliminar) { //boton para eliminar
             if (txtprecio.getText().toString().equals("")) {
