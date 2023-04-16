@@ -1,7 +1,9 @@
 package com.example.proyecto_5;
-
+//Juan Diego Venegas Barreto 00209856
+//Randall Mencias 00321469
+//clase: Programacion Avanzada de Apps
+//Proyecto 5. Anexo de Gastos Personales
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,12 +21,12 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private String textoprecio,selectedValue;
+    private String selectedValue;//Guardar valor der spinner
     private Spinner tiposDeGasto;
-    private Elementos elementos = Elementos.getInstance();
+    private Elementos elementos = Elementos.getInstance(); //Instancia de clase Elementos
     private Button btnFecha, btnEliminar, btnAdd;
     private EditText txtFecha, txtprecio;
-
+    //Elementos para picker de calendario
     private int dia, mes, anio;
     private Calendar c;
 
@@ -40,17 +42,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tiposDeGasto.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-
-
-
-
         //enlazar con los elementos
         btnFecha = (Button) findViewById(R.id.btnfecha);
         btnAdd = (Button) findViewById(R.id.btnAgregar);
         btnEliminar = (Button) findViewById(R.id.btnRemove);
         txtFecha = (EditText) findViewById(R.id.txtFecha);
         txtprecio = (EditText) findViewById(R.id.editTextNumber);
-
 
         //llenar valores
         txtprecio.setText("0");
@@ -59,9 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mes = c.get(Calendar.MONTH);
         anio = c.get(Calendar.YEAR);
         txtFecha.setText(anio + "/" + (mes + 1) + "/" + dia);
-
-
-
 
         //listener de botones
         btnFecha.setOnClickListener(this);
@@ -73,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // This code will be executed when an item in the spinner is selected
                 selectedValue = parent.getItemAtPosition(position).toString();
-                Log.i("Aguebo", "Valor seleccionado: " + selectedValue);
             }
 
             @Override
@@ -83,16 +76,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-
+    //funcion para los eventos
     @Override
     public void onClick(View view) {
-        if (view == btnFecha) {
-
+        if (view == btnFecha) {//usa boton para mostrar fecha
             dia = c.get(Calendar.DAY_OF_MONTH);
             mes = c.get(Calendar.MONTH);
             anio = c.get(Calendar.YEAR);
-
-
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -100,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }, anio, mes, dia);
             datePickerDialog.show();
-        } else if (view == btnAdd) {
+        } else if (view == btnAdd) {//usa boton para agregar
             if (txtprecio.getText().toString().equals("") || txtprecio.getText().toString().equals("0")) {
                 Toast toast = Toast.makeText(this, "No se ha ingresado un valor", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.TOP| Gravity.CENTER, 0, 0);
@@ -116,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             elementos.agregarGasto(txtFecha.getText().toString(), Double.parseDouble(txtprecio.getText().toString()), selectedValue);
             }
-        } else if (view == btnEliminar) {
+        } else if (view == btnEliminar) { //boton para eliminar
             if (txtprecio.getText().toString().equals("")) {
                 Toast toast = Toast.makeText(this, "No se ha ingresado un valor", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.TOP| Gravity.CENTER, 0, 0);
@@ -131,28 +121,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else {
                 elementos.agregarGasto(txtFecha.getText().toString(), Double.parseDouble("-"+txtprecio.getText().toString()), selectedValue);
             }
-
-            for (String tipo : elementos.getmapGastos().keySet()) {
-                Log.i("Aguebo", "tipo gasto: " + tipo);
-                for(Gastos gasto :  elementos.getmapGastos().get(tipo)){
-                    Log.i("Adentro" , gasto.getValor() + "");
-                    Log.i("Adentro" , gasto.getFecha() + "");
-                }
-
-            }
         }
-
     }
-
+    //funcion para cambiar a pantalla de consulta
     public void launchConsulta(View view) {
         Intent intent = new Intent(this, Consulta.class);
         startActivity(intent);
     }
-
+    //funcion para cambiar a pantalla editar
     public void launchAjustes(View view) {
         Intent intent = new Intent(this, Ajustes.class);
         startActivity(intent);
     }
-
-
 }

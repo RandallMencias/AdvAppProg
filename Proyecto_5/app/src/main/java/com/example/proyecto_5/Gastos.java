@@ -1,16 +1,17 @@
 package com.example.proyecto_5;
-
-import java.util.*;
+//Clase gastos
 
 public class Gastos {
+    //datos miembro
     private String fecha;
     private double valor;
-//osi
+
+    //constructor
     public Gastos(String fecha, double valor){
         this.fecha = fecha;
         this.valor = valor;
     }
-
+    //setters y getters
     public String getFecha() {
         return fecha;
     }
