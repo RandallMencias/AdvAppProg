@@ -10,7 +10,6 @@
         android:id="@+id/textView"
         android:layout_width="227dp"
         android:layout_height="54dp"
-        android:layout_marginBottom="48dp"
         android:text="Total de gastos"
         android:textAlignment="viewStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -18,7 +17,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.179"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.902" />
 
     <include
         layout="@layout/tipos_de_gasto"
