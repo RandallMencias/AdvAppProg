@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.*;
 import android.os.Bundle;
 import android.view.View;
@@ -80,7 +81,21 @@ public class Ajustes extends AppCompatActivity {
     }
 
     public void nuevoTipoGasto(View view){
-        elementos.nuevoTipoGasto(nuevoTipo.getText().toString(),Double.parseDouble(nuevoValor.getText().toString()));
-        setListView();
+        try {
+            if(nuevoTipo.getText().toString().equals("") || nuevoValor.getText().toString().equals("") || elementos.getmapGastos().containsKey(nuevoTipo.getText().toString())){
+                Toast toast = Toast.makeText(this, "Error en la seleccion", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP| Gravity.CENTER, 0, 0);
+                toast.show();
+            }else{
+                elementos.nuevoTipoGasto(nuevoTipo.getText().toString(),Double.parseDouble(nuevoValor.getText().toString()));
+                setListView();
+
+                nuevoTipo.getText().toString();
+            }
+        }catch (Exception e){
+            Toast toast = Toast.makeText(this, "El numero ingresado no es valido", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.TOP| Gravity.CENTER, 0, 0);
+            toast.show();
+        }
     }
 }
