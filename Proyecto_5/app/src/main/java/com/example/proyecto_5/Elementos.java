@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Elementos {
 
-    private Map<String, List<Gastos>> mapaGastos;
-    private Map<String,Double> mapGastosMax;
+    private static Map<String, List<Gastos>> mapaGastos;
+    private static Map<String,Double> mapGastosMax;
     private static Elementos instancia = new Elementos();
     public static Elementos getInstance(){return instancia; }
     private Elementos() {
@@ -33,8 +33,7 @@ public class Elementos {
 
     public void agregarGasto(String fecha, double precio, String tipo){
         if (mapaGastos.containsKey(tipo)) {
-            List<Gastos> listaGastos = mapaGastos.get(tipo);
-            listaGastos.add(new Gastos(fecha, precio));
+            mapaGastos.get(tipo).add(new Gastos(fecha, precio));
         }
 
 
@@ -70,6 +69,5 @@ public class Elementos {
         }
         return listaTipos;
     }
-
 
 }
