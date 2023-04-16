@@ -113,12 +113,17 @@ public class Elementos {
     }
 
     public void eliminarGasto(String tipo, String item){
+        boolean flag = false;
         List<Gastos> listaGastos = mapaGastos.get(tipo);
         for (Gastos gasto : listaGastos) {
             if (gasto.getItem().equals(item)) {
+                flag = true;
                 listaGastos.remove(gasto);
                 break;
             }
+        }
+        if(!flag){
+            throw new RuntimeException();
         }
     }
 

@@ -115,14 +115,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             else{
                 elementos.agregarGasto(txtFecha.getText().toString(), Double.parseDouble(txtprecio.getText().toString()), selectedValue, txtItem.getText().toString());
+                txtprecio.setText("");
+                txtItem.setText("");
+                Toast toast = Toast.makeText(this, "Gasto agregado con exito", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
+                toast.show();
             }
         } else if (view == btnEliminar) { //boton para eliminar
            if(txtItem.getText().toString().equals("")){
                 Toast toast = Toast.makeText(this, "No se ha ingresado item", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
                 toast.show();
-            } else {
-               elementos.eliminarGasto(selectedValue, txtItem.getText().toString());
+            } else{
+               try {
+                   elementos.eliminarGasto(selectedValue, txtItem.getText().toString());
+                   txtprecio.setText("");
+                   txtItem.setText("");
+                   Toast toast = Toast.makeText(this, "Item eliminado con exito", Toast.LENGTH_SHORT);
+                   toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
+                   toast.show();
+               } catch(Exception e){
+                   Toast toast = Toast.makeText(this, "El elemento a eliminar no existe", Toast.LENGTH_SHORT);
+                   toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
+                   toast.show();
+               }
            }
 
         }
