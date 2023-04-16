@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
                 toast.show();
             } else {
-               eliminarGasto(selectedValue, txtItem.getText().toString());
+               elementos.eliminarGasto(selectedValue, txtItem.getText().toString());
            }
 
         }
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, Ajustes.class);
         startActivity(intent);
     }
-    public void eliminarGasto(String tipo, String item){
 
-    }
+
+
 }

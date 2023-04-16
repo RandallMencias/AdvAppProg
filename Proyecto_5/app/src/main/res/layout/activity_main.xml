@@ -8,7 +8,6 @@
 
 
     <include
-        android:id="@+id/include"
         layout="@layout/tipos_de_gasto"
         android:layout_width="288dp"
         android:layout_height="44dp"

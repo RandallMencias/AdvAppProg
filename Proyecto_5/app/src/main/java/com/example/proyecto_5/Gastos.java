@@ -6,10 +6,13 @@ public class Gastos {
     private String fecha;
     private double valor;
 
+    private String item;
+
     //constructor
-    public Gastos(String fecha, double valor){
+    public Gastos(String fecha, double valor, String item){
         this.fecha = fecha;
         this.valor = valor;
+        this.item = item;
     }
     //setters y getters
     public String getFecha() {
@@ -26,5 +29,13 @@ public class Gastos {
 
     public void setValor(int valor) {
         this.valor = valor;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
     }
 }

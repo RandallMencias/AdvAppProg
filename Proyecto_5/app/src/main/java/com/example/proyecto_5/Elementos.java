@@ -31,9 +31,9 @@ public class Elementos {
 
     }
 
-    public void agregarGasto(String fecha, double precio, String tipo){
+    public void agregarGasto(String fecha, double precio, String tipo, String item){
         if (mapaGastos.containsKey(tipo)) {
-            mapaGastos.get(tipo).add(new Gastos(fecha, precio));
+            mapaGastos.get(tipo).add(new Gastos(fecha, precio, item));
         }
     }
 
@@ -77,7 +77,7 @@ public class Elementos {
         List<String> listaGastos = new ArrayList<>();
         if (mapaGastos.get(tipo) != null) {
             for (Gastos gasto : mapaGastos.get(tipo)) {
-                listaGastos.add("Fecha: "+gasto.getFecha()+" $"+Double.toString(gasto.getValor()));
+                listaGastos.add("Fecha: "+gasto.getFecha()+" "+ gasto.getItem()+" $"+Double.toString(gasto.getValor()));
                 }
         }
         return listaGastos;
@@ -91,7 +91,7 @@ public class Elementos {
             List<Gastos> listaGastosObj = mapaGastos.get(tipo);
             for (Gastos gasto : listaGastosObj) {
                 if (gasto.getFecha().equals(fecha)) {
-                    listaGastos.add(tipo + " $" + Double.toString(gasto.getValor()));
+                    listaGastos.add(tipo +": "+ gasto.getItem()+" $" + Double.toString(gasto.getValor()));
                 }
             }
         }
@@ -105,11 +105,21 @@ public class Elementos {
             List<Gastos> listaGastosObj = mapaGastos.get(tipo);
             for (Gastos gasto : listaGastosObj) {
                 if (gasto.getValor() >= min && gasto.getValor() <= max) {
-                    listaGastos.add(tipo+" Fecha: "+ gasto.getFecha()+" $"+Double.toString(gasto.getValor()));
+                    listaGastos.add(tipo+" Fecha: "+ gasto.getFecha()+" "+ gasto.getItem()+" $"+Double.toString(gasto.getValor()));
                 }
             }
         }
         return listaGastos;
+    }
+
+    public void eliminarGasto(String tipo, String item){
+        List<Gastos> listaGastos = mapaGastos.get(tipo);
+        for (Gastos gasto : listaGastos) {
+            if (gasto.getItem().equals(item)) {
+                listaGastos.remove(gasto);
+                break;
+            }
+        }
     }
 
 }
