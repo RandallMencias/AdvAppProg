@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Spinner tiposDeGasto;
     private Elementos elementos = Elementos.getInstance(); //Instancia de clase Elementos
     private Button btnFecha, btnEliminar, btnAdd;
-    private EditText txtFecha, txtprecio;
+    private EditText txtFecha, txtprecio, txtItem;
     //Elementos para picker de calendario
     private int dia, mes, anio;
     private Calendar c;
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnEliminar = (Button) findViewById(R.id.btnRemove);
         txtFecha = (EditText) findViewById(R.id.txtFecha);
         txtprecio = (EditText) findViewById(R.id.editTextNumber);
+        txtItem = (EditText) findViewById(R.id.editTextItem);
 
         //llenar valores
         txtprecio.setText("0");
@@ -107,24 +108,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
                 toast.show();
             }
-            else {
-                elementos.agregarGasto(txtFecha.getText().toString(), Double.parseDouble(txtprecio.getText().toString()), selectedValue);
-            }
-        } else if (view == btnEliminar) { //boton para eliminar
-            if (txtprecio.getText().toString().equals("")) {
-                Toast toast = Toast.makeText(this, "No se ha ingresado un valor", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP| Gravity.CENTER, 0, 0);
-                toast.show();
-                txtprecio.setText("0");
-            }
-            else if (txtFecha.getText().toString().equals("")) {
-                Toast toast = Toast.makeText(this, "No se ha ingresado una fecha", Toast.LENGTH_SHORT);
+            else if(txtItem.getText().toString().equals("")){
+                Toast toast = Toast.makeText(this, "No se ha ingresado item", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
                 toast.show();
             }
-            else {
-                elementos.agregarGasto(txtFecha.getText().toString(), Double.parseDouble("-"+txtprecio.getText().toString()), selectedValue);
+            else{
+                elementos.agregarGasto(txtFecha.getText().toString(), Double.parseDouble(txtprecio.getText().toString()), selectedValue, txtItem.getText().toString());
             }
+        } else if (view == btnEliminar) { //boton para eliminar
+           if(txtItem.getText().toString().equals("")){
+                Toast toast = Toast.makeText(this, "No se ha ingresado item", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
+                toast.show();
+            } else {
+               eliminarGasto(selectedValue, txtItem.getText().toString());
+           }
+
         }
     }
     //funcion para cambiar a pantalla de consulta
@@ -136,5 +136,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void launchAjustes(View view) {
         Intent intent = new Intent(this, Ajustes.class);
         startActivity(intent);
+    }
+    public void eliminarGasto(String tipo, String item){
+
     }
 }
