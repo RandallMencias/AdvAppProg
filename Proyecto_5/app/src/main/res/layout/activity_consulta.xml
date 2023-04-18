@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Consulta">
 
     <TextView
-        android:id="@+id/totaldegastos"
-        android:layout_width="227dp"
-        android:layout_height="54dp"
-        android:text="Total de gastos"
-        android:textAlignment="viewStart"
+        android:id="@+id/txtfiltros"
+        android:layout_width="135dp"
+        android:layout_height="41dp"
+        android:clickable="false"
+        android:text="Filtros"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.179"
+        app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintVertical_bias="0.019" />
 
     <Spinner
         android:id="@+id/filtros"
@@ -57,46 +58,38 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.214" />
 
-    <TextView
-        android:id="@+id/txtfiltros"
-        android:layout_width="135dp"
-        android:layout_height="41dp"
-        android:clickable="false"
-        android:text="Filtros"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.019" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/limiteinferior"
-        android:layout_width="149dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="40dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.195" />
+        <EditText
+            android:id="@+id/limiteinferior"
+            android:layout_width="149dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="40dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.195" />
 
-    <EditText
-        android:id="@+id/limitesuperior"
-        android:layout_width="149dp"
-        android:layout_height="53dp"
-        android:layout_marginEnd="44dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.195" />
+        <EditText
+            android:id="@+id/limitesuperior"
+            android:layout_width="149dp"
+            android:layout_height="53dp"
+            android:layout_marginEnd="44dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.195" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textViewDate"
@@ -113,13 +106,30 @@
     <ListView
         android:id="@+id/listview"
         android:layout_width="332dp"
-        android:layout_height="408dp"
+        android:layout_height="378dp"
         android:layout_marginBottom="68dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.417"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filtros"
-        app:layout_constraintVertical_bias="0.93" />
+        app:layout_constraintVertical_bias="0.93">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </ListView>
+
+    <TextView
+        android:id="@+id/totaldegastos"
+        android:layout_width="227dp"
+        android:layout_height="54dp"
+        android:text="Total de gastos"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.179"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
+</LinearLayout>
