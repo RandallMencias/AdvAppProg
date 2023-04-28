@@ -103,3 +103,40 @@ class html extends AsyncTask<String,Void,Void>{
 
 
 }
+
+class url extends AsyncTask<String,Void,Void> {
+    private String url;
+    private Elements linkElements;
+    private ArrayList<String> lista;
+
+    public url(String url) {
+        lista = new ArrayList<>();
+        this.url = url;
+        linkElements = new Elements();
+    }
+
+    @Override
+    protected Void doInBackground(String... strings) {
+
+        try {
+            Document doc = Jsoup.connect(url).get();
+            Element resultsDiv = (Element) doc.getElementById("results");
+            linkElements = resultsDiv.select("a[href]");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid){
+        for (int i = 0; i < 5; i++) {
+            Log.d("html", "onPostExecute: "+ linkElements.get(i).attr("href"));
+            Log.d("html", "onPostExecute: "+ linkElements.get(i).html());
+        }
+    }
+
+
+
+
+}
