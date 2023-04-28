@@ -25,15 +25,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("MainActivity", "onClick: ");
-                //new LoadImageTask(iv).execute("https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA04628.jpg");
-                try {
-                    new html(new URL("https://nasasearch.nasa.gov/search?affiliate=nasa&page=6&query=%2A.jpg&sort_by=&utf8=%E2%9C%93")).execute();
-                } catch (MalformedURLException e) {
-                    throw new RuntimeException(e);
-                }
+//                new LoadImageTask(iv).execute("https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA04628.jpg");
+
+                new html("https://nasasearch.nasa.gov/search?affiliate=nasa&page=6&query=%2A.jpg&sort_by=&utf8=%E2%9C%93").execute();
 
 
             }
+
         });
 
 
