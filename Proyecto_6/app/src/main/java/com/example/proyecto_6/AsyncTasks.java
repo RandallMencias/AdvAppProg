@@ -93,7 +93,8 @@ class html extends AsyncTask<String,Void,Void>{
     @Override
     protected void onPostExecute(Void aVoid){
         for (int i = 0; i < 5; i++) {
-            Log.d("html", "onPostExecute: "+ linkElements.get(i));
+            Log.d("html", "onPostExecute: "+ linkElements.get(i).attr("href"));
+            Log.d("html", "onPostExecute: "+ linkElements.get(i).html());
         }
     }
 
