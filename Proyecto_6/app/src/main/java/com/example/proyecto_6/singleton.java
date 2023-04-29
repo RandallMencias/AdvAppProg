@@ -11,6 +11,7 @@ import java.util.Map;
 public class singleton {
     private static Map<String , Nasa> mapaImagenes;
     private ArrayList<String> Keys;
+    private Map<Integer, String> lista;
     private static Map<String, Bitmap> cache;
     private static singleton instancia = new singleton();
     public static singleton getInstance(){return instancia; }
@@ -18,6 +19,14 @@ public class singleton {
         mapaImagenes = new HashMap<>();
         cache = new HashMap<>();
         Keys = new ArrayList<>();
+        lista = new HashMap<>();
+        lista.put(1,"Hola");
+        lista.put(2,"Hola");
+        lista.put(3,"Hola");
+        lista.put(4,"Hola");
+        lista.put(5,"Hola");
+        lista.put(6,"Hola");
+
     }
 
     public void addNasa(Nasa nasa){
@@ -45,7 +54,13 @@ public class singleton {
 
     public String getRandomImage(){
         int random = (int) (Math.random() * Keys.size());
-        return Keys.get(random);
+        if(validarLista(Keys.get(random))){
+            return Keys.get(random);
+        } else{
+            System.out.println("Imagen repetida" + Keys.get(random));
+            return getRandomImage();
+        }
+
     }
 
 
@@ -59,5 +74,16 @@ public class singleton {
     }
     public boolean inCache(String name){
         return cache.containsKey(name);
+    }
+    public boolean validarLista(String name){
+        for (Map.Entry<Integer, String> entry : lista.entrySet()){
+            if(entry.getValue().equals(name)){
+                return false;
+            }
+        }
+        return true;
+    }
+    public void replaceImage(Integer i, String name){
+        lista.put(i,name);
     }
 }
