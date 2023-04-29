@@ -120,8 +120,8 @@ class url extends AsyncTask<String,Void,Void> {
 
         try {
             Document doc = Jsoup.connect(url).get();
-            Element resultsDiv = (Element) doc.getElementById("results");
-            linkElements = resultsDiv.select("a[href]");
+            linkElements = doc.select("a:contains(Download JPG)");
+//            System.out.println(doc.select("a:contains(Download JPG)"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -130,9 +130,10 @@ class url extends AsyncTask<String,Void,Void> {
 
     @Override
     protected void onPostExecute(Void aVoid){
-        for (int i = 0; i < 5; i++) {
+        Log.d("html", "onPostExecute: "+ linkElements.size());
+        for (int i = 0; i < linkElements.size(); i++) {
             Log.d("html", "onPostExecute: "+ linkElements.get(i).attr("href"));
-            Log.d("html", "onPostExecute: "+ linkElements.get(i).html());
+
         }
     }
 
