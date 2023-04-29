@@ -35,8 +35,16 @@ public class singleton {
             Keys.add(nasa.getTitle());
             Log.d("singleton", "addNasa: " + nasa.getTitle());
         }
-
     }
+
+    public List<Nasa> showImageMap(){
+        List<Nasa> listaNasa = new ArrayList<>();
+        for(String l : mapaImagenes.keySet()){
+            listaNasa.add(mapaImagenes.get(l));
+        }
+        return listaNasa;
+    }
+
     public void addtoCache(String name, Bitmap bitmap){
         cache.put(name,bitmap);
     }

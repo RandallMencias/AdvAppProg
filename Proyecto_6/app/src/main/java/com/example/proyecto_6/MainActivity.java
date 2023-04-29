@@ -2,6 +2,7 @@ package com.example.proyecto_6;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -142,6 +143,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+    public void launchScreen(View view){
+        Intent intent = new Intent(this, List.class);
+        startActivity(intent);
     }
 }
 

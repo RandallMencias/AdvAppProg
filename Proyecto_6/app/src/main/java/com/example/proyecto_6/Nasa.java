@@ -40,10 +40,6 @@ public class Nasa {
     @NonNull
     @Override
     public String toString() {
-        return "Nasa{" +
-                "title='" + title + '\'' +
-                ", http='" + http + '\'' +
-                ", url='" + url + '\'' +
-                '}';
+        return "Titulo: " + title+", http=" + http+ ", url=" + url;
     }
 }
