@@ -3,29 +3,36 @@ package com.example.proyecto_6;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ImageView;
 import org.jsoup.Jsoup;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+
+
+//Carga la Imagen al ImageView
 class LoadImageTask extends AsyncTask<String,Void, Bitmap> {
     private ImageView imageView;
+    private singleton s = singleton.getInstance(); //instancia de la clase singleton
+
+
+
 
     public LoadImageTask(ImageView imageView) {
     this.imageView = imageView;
     }
+
+
+
+
+
 
     @Override
     protected Bitmap doInBackground(String... strings) {
@@ -41,7 +48,7 @@ class LoadImageTask extends AsyncTask<String,Void, Bitmap> {
 
             try (InputStream inputStream = connection.getInputStream()) {
                 bitmap = BitmapFactory.decodeStream(inputStream);
-//                bitmaps.put(params[0], bitmap); // cache for later use
+                s.addtoCache(strings[1],bitmap);
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -64,14 +71,26 @@ class LoadImageTask extends AsyncTask<String,Void, Bitmap> {
     }
 }
 
-class html extends AsyncTask<String,Void,Void>{
+
+
+
+
+
+
+
+// ---------------------------------------------------------------------------------------------***---------------------------------------------------------------------------------------------
+
+
+class LoadData extends AsyncTask<String,Void,Void>{
     private String url;
     private Elements linkElements;
-    private ArrayList<String> lista;
-    public html(String url){
-        lista = new ArrayList<>();
+    private singleton s = singleton.getInstance(); //instancia de la clase singleton
+
+    private Elements JPGElements;
+    public LoadData(String url){
         this.url = url;
         linkElements = new Elements();
+        JPGElements = new Elements();
     }
     @Override
     protected Void doInBackground(String... strings) {
@@ -80,64 +99,39 @@ class html extends AsyncTask<String,Void,Void>{
             Document doc = Jsoup.connect(url).get();
             Element resultsDiv = (Element) doc.getElementById("results");
             linkElements = resultsDiv.select("a[href]");
-
-
+            for(int i = 0; i < linkElements.size()-1; i++){
+                Document doc2 = Jsoup.connect(linkElements.get(i).attr("href")).get();
+                JPGElements = doc2.select("a:contains(Download JPG)");
+                if(JPGElements.size() > 0) {
+                    s.addNasa(new Nasa(linkElements.get(i).html(),linkElements.get(i).attr("href"), JPGElements.get(0).attr("href") ));
+                }
+            }
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return null;
 
-    }
-    @Override
-    protected void onPostExecute(Void aVoid){
-        for (int i = 0; i < 5; i++) {
-            Log.d("html", "onPostExecute: "+ linkElements.get(i).attr("href"));
-            Log.d("html", "onPostExecute: "+ linkElements.get(i).html());
-        }
-    }
-
-    // Bajarse el html y almacenar el url y titulop a la pagina de la imagen
-    //buscar el url del jpg y almacenar eso
-
-
-}
-
-class url extends AsyncTask<String,Void,Void> {
-    private String url;
-    private Elements linkElements;
-    private ArrayList<String> lista;
-
-    public url(String url) {
-        lista = new ArrayList<>();
-        this.url = url;
-        linkElements = new Elements();
-    }
-
-    @Override
-    protected Void doInBackground(String... strings) {
-
-        try {
-            Document doc = Jsoup.connect(url).get();
-            linkElements = doc.select("a:contains(Download JPG)");
-//            System.out.println(doc.select("a:contains(Download JPG)"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         return null;
     }
 
-    @Override
-    protected void onPostExecute(Void aVoid){
-        Log.d("html", "onPostExecute: "+ linkElements.size());
-        for (int i = 0; i < linkElements.size(); i++) {
-            Log.d("html", "onPostExecute: "+ linkElements.get(i).attr("href"));
 
-        }
-    }
 
 
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
