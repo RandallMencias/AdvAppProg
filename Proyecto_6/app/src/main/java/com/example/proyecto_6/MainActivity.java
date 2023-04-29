@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,20 +29,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("MainActivity", "onClick: ");
                 String name = s.getRandomImage();
-                if (name != "Cache")
+                if (!s.inCache(name)) {
+                    System.out.println(name);
                     new LoadImageTask(iv).execute(s.getURL(name), name);
+                }
                 else
+                    System.out.println("Cache");
                     iv.setImageBitmap(s.getBitmap(name));
-
-
 
             }
         });
 
-
-
     }
-
 
 
 }

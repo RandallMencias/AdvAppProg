@@ -29,9 +29,7 @@ public class singleton {
 
     }
     public void addtoCache(String name, Bitmap bitmap){
-        if(!cache.containsKey(name)) {
-            cache.put(name,bitmap);
-        }
+        cache.put(name,bitmap);
     }
 
     public Bitmap getBitmap(String name){
@@ -52,7 +50,6 @@ public class singleton {
 
 
     public String getURL(String name) {
-
         if (!cache.containsKey(name)) {
             return mapaImagenes.get(name).getUrl();
         }
@@ -60,5 +57,7 @@ public class singleton {
             return "Cache";
         }
     }
-    //private singleton s = singleton.getInstance(); //instancia de la clase singleton
+    public boolean inCache(String name){
+        return cache.containsKey(name);
+    }
 }
