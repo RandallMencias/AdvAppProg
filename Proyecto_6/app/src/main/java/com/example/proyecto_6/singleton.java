@@ -36,6 +36,7 @@ public class singleton {
         for(String nombre : cache.keySet()){
             listaNombres.add(nombre);
         }
+
         return listaNombres;
     }
 
