@@ -10,17 +10,14 @@ import android.widget.ImageView;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private singleton s = singleton.getInstance(); //instancia de la clase singleton
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new LoadData("https://nasasearch.nasa.gov/search?affiliate=nasa&page=6&query=%2A.jpg&sort_by=&utf8=%E2%9C%93").execute();
 
 
         ImageView iv = (ImageView) findViewById(R.id.imageView1);
@@ -28,15 +25,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("MainActivity", "onClick: ");
-                String name = s.getRandomImage();
-                if (!Objects.equals(name, "Cache"))
-                    new LoadImageTask(iv).execute(s.getURL(name), name);
-                else
-                    iv.setImageBitmap(s.getBitmap(name));
+//                new LoadImageTask(iv).execute("https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA04628.jpg");
 
-
-
+//                new html("https://nasasearch.nasa.gov/search?affiliate=nasa&page=6&query=%2A.jpg&sort_by=&utf8=%E2%9C%93").execute();
+//
+                new url("https://www.jpl.nasa.gov/images/pia04628-galaxy-messier-51").execute();
             }
+
         });
 
 
@@ -46,4 +41,3 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
-

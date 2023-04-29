@@ -1,5 +1,7 @@
 package com.example.proyecto_6;
 
+import androidx.annotation.NonNull;
+
 public class Nasa {
     private String title;
     private String http;
@@ -33,5 +35,15 @@ public class Nasa {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Nasa{" +
+                "title='" + title + '\'' +
+                ", http='" + http + '\'' +
+                ", url='" + url + '\'' +
+                '}';
     }
 }
