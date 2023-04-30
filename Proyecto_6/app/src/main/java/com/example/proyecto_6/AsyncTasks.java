@@ -46,7 +46,8 @@ class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
             connection = (HttpURLConnection) url.openConnection();
             InputStream inputStream = connection.getInputStream();
 
-            bitmap = BitmapFactory.decodeStream(inputStream);
+            Bitmap temp = BitmapFactory.decodeStream(inputStream);
+            bitmap  = Bitmap.createScaledBitmap(temp, 500, 500, false);
             a = strings[1];
 
 
