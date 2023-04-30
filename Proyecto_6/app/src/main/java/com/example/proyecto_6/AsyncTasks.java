@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import org.jsoup.Jsoup;
 
@@ -22,6 +24,7 @@ import org.jsoup.select.Elements;
 class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
     private String a;
     private ImageView imageView;
+
     private singleton s = singleton.getInstance(); //instancia de la clase singleton
 
 
@@ -71,6 +74,7 @@ class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
 class LoadData extends AsyncTask<String, Void, Void> {
     private String url;
     private Elements linkElements;
+    private ListView lvNasa;
     private singleton s = singleton.getInstance(); //instancia de la clase singleton
 
     private Elements JPGElements;
