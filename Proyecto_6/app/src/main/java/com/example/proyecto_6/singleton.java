@@ -65,7 +65,6 @@ public class singleton {
         if(validarLista(Keys.get(random))){
             return Keys.get(random);
         } else{
-            System.out.println("Imagen repetida" + Keys.get(random));
             return getRandomImage();
         }
 

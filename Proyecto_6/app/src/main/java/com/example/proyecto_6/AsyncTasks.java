@@ -48,7 +48,6 @@ class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
 
             bitmap = BitmapFactory.decodeStream(inputStream);
             a = strings[1];
-            System.out.println(strings[1]);
 
 
         } catch (Exception e) {

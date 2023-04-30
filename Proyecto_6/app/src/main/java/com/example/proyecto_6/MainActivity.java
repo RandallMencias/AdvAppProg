@@ -34,15 +34,12 @@ public class MainActivity extends AppCompatActivity {
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MainActivity", "onClick: ");
                 String name = s.getRandomImage();
                 if (!s.inCache(name)) {
-                    System.out.println(name);
                     new LoadImageTask(iv).execute(s.getURL(name), name);
                     s.replaceImage(1, name);
 
                 } else {
-                    System.out.println("Cache");
                     iv.setImageBitmap(s.getBitmap(name));
                     s.replaceImage(1, name);
                 }
@@ -51,16 +48,13 @@ public class MainActivity extends AppCompatActivity {
         iv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MainActivity", "onClick: ");
                 String name = s.getRandomImage();
                 if (!s.inCache(name)) {
-                    System.out.println(name);
                     new LoadImageTask(iv2).execute(s.getURL(name), name);
                     s.replaceImage(2, name);
 
 
                 } else {
-                    System.out.println("Cache");
                     iv2.setImageBitmap(s.getBitmap(name));
                     s.replaceImage(2, name);
                 }
@@ -70,16 +64,13 @@ public class MainActivity extends AppCompatActivity {
         iv3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MainActivity", "onClick: ");
                 String name = s.getRandomImage();
                 if (!s.inCache(name)) {
-                    System.out.println(name);
                     new LoadImageTask(iv3).execute(s.getURL(name), name);
                     s.replaceImage(3, name);
 
 
                 } else {
-                    System.out.println("Cache");
                     iv3.setImageBitmap(s.getBitmap(name));
                     s.replaceImage(3, name);
                 }
@@ -89,16 +80,13 @@ public class MainActivity extends AppCompatActivity {
         iv4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MainActivity", "onClick: ");
                 String name = s.getRandomImage();
                 if (!s.inCache(name)) {
-                    System.out.println(name);
                     new LoadImageTask(iv4).execute(s.getURL(name), name);
                     s.replaceImage(4, name);
 
 
                 } else {
-                    System.out.println("Cache");
                     iv4.setImageBitmap(s.getBitmap(name));
                     s.replaceImage(4, name);
                 }
@@ -108,16 +96,13 @@ public class MainActivity extends AppCompatActivity {
         iv5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MainActivity", "onClick: ");
                 String name = s.getRandomImage();
                 if (!s.inCache(name)) {
-                    System.out.println(name);
                     new LoadImageTask(iv5).execute(s.getURL(name), name);
                     s.replaceImage(5, name);
 
 
                 } else {
-                    System.out.println("Cache");
                     iv5.setImageBitmap(s.getBitmap(name));
                     s.replaceImage(5, name);
                 }
@@ -127,16 +112,13 @@ public class MainActivity extends AppCompatActivity {
         iv6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MainActivity", "onClick: ");
                 String name = s.getRandomImage();
                 if (!s.inCache(name)) {
-                    System.out.println(name);
                     new LoadImageTask(iv6).execute(s.getURL(name), name);
                     s.replaceImage(6, name);
 
 
                 } else {
-                    System.out.println("Cache");
                     iv6.setImageBitmap(s.getBitmap(name));
                     s.replaceImage(6, name);
                 }
