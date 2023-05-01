@@ -23,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
         lvNasa.setAdapter(adapter);
         LoadData task = new LoadData("https://nasasearch.nasa.gov/search?affiliate=nasa&page=6&query=%2A.jpg&sort_by=&utf8=%E2%9C%93", adapter);
         task.execute();
+        if(adapter.isEmpty()){
+            adapter.add(s.showImageMap().toString());
+        }
 
 
     }

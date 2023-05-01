@@ -40,6 +40,6 @@ public class Nasa {
     @NonNull
     @Override
     public String toString() {
-        return "============================\nTitulo: " + title+"\nHTTP=" + http+ "\nURL=" + url;
+        return "============================\nTitulo: " + title+"\nHTTP=" + http+ "\nURL=" + url + "\n";
     }
 }

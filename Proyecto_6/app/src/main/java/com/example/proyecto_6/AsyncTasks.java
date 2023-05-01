@@ -78,7 +78,7 @@ class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
 class LoadData extends AsyncTask<String, Integer, Integer> {
     private String url;
     private Elements linkElements;
-    private ArrayAdapter<String> adapter;
+    private final ArrayAdapter<String> adapter;
     private ListView lvNasa;
     private singleton s = singleton.getInstance(); //instancia de la clase singleton
 
@@ -125,12 +125,10 @@ class LoadData extends AsyncTask<String, Integer, Integer> {
         adapter.add(s.showImageMap().toString());
         adapter.notifyDataSetChanged();
     }
-    @Override
+    /*@Override
     protected void onPostExecute(Integer res){
-        adapter.clear();
-        adapter.add(s.showImageMap().toString());
-        adapter.notifyDataSetChanged();
-    }
+        System.out.println(adapter.getCount() + "    OSIOSI");
+    }*/
 }
 
 
