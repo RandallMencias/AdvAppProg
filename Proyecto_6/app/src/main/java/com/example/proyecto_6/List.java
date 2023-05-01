@@ -11,7 +11,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-public class List extends AppCompatActivity {
+public class List extends AppCompatActivity {//clase controladora del ActivityMain
     private singleton s = singleton.getInstance();
 
 
@@ -28,6 +28,7 @@ public class List extends AppCompatActivity {
         ImageView iv5 = (ImageView) findViewById(R.id.imageView5);
         ImageView iv6 = (ImageView) findViewById(R.id.imageView6);
 
+        //funciones para el cambio de imagen de cada casilla
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,6 +125,7 @@ public class List extends AppCompatActivity {
         });
     }
     public void launchScreen(View view){
+        //volver a la actividad de lista
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

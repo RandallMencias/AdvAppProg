@@ -2,7 +2,7 @@ package com.example.proyecto_6;
 
 import androidx.annotation.NonNull;
 
-public class Nasa {
+public class Nasa {//Clase Nasa
     private String title;
     private String http;
     private String url;
