@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new LoadData("https://nasasearch.nasa.gov/search?affiliate=nasa&page=6&query=%2A.jpg&sort_by=&utf8=%E2%9C%93").execute();
+        new LoadData("https://nasasearch.nasa.gov/search?affiliate=nasa&commit=Search&page=6&query=%2A.jpg&sort_by=").execute();
 
         //enlazar con los componentes
         ImageView iv = (ImageView) findViewById(R.id.imageView1);

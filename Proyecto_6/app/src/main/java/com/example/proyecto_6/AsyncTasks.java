@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Connection;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -44,11 +45,13 @@ class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
             // open an HttpURLConnection, get its InputStream
             // and download the image
             connection = (HttpURLConnection) url.openConnection();
-            InputStream inputStream = connection.getInputStream();
 
-            Bitmap temp = BitmapFactory.decodeStream(inputStream);
-            bitmap  = Bitmap.createScaledBitmap(temp, 500, 500, false);
-            a = strings[1];
+                InputStream inputStream = connection.getInputStream();
+
+                Bitmap temp = BitmapFactory.decodeStream(inputStream);
+                bitmap  = Bitmap.createScaledBitmap(temp, 500, 500, false);
+                a = strings[1];
+
 
 
         } catch (Exception e) {
@@ -96,7 +99,15 @@ class LoadData extends AsyncTask<String, Void, Void> {
                 Document doc2 = Jsoup.connect(linkElements.get(i).attr("href")).get();
                 JPGElements = doc2.select("a:contains(Download JPG)");
                 if (JPGElements.size() > 0) {
-                    s.addNasa(new Nasa(linkElements.get(i).html(), linkElements.get(i).attr("href"), JPGElements.get(0).attr("href")));
+                    URL JPG = new URL(JPGElements.get(0).attr("href"));
+
+                    HttpURLConnection connection = (HttpURLConnection) JPG.openConnection();
+                    if ((connection.getContentLength() < 10000000))
+                    {
+                        connection.disconnect();
+                        s.addNasa(new Nasa(linkElements.get(i).html(), linkElements.get(i).attr("href"), JPGElements.get(0).attr("href")));
+
+                    }
                 }
             }
 
