@@ -38,7 +38,7 @@ public class singleton {
     }
 
     public List<Nasa> showImageMap(){
-        List<Nasa> listaNasa = new ArrayList<>();
+        ArrayList<Nasa> listaNasa = new ArrayList<>();
         for(String l : mapaImagenes.keySet()){
             listaNasa.add(mapaImagenes.get(l));
         }

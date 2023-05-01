@@ -1,32 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".List">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="79dp"
+        android:layout_marginTop="8dp"
+        android:text="Lista de Imagenes"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+    <ListView
+        android:id="@+id/lvnasa"
+        android:layout_width="wrap_content"
+        android:layout_height="380dp"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.018"
+        tools:layout_editor_absoluteX="0dp">
 
-        <ListView
-            android:id="@+id/lvnasa"
-            android:layout_width="match_parent"
-            android:layout_height="271dp" />
+    </ListView>
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_marginBottom="4dp"
+        android:onClick="launchMain"
+        android:text="Ver Imagenes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="7dp" />
 
-    </LinearLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -74,22 +75,24 @@ class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
 // ---------------------------------------------------------------------------------------------***---------------------------------------------------------------------------------------------
 
 
-class LoadData extends AsyncTask<String, Void, Void> {
+class LoadData extends AsyncTask<String, Integer, Integer> {
     private String url;
     private Elements linkElements;
+    private ArrayAdapter<String> adapter;
     private ListView lvNasa;
     private singleton s = singleton.getInstance(); //instancia de la clase singleton
 
     private Elements JPGElements;
 
-    public LoadData(String url) {
+    public LoadData(String url, ArrayAdapter adapter) {
         this.url = url;
+        this.adapter = adapter;
         linkElements = new Elements();
         JPGElements = new Elements();
     }
 
     @Override
-    protected Void doInBackground(String... strings) {
+    protected Integer doInBackground(String... strings) {
 
         try {
             Document doc = Jsoup.connect(url).get();
@@ -106,7 +109,7 @@ class LoadData extends AsyncTask<String, Void, Void> {
                     {
                         connection.disconnect();
                         s.addNasa(new Nasa(linkElements.get(i).html(), linkElements.get(i).attr("href"), JPGElements.get(0).attr("href")));
-
+                        publishProgress();
                     }
                 }
             }
@@ -114,12 +117,20 @@ class LoadData extends AsyncTask<String, Void, Void> {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
         return null;
     }
-
-
+    @Override
+    protected void onProgressUpdate(Integer... porc) {
+        adapter.clear();
+        adapter.add(s.showImageMap().toString());
+        adapter.notifyDataSetChanged();
+    }
+    @Override
+    protected void onPostExecute(Integer res){
+        adapter.clear();
+        adapter.add(s.showImageMap().toString());
+        adapter.notifyDataSetChanged();
+    }
 }
 
 
